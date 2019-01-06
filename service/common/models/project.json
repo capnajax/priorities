@@ -1,0 +1,35 @@
+{
+  "name": "Project",
+  "plural": "Projects",
+  "base": "TaskModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "epics": {
+      "type": "hasMany",
+      "model": "Epic",
+      "foreignKey": "projectId"
+    },
+    "tasks": {
+      "type": "hasMany",
+      "model": "Task",
+      "foreignKey": "projectId"
+    },
+    "notes": {
+      "type": "hasMany",
+      "model": "Note",
+      "foreignKey": "projectId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

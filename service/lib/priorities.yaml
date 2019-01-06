@@ -1,0 +1,138 @@
+projects:
+- project: Basement Partition
+  epics:
+  - epic: Concrete Paint
+    tasks:
+    - task: Paint floor
+    - task: Floor paint to cure
+    - task: Paint walls
+      complete: true
+
+  - epic: Permit
+    tasks:
+    - task: Submit plans
+      complete: true
+    - task: Permit ready
+      complete: true
+
+  - epic: Inspections
+    tasks:
+    - task: Electrical Rough-In
+      depends: 
+      - depend: Electrical Rough-In
+    - task: Electrical Final
+    - task: Plumbing
+    - task: Insulation
+    - task: Framing
+
+  - epic: HVAC
+    depend: 
+      depend: Permit
+    tasks:
+    - task: Workshop Supply
+      notes:
+      - note: Supply vent near window. Use flex tubing for last 6 feet and make it bend a few times.
+      complete: true
+    - task: Workshop Return
+      complete: true
+    - task: Bathroom Supply
+      notes:
+      - note: Place far from vent fan -- ideally bring it down to the floor so it's under the sink.
+    - task: Bathroom Vent
+      complete: true
+    - task: Unused area supply
+      notes:
+      - note: Close old supply and relocate to unused area
+    - task: Lab supply
+      complete: true
+    - task: Lab return
+      notes:
+      - note: circulation from useless room through lab
+      complete: true
+
+  - epic: Framing
+    depend:
+    - depends: Permit
+    tasks:
+    - task: Purchase Lumber
+      complete: true
+    - task: Walls
+      subtasks:
+      - subtask: Workshop walls
+        complete: true
+      - subtask: Bathroom walls
+        complete: true
+      - subtask: Lab walls
+        complete: true
+    - task: Soffit
+      complete: true
+
+  - epic: Electrical Rough-In
+    depends: 
+    - depend: Framing
+    tasks:
+    - task: Move smoke alarm
+      notes: 
+      - note: Rough in inside lab as well for future bedroom conversion
+    - task: Move existing light
+    - task: Hang panel
+      complete: true
+    - task: Pull feed cable to subpanel
+      subtasks:
+      - subtask: Conduit in garage
+      complete: true
+      - subtask: Firebreak around conduit
+      complete: true
+    - task: Branch circuits rough-in
+      subtasks:
+      - subtask: Rough in Workshop - frame walls
+        complete: true
+      - subtask: Rough in Workshop - concrete walls
+      - subtask: Rough in Workshop - lighting
+        complete: true
+      - subtask: Rough in bathroom
+        complete: true
+      - subtask: Rough in lab - frame walls
+        complete: true
+      - subtask: Rough in lab - concrete walls
+      - subtask: Rough in lab - lighting
+        complete: true
+      - subtask: Rough in extra outlets - frame walls
+        complete: true
+      - subtask: Rough in extra outlets - concrete walls
+      - subtask: Rough in hallway lighting
+
+  - epic: Electrical complete
+    notes:
+    - note: This inspection is first
+    depends:
+    - depend: Electrical Rough-In
+    tasks:
+    - task: Move existing electrical
+      subtasks:
+      - subtask: Hook up moved light
+      - subtask: Hook up moved smoke alarm
+    - task: Hook up branch circuit outlets
+      subtasks:
+      - subtask: Hook up workshop outlets
+      - subtask: Hook up bathroom outlets
+      - subtask: Hook up lab outlets
+      - subtask: Hook up extra outlets
+
+  - epic: Plumbing
+    tasks:
+    - task: Rough-In bathroom
+      complete: true
+    - task: Rough-In Utility sink in workshop
+      complete: true
+
+  - epic: Usable workshop
+    depends:
+    - depends: Electrical complete
+    - depends: Concrete Paint
+    tasks:
+    - task: Insulation
+    - task: Drywall
+
+
+

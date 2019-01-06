@@ -1,0 +1,25 @@
+{
+  "name": "Task",
+  "plural": "Tasks",
+  "base": "TaskModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "subtasks": {
+      "type": "hasMany",
+      "model": "Subtask",
+      "foreignKey": "taskId"
+    },
+    "notes": {
+      "type": "hasMany",
+      "model": "Note",
+      "foreignKey": "taskId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

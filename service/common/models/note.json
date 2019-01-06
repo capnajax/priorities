@@ -1,0 +1,16 @@
+{
+  "name": "Note",
+  "properties": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "detail": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

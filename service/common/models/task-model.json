@@ -1,0 +1,31 @@
+{
+  "name": "TaskModel",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string"
+    },
+    "isComplete": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "dependencies": {
+      "type": "hasAndBelongsToMany",
+      "model": "TaskModel"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
