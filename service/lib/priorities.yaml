@@ -2,6 +2,8 @@ projects:
 - project: Basement Partition
   epics:
   - epic: Concrete Paint
+    notes:
+    - note: Use sprayer for walls, roller for floors
     tasks:
     - task: Paint floor
     - task: Floor paint to cure
@@ -9,6 +11,7 @@ projects:
       complete: true
 
   - epic: Permit
+    complete: true
     tasks:
     - task: Submit plans
       complete: true
@@ -17,17 +20,18 @@ projects:
 
   - epic: Inspections
     tasks:
-    - task: Electrical Rough-In
+    - task: Electrical Rough-In inspection
       depends: 
       - depend: Electrical Rough-In
-    - task: Electrical Final
-    - task: Plumbing
-    - task: Insulation
-    - task: Framing
+    - task: Electrical Final inspection
+    - task: Plumbing inspection
+    - task: Insulation inspection
+    - task: Framing inspection
+    - task: Final inspection
 
   - epic: HVAC
-    depend: 
-      depend: Permit
+    depends: 
+    - depend: Permit
     tasks:
     - task: Workshop Supply
       notes:
@@ -51,8 +55,9 @@ projects:
       complete: true
 
   - epic: Framing
-    depend:
-    - depends: Permit
+    complete: true
+    depends:
+    - depend: Permit
     tasks:
     - task: Purchase Lumber
       complete: true
@@ -60,16 +65,20 @@ projects:
       subtasks:
       - subtask: Workshop walls
         complete: true
-      - subtask: Bathroom walls
+      - subtask: Hallway walls
         complete: true
       - subtask: Lab walls
         complete: true
-    - task: Soffit
+      - subtask: Useless room wall
+        complete: true
+    - task: Workshop soffit
+      complete: true
+    - task: Hallway soffit
+      complete: true
+    - task: Lab soffit
       complete: true
 
   - epic: Electrical Rough-In
-    depends: 
-    - depend: Framing
     tasks:
     - task: Move smoke alarm
       notes: 
@@ -80,17 +89,32 @@ projects:
     - task: Pull feed cable to subpanel
       subtasks:
       - subtask: Conduit in garage
-      complete: true
+        complete: true
       - subtask: Firebreak around conduit
-      complete: true
+        complete: true
+      - subtask: Conduit in furnace room
+        complete: true
+      - subtask: Conduit in lab
+      - subtask: Feed through furnace room
+        complete: true
+      - subtask: Feed through lab
+      - subtask: Connect to panel
     - task: Branch circuits rough-in
       subtasks:
       - subtask: Rough in Workshop - frame walls
+        depends:
+        - depend: Workshop walls
         complete: true
       - subtask: Rough in Workshop - concrete walls
       - subtask: Rough in Workshop - lighting
+        depends:
+        - depend: Workshop walls
         complete: true
       - subtask: Rough in bathroom
+        depends:
+        - depend: Hallway walls
+        - depend: Workshop walls
+        - depend: Lab walls
         complete: true
       - subtask: Rough in lab - frame walls
         complete: true
@@ -127,7 +151,7 @@ projects:
       complete: true
 
   - epic: Usable workshop
-    depends:
+    depend:
     - depends: Electrical complete
     - depends: Concrete Paint
     tasks:

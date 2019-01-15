@@ -1,24 +1,26 @@
 <template>
   <div class="Project">
     <div class="Projects">
-      <div class="Project" v-for="(project) in data.projects" :key="project.project">{{ project.project }}</div>
+      <div class="Project" v-for="(project) in data.projects" :key="project.id">{{ project.name }}</div>
     </div>
-    <div class="epics">
-      <div class="epic" v-for="(epic) in data.projects[0].epics" :key="epic.epic">
-        <h2>{{ epic.epic }}</h2>
-        <div class="tasks">
-          <item-details :item="epic" />
-          <div class="task" v-for="(task) in epic.tasks" :key="task.task">
-            <h3>{{ task.task }}</h3>
-            <item-details :item="task" />
-            <div class="subtasks" v-if="task.subtasks">
-              <div class="subtask" v-for="(subtask) in task.subtasks" :key="subtask.subtask">
-                <h4>{{ subtask.subtask }}</h4>
-                <item-details :item="subtask" />
+    <div v-if="(data.projects.length > 0)">
+      <div class="epics">
+        <div class="epic" v-for="(epic) in data.projects[0].epics" :key="epic.id">
+          <h2>{{ epic.name }}</h2>
+          <div class="tasks">
+            <item-details :item="epic" />
+            <div class="task" v-for="(task) in epic.tasks" :key="task.id">
+              <h3>{{ task.name }}</h3>
+              <item-details :item="task" />
+              <div class="subtasks" v-if="task.subtasks.length > 0">
+                <div class="subtask" v-for="(subtask) in task.subtasks" :key="subtask.id">
+                  <h4>{{ subtask.name }}</h4>
+                  <item-details :item="subtask" />
+                </div>
               </div>
             </div>
-          </div>
 
+          </div>
         </div>
       </div>
     </div>
@@ -122,15 +124,15 @@ const
         '</div>',
     isComplete:
         '<div class="isComplete">' +
-          '<span v-if="item.complete === true">&#9745;</span><span v-else>&#9744;</span>' +
+          '<span v-if="item.isComplete === true">&#9745;</span><span v-else>&#9744;</span>' +
         '</div>',
     notes:
         '<div class="note notes-single" v-if="item.note">' +
           '<span>&#xBA; </span>{{ item.note }}' +
         '</div>' +
         '<div class="notes-wrapper" v-else-if="item.notes">' +
-          '<div class="note" v-for="(note) in item.notes" :key="note.note">' +
-            '<span>&#x25CB; </span>{{ note.note }}' +
+          '<div class="note" v-for="(note) in item.notes" :key="note.id">' +
+            '<span>&#x25CB; </span>{{ note.title }}' +
           '</div>' +
         '</div>'
   }
@@ -140,8 +142,16 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      data: {'projects': [{'project': 'Basement Partition', 'epics': [{'epic': 'Concrete Paint', 'tasks': [{'task': 'Paint floor', 'complete': true}, {'task': 'Floor paint to cure'}, {'task': 'Paint walls'}]}, {'epic': 'Permit', 'tasks': [{'task': 'Submit plans', 'complete': true}, {'task': 'Permit ready', 'complete': true}]}, {'epic': 'HVAC', 'depends': 'Permit', 'tasks': [{'task': 'Workshop Supply', 'notes': [{'note': 'Supply vent near window. Use flex tubing for last 6 feet and make it bend a few times.'}], 'complete': true}, {'task': 'Workshop Return', 'complete': true}, {'task': 'Bathroom Supply', 'notes': [{'note': 'Place far from vent fan -- ideally bring it down to the floor so it\'s under the sink.'}]}, {'task': 'Unused area supply'}, {'task': 'Lab supply', 'complete': true}, {'task': 'Lab return', 'notes': [{'note': 'circulation from useless room through lab'}], 'complete': true}]}, {'epic': 'Framing', 'depends': 'Permit', 'tasks': [{'task': 'Purchase Lumber', 'complete': true}, {'task': 'Walls', 'subtasks': [{'subtask': 'Workshop walls', 'complete': true}, {'subtask': 'Bathroom walls', 'complete': true}, {'subtask': 'Lab walls', 'complete': true}]}, {'task': 'Soffit', 'depends': 'HVAC', 'complete': true}]}, {'epic': 'Electrical Rough-In', 'depends': 'Framing', 'tasks': [{'task': 'Move smoke alarm', 'notes': [{'note': 'Rough in inside lab as well for future bedroom conversion'}]}, {'task': 'Move existing light'}, {'task': 'Hang panel', 'complete': true}, {'task': 'Pull feed cable to subpanel', 'subtasks': [{'subtask': 'EMT conduit in garage'}, {'subtask': 'Firebreak around conduit'}]}, {'task': 'Branch circuits rough-in', 'subtasks': [{'subtask': 'Rough in Workshop - frame walls', 'complete': true}, {'subtask': 'Rough in Workshop - concrete walls'}, {'subtask': 'Rough in Workshop - lighting'}, {'subtask': 'Rough in bathroom'}, {'subtask': 'Rough in lab - frame walls'}, {'subtask': 'Rough in lab - concrete walls'}, {'subtask': 'Rough in lab - lighting', 'complete': true}, {'subtask': 'Rough in extra outlets - frame walls'}, {'subtask': 'Rough in extra outlets - concrete walls'}, {'subtask': 'Rough in hallway lighting'}]}], 'final': 'Inspection'}, {'epic': 'Electrical complete', 'depends': 'Electrical Rough-In', 'tasks': [{'task': 'Move existing electrical', 'subtasks': [{'subtask': 'Hook up moved light'}, {'subtask': 'Hook up moved smoke alarm'}]}, {'task': 'Hook up branch circuit outlets', 'subtasks': [{'subtask': 'Hook up workshop outlets'}, {'subtask': 'Hook up bathroom outlets'}, {'subtask': 'Hook up lab outlets'}, {'subtask': 'Hook up extra outlets'}]}]}, {'epic': 'Plumbing', 'tasks': [{'task': 'Rough-In bathroom'}, {'task': 'Rough-In Utility sink in workshop'}]}, {'epic': 'Usable workshop', 'depends': [{'depends': 'Electrical complete'}, {'depends': 'Concrete Paint'}], 'tasks': [{'task': 'Insulation'}, {'task': 'Drywall'}, {'task': 'Plumbing'}]}]}]}
+      data: {projects:[]}
     }
+  },
+  mounted() {
+    axios
+      .get('http://localhost:3000/api/Projects?filter=' + encodeURIComponent('{"include":[{"epics":[{"tasks":[{"subtasks":["notes"]},"notes"]},"notes"]},"notes"]}'))
+      .then(response => { 
+          console.log(response);
+          this.data.projects = response.data;
+        });
   },
   components: {
     itemDetails: {

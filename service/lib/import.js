@@ -2,8 +2,15 @@
 const
 	debug=require('debug')('priorities:import'),
 	fs=require('fs'),
+	randomstring=require('randomstring'),
 	YAML=require('yamljs'),
-	_=require('lodash');
+	_=require('lodash'),
+
+	MODEL_NOTE = 'note',
+	MODEL_PROJECT = 'project',
+	MODEL_EPIC = 'epic',
+	MODEL_TASK = 'task',
+	MODEL_SUBTASK = 'subtask';
 
 var dependencyMap = {},
 	models;
@@ -151,7 +158,7 @@ function importEpic (reference, epicData) { return new Promise((resolve, reject)
 					collectPromises(notesPromises)
 				]);
 		})
-	.then(dependencies => resolve(importedEpic))
+ 	.then(tasksAndNotes => resolve(importedEpic))
 	.catch(reason => {
 			var failure = {
 					status: "Failure",
@@ -192,7 +199,7 @@ function importProject (projectData) { return new Promise((resolve, reject) => {
 					? _.map(projectData.notes, _.curry(importNote)({projectId: project.id}))
 					: [];
 
-			return collectPromises([ 
+			return collectPromises([
 					collectPromises(taskPromises),
 					collectPromises(epicPromises),
 					collectPromises(notePromises)
@@ -216,31 +223,104 @@ function importProjects(projectsData) { return new Promise((resolve, reject) => 
 	debug("importProjects started. projectsData:");
 	debug(projectsData);
 
-	let projectPromises = [];
+	let projectPromises = [],
+		warnings = [],
+		errors = [];
+
+	// build a list of titles to match task dependencies against
+
+	projectsData.projects.forEach(project => {
+		let dm, 
+			taskModelsQueue = []; // makes sure all epics are processed before any tasks, and 
+								  // all tasks are processed before any subtasks.
+
+		console.log("project");
+		console.log(project);
+
+		dm = dependencyMap[project.project] = {};
+
+		// first gather all the names
+		project.epics && project.epics.forEach(epic => {
+			taskModelsQueue.push({type: MODEL_EPIC, taskModel: epic, name: epic.epic});
+		});
+		project.tasks && project.tasks.forEach(task => {
+			taskModelsQueue.push({type: MODEL_TASK, taskModel: task, name: task.task});
+		});
+		for (let i = 0; i < taskModelsQueue.length; i++) {
+			let tm = taskModelsQueue[i];
+			switch(tm.type) {
+			case MODEL_EPIC: 
+				tm.taskModel.tasks || (tm.taskModel.tasks = []);
+				tm.taskModel.tasks.forEach(task => {
+					taskModelsQueue.push({type: MODEL_TASK, taskModel: task, name: task.task});
+				})
+				break;
+			case MODEL_TASK:
+				tm.taskModel.subtasks && tm.taskModel.subtasks.forEach(subtask => {
+					taskModelsQueue.push({type: MODEL_SUBTASK, taskModel: subtask, name: subtask.subtask});
+				})
+				break;
+			default:
+				// subtask -- do nothing
+				break;
+			}
+
+			if (_.includes(dm, tm.name)) {
+				errors.push({	code: "DUPLICATE_NAME", 
+								message: "Two things have the same title. Assuming title " +
+										JSON.stringify(tm.name) +
+										" refers to the " + tm.type});
+			} else {
+				dm[tm.name] = {type: tm.type, dependants: []};
+			}
+		}
+
+		while (taskModelsQueue.length > 0) {
+			let tm = taskModelsQueue.shift();
+//			console.log(tm);
+			tm.taskModel.depends && console.log(tm.taskModel.depends);
+
+			tm.taskModel.depends && tm.taskModel.depends.forEach(depend => {
+				if (dm[depend.depend]) {
+					console.log("PUSH of tm", tm);
+					dm[depend.depend].dependants.push(tm);
+				} else {
+					errors.push({ code: "UNKNOWN_DEPENDENCY",
+								  message: "Uknown dependency of name" + JSON.stringify(depend.depend)});
+				}
+			});
+		}
+	});
+	console.log(JSON.stringify(dependencyMap, null, 3));
+	console.log("errors:");
+	console.log(errors);
+
+	// import
 
 	projectsData.projects.forEach(project => projectPromises.push(importProject(project)));
 
-	collectPromises(projectPromises)
+	Promise.resolve()
 	.then(() => {
-			resolve({status: "ok"});
+			return errors.length ? Promise.reject(errors) : Promise.resolve();
+		})
+	.then(() => {
+			return collectPromises(projectPromises);
+		})
+	.then(() => {
+			result = {status: "imported"};
+			warnings && _.extend(result, {warnings});
+			errors   && _.extend(result, {errors});
+			resolve(result);
 		})
 	.catch(reason => {
 			debug("Error importing:", reason);
+			reject({
+				code: "ERRORS_ON_IMPORT",
+				messages: "Failed to import project set",
+				details: reason
+			});
 		});
 })};
-
-/**
- *	Validates the data and maps the dependencies
- *	@param {Object} project - the project data
- *	@return promise that resolves with updated projectData 
- *		if valid, rejects if not valid
- */
-function preImportProject(projectData) { return new Promise((resolve, reject) => {
-
-
-
-})}
-
 
 function importYaml(appModels) {
 
