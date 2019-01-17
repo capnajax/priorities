@@ -8,14 +8,14 @@
         <div class="epic" v-for="(epic) in data.projects[0].epics" :key="epic.id">
           <h2>{{ epic.name }}</h2>
           <div class="tasks">
-            <item-details :item="epic" />
+            <item-details :item="epic" type="epic" />
             <div class="task" v-for="(task) in epic.tasks" :key="task.id">
               <h3>{{ task.name }}</h3>
-              <item-details :item="task" />
+              <item-details :item="task" type="task" />
               <div class="subtasks" v-if="task.subtasks.length > 0">
                 <div class="subtask" v-for="(subtask) in task.subtasks" :key="subtask.id">
                   <h4>{{ subtask.name }}</h4>
-                  <item-details :item="subtask" />
+                  <item-details :item="subtask" type="subtask" />
                 </div>
               </div>
             </div>
@@ -25,7 +25,7 @@
       </div>
     </div>
 
-    <div class="hello">
+    <!--div class="hello">
       <img src="../assets/logo.png" />
       <h1>{{ msg }}</h1>
       <h2>Essential Links</h2>
@@ -107,7 +107,7 @@
           </a>
         </li>
       </ul>
-    </div>
+    </div-->
   </div>
 </template>
 
@@ -123,7 +123,8 @@ const
           'Dependencies: <span v-for="(depends) in item.depends" :key="depends.depends">{{ depends.depends }}</span>' +
         '</div>',
     isComplete:
-        '<div class="isComplete">' +
+        '<div class="isComplete" v-bind:class="{pending: item.isPending}" ' +
+            'v-on:click="updateIsComplete(item, type)"> ' +
           '<span v-if="item.isComplete === true">&#9745;</span><span v-else>&#9744;</span>' +
         '</div>',
     notes:
@@ -135,7 +136,7 @@ const
             '<span>&#x25CB; </span>{{ note.title }}' +
           '</div>' +
         '</div>'
-  }
+  };
 
 export default {
   name: 'Project',
@@ -156,8 +157,31 @@ export default {
   components: {
     itemDetails: {
       name: 'item-details',
-      props: ['item'],
-      template: '<div>' + templateCode.depends + templateCode.isComplete + templateCode.notes + '</div>'
+      props: ['item', 'type'],
+      template: '<div>' + templateCode.depends + templateCode.isComplete + templateCode.notes + '</div>',
+      methods: {
+        updateIsComplete: function(item, type) {          
+          item.isComplete = !item.isComplete;
+          item.isPending = true;
+          this.$nextTick(() => {
+            var path = {
+                    epic: 'http://localhost:3000/api/Epics',
+                    task: 'http://localhost:3000/api/Tasks',
+                    subtask: 'http://localhost:3000/api/Subtasks'
+                  }[type],
+                body = {isComplete: item.isComplete};
+            path += '/' + item.id;
+            alert("path: " + path + "\nbody: " + JSON.stringify(body));
+            axios
+              .patch(path, body)
+              .then(response => { 
+                  item.isPending = false;
+                });
+
+          });
+
+        }
+      }
     }
   }
 }
