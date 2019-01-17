@@ -1,21 +1,41 @@
 <template>
   <div class="Project">
     <div class="Projects">
-      <div class="Project" v-for="(project) in data.projects" :key="project.id">{{ project.name }}</div>
+      <div
+        class="Project" 
+        v-for="(project) in data.projects"
+        :key="project.id">{{ project.name }}</div>
     </div>
     <div v-if="(data.projects.length > 0)">
       <div class="epics">
-        <div class="epic" v-for="(epic) in data.projects[0].epics" :key="epic.id">
+        <div
+          class="epic"
+          v-for="(epic) in data.projects[0].epics"
+          :key="epic.id">
           <h2>{{ epic.name }}</h2>
           <div class="tasks">
-            <item-details :item="epic" type="epic" />
-            <div class="task" v-for="(task) in epic.tasks" :key="task.id">
+            <item-details
+              :item="epic"
+              type="epic" />
+            <div
+              class="task"
+              v-for="(task) in epic.tasks"
+              :key="task.id">
               <h3>{{ task.name }}</h3>
-              <item-details :item="task" type="task" />
-              <div class="subtasks" v-if="task.subtasks.length > 0">
-                <div class="subtask" v-for="(subtask) in task.subtasks" :key="subtask.id">
+              <item-details
+                :item="task"
+                type="task" />
+              <div
+                class="subtasks"
+                v-if="task.subtasks.length > 0">
+                <div
+                  class="subtask"
+                  v-for="(subtask) in task.subtasks"
+                  :key="subtask.id">
                   <h4>{{ subtask.name }}</h4>
-                  <item-details :item="subtask" type="subtask" />
+                  <item-details
+                    type="subtask"
+                    :item="subtask" />
                 </div>
               </div>
             </div>
@@ -140,20 +160,6 @@ const
 
 export default {
   name: 'Project',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App',
-      data: {projects:[]}
-    }
-  },
-  mounted() {
-    axios
-      .get('http://localhost:3000/api/Projects?filter=' + encodeURIComponent('{"include":[{"epics":[{"tasks":[{"subtasks":["notes"]},"notes"]},"notes"]},"notes"]}'))
-      .then(response => { 
-          console.log(response);
-          this.data.projects = response.data;
-        });
-  },
   components: {
     itemDetails: {
       name: 'item-details',
@@ -171,7 +177,6 @@ export default {
                   }[type],
                 body = {isComplete: item.isComplete};
             path += '/' + item.id;
-            alert("path: " + path + "\nbody: " + JSON.stringify(body));
             axios
               .patch(path, body)
               .then(response => { 
@@ -183,6 +188,19 @@ export default {
         }
       }
     }
+  },
+  data () {
+    return {
+      msg: 'Welcome to Your Vue.js App',
+      data: {projects:[]}
+    }
+  },
+  mounted() {
+    axios
+      .get('http://localhost:3000/api/Projects?filter=' + encodeURIComponent('{"include":[{"epics":[{"tasks":[{"subtasks":["notes"]},"notes"]},"notes"]},"notes"]}'))
+      .then(response => { 
+          this.data.projects = response.data;
+        });
   }
 }
 
