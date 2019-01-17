@@ -143,8 +143,8 @@ const
           'Dependencies: <span v-for="(depends) in item.depends" :key="depends.depends">{{ depends.depends }}</span>' +
         '</div>',
     isComplete:
-        '<div class="isComplete" v-bind:class="{pending: item.isPending}" ' +
-            'v-on:click="updateIsComplete(item, type)"> ' +
+        '<div class="isComplete" v-bind:class="{pending: item.pending.isComplete}" ' +
+            'v-on:click="updateIsComplete(item)"> ' +
           '<span v-if="item.isComplete === true">&#9745;</span><span v-else>&#9744;</span>' +
         '</div>',
     notes:
@@ -166,21 +166,22 @@ export default {
       props: ['item', 'type'],
       template: '<div>' + templateCode.depends + templateCode.isComplete + templateCode.notes + '</div>',
       methods: {
-        updateIsComplete: function(item, type) {          
+        updateIsComplete: function(item) {          
           item.isComplete = !item.isComplete;
-          item.isPending = true;
+          item.pending.isComplete = true;
           this.$nextTick(() => {
             var path = {
                     epic: 'http://localhost:3000/api/Epics',
                     task: 'http://localhost:3000/api/Tasks',
                     subtask: 'http://localhost:3000/api/Subtasks'
-                  }[type],
+                  }[item.type],
                 body = {isComplete: item.isComplete};
             path += '/' + item.id;
             axios
               .patch(path, body)
               .then(response => { 
-                  item.isPending = false;
+                  // alert("response: " + JSON.stringify(response));
+                  item.pending.isComplete = false;
                 });
 
           });
@@ -199,7 +200,34 @@ export default {
     axios
       .get('http://localhost:3000/api/Projects?filter=' + encodeURIComponent('{"include":[{"epics":[{"tasks":[{"subtasks":["notes"]},"notes"]},"notes"]},"notes"]}'))
       .then(response => { 
-          this.data.projects = response.data;
+          // preprocess response data to add some attributes useful for UI
+          var projects = response.data,
+              preproc = (item, type) => {
+                // recursive through the project tree.
+                const descendants = {
+                    '': ['project'],
+                    project: ['epic', 'task'],
+                    epic: ['task'],
+                    task: ['subtask'],
+                    subtask: []
+                  };
+                var recurse = (item, subtypes) => {
+                    subtypes.forEach(subtype => {
+                      item[subtype+'s'] && item[subtype+'s'].forEach(s => preproc(s, subtype));
+                    });
+                  };
+                recurse(item, descendants[type]);
+                // pending items to show that an update is pending to the back-end.
+                item.pending = {
+                  isComplete: false,
+                  name: false,
+                  notes: false
+                };
+                // so each item knows what type it is.
+                item.type = type;
+              };
+          preproc({projects}, '');
+          this.data.projects = projects;
         });
   }
 }
@@ -224,6 +252,7 @@ a {
 }
 
 .isComplete { display: block; position: absolute; left: 0; width:1.5em; font-size: 1.8em }
+.pending { color: #ccc; }
 .epic { background-color: #f8f8f8; width: 800px; margin-left: auto; margin-right: auto; padding: 10px; position: relative;}
 .epic h2 { text-align: left; margin-left: 2em;}
 .epic .isComplete { left: 0.5em; top: 0.85em; }
