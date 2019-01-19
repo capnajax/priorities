@@ -157,6 +157,8 @@ projects:
     tasks:
     - task: Insulation
     - task: Drywall
-
+  
+  tasks:
+  - task: Celebrate
 
 

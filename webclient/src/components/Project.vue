@@ -7,7 +7,9 @@
         :key="project.id">{{ project.name }}</div>
     </div>
     <div v-if="(data.projects.length > 0)">
-      <div class="epics">
+      <div
+        class="epics"
+        v-if="(data.projects[0].epics.length > 0)">
         <div
           class="epic"
           v-for="(epic) in data.projects[0].epics"
@@ -37,9 +39,49 @@
                     type="subtask"
                     :item="subtask" />
                 </div>
+                <add-button
+                  :type="subtask"
+                  :parent="task" />
               </div>
             </div>
-
+            <add-button
+              :type="task"
+              :parent="epic" />
+            <div
+              class="item-add-button"
+              @click="addItem('task', epic)">⊕</div>
+          </div>
+        </div>
+        <add-button
+          :type="epic"
+          :parent="data.projects[0]" />
+      </div>
+      <div
+        class="tasks"
+        v-if="(data.projects[0].epics.length > 0)">
+        <div
+          class="task"
+          v-for="(task) in data.projects[0].tasks"
+          :key="task.id">
+          <h3>{{ task.name }}</h3>
+          <item-details
+            :item="task"
+            type="task" />
+          <div
+            class="subtasks"
+            v-if="task.subtasks.length > 0">
+            <div
+              class="subtask"
+              v-for="(subtask) in task.subtasks"
+              :key="subtask.id">
+              <h4>{{ subtask.name }}</h4>
+              <item-details
+                type="subtask"
+                :item="subtask" />
+            </div>
+            <add-button
+              :type="subtask"
+              :parent="task" />
           </div>
         </div>
       </div>
@@ -155,7 +197,8 @@ const
           '<div class="note" v-for="(note) in item.notes" :key="note.id">' +
             '<span>&#x25CB; </span>{{ note.title }}' +
           '</div>' +
-        '</div>'
+        '</div>',
+
   };
 
 export default {
@@ -188,6 +231,15 @@ export default {
 
         }
       }
+    },
+    addButton: {
+      name: 'add-button',
+      props: ['item', 'type'],
+      template: '<div class="item-add-button" v-on:click="addItem(type, parent)">⊕</div>',
+      methods: {
+        addItem: function(type, parent) { 
+        }
+      }
     }
   },
   data () {
@@ -198,7 +250,7 @@ export default {
   },
   mounted() {
     axios
-      .get('http://localhost:3000/api/Projects?filter=' + encodeURIComponent('{"include":[{"epics":[{"tasks":[{"subtasks":["notes"]},"notes"]},"notes"]},"notes"]}'))
+      .get('http://localhost:3000/api/Projects?filter=' + encodeURIComponent('{"include":[{"epics":[{"tasks":[{"subtasks":["notes"]},"notes"]},"notes"]},{"tasks":[{"subtasks":["notes"]},"notes"]},"notes"]}'))
       .then(response => { 
           // preprocess response data to add some attributes useful for UI
           var projects = response.data,

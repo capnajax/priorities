@@ -1,0 +1,10 @@
+messages:
+  - language: en
+    ui:
+      - add_subtask: new subtask
+      - add_task: new task
+      - add_epic: new epic
+      - add_note: new note
+
+
+
