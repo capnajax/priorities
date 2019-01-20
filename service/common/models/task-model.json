@@ -17,6 +17,11 @@
       "type": "boolean",
       "required": true,
       "default": false
+    },
+    "priority": {
+      "type": "number",
+      "required": false,
+      "default": 0
     }
   },
   "validations": [],

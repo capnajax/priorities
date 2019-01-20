@@ -6,7 +6,7 @@
       class="epic"
       v-for="(epic) in project.epics"
       :key="epic.id">
-      <h2>{{ epic.name }}</h2>
+      <ItemDetails :item="epic" />
       <Tasks :parent="epic" />
     </div>
     <AddButton
@@ -18,12 +18,14 @@
 <script>
 
 import AddButton from './AddButton'
+import ItemDetails from './ItemDetails'
 import Tasks from './Tasks'
 
 export default {
   name: 'Epics',
   components: {
     AddButton,
+    ItemDetails,
     Tasks
   },
   props: {

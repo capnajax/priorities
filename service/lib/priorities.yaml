@@ -71,6 +71,8 @@ projects:
         complete: true
       - subtask: Useless room wall
         complete: true
+        notes:
+        - note: Box in the plumbing
     - task: Workshop soffit
       complete: true
     - task: Hallway soffit
@@ -160,5 +162,14 @@ projects:
   
   tasks:
   - task: Celebrate
+
+- project: Priorities App
+  epics:
+  - epic: API Service
+
+  - epic: Web Client
+
+  - epic: Deployment
+
 
 

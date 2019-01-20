@@ -1,5 +1,8 @@
 <template>
   <div class="item-details">
+    <h2 v-if="item.type === 'epic'">{{ item.name }}</h2>
+    <h3 v-else-if="item.type === 'task'">{{ item.name }}</h3>
+    <h4 v-else>{{ item.name }}</h4>
     <div
       class="depends depends-single"
       v-if="(typeof item.depends) === 'string'">
@@ -45,10 +48,6 @@ export default {
   props: {
       item: {
         type: Object,
-        required: true
-      }, 
-      type: {
-        type: String,
         required: true
       }
     },

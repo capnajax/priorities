@@ -1,16 +1,10 @@
 <template>
   <div class="tasks">
-    <ItemDetails
-      :item="parent"
-      type="parent" />
     <div
       class="task"
       v-for="(task) in parent.tasks"
       :key="task.id">
-      <h3>{{ task.name }}</h3>
-      <item-details
-        :item="task"
-        type="task" />
+      <ItemDetails :item="task" />
       <Subtasks :task="task" />
     </div>
     <AddButton

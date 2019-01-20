@@ -6,10 +6,7 @@
       class="subtask"
       v-for="(subtask) in task.subtasks"
       :key="subtask.id">
-      <h4>{{ subtask.name }}</h4>
-      <ItemDetails
-        type="subtask"
-        :item="subtask" />
+      <ItemDetails :item="subtask" />
     </div>
     <AddButton
       type="subtask"
