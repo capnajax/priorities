@@ -5,6 +5,11 @@
       "type": "string",
       "required": true
     },
+    "sequence": {
+      "type": "number",
+      "required": false,
+      "default": 0
+    },
     "detail": {
       "type": "string"
     }

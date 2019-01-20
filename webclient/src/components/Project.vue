@@ -31,13 +31,14 @@ export default {
     }
   },
   mounted() {
-    const subtasks = '{"subtasks":["notes"]}',
-          tasks = '{"tasks":['+subtasks+',"notes"]}',
-          epics = '{"epics":['+tasks+',"notes"]}',
-          includes = '{"include":['+epics+','+tasks+']}';
+    const notes = {relation:'notes',scope:{order:['sequence ASC','id DESC']}},
+          subtasks = {relation:'subtasks',scope:{order:['sequence ASC','id DESC'],include:[notes]}},
+          tasks = {relation:'tasks',scope:{order:['sequence ASC','id DESC'],include:[subtasks,notes]}},
+          epics = {relation:'epics',scope:{order:['sequence ASC','id DESC'],include:[tasks,notes]}},
+          projects = {include:[epics,tasks]};
 
     axios
-      .get('http://localhost:3000/api/Projects?filter=' + encodeURIComponent(includes))
+      .get('http://localhost:3000/api/Projects?filter=' + encodeURIComponent(JSON.stringify(projects)))
       .then(response => { 
           // preprocess response data to add some attributes useful for UI
           var projects = response.data,
