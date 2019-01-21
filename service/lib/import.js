@@ -25,13 +25,13 @@ function collectPromises(promises) { return new Promise((resolve, reject) => {
 		});
 })}
 
-function importNote (reference, noteData) { return new Promise((resolve, reject) => {
+function importNote (reference, sequence, noteData) { return new Promise((resolve, reject) => {
 
 	debug("Importing note", JSON.stringify(noteData.note));
 
 	Promise.resolve()
 	.then(() => {
-			return models.Note.create(_.extend({}, reference, {title: noteData.note}));
+			return models.Note.create(_.extend({}, reference, {title: noteData.note, sequence}));
 		})
 	.then(note => {
 			resolve(note);
@@ -50,7 +50,7 @@ function importNote (reference, noteData) { return new Promise((resolve, reject)
 		});
 });}
 
-function importSubtask (reference, subtaskData) { return new Promise((resolve, reject) => {
+function importSubtask (reference, priority, subtaskData) { return new Promise((resolve, reject) => {
 
 	var importedSubtask;
 
@@ -60,6 +60,7 @@ function importSubtask (reference, subtaskData) { return new Promise((resolve, r
 	.then(() => {
 			return models.Subtask.create(_.extend({}, reference, {	
 					name: subtaskData.subtask,
+					priority,
 					isComplete: subtaskData.complete || false
 				}));
 		})
@@ -69,7 +70,7 @@ function importSubtask (reference, subtaskData) { return new Promise((resolve, r
 			debug(importedSubtask);
 
 			let notesPromises = subtaskData.notes 
-					? _.map(subtaskData.notes, _.curry(importNote)({subtaskId: subtask.id})) 
+					? _.map(subtaskData.notes, (s,i) => {return importNote({subtaskId: subtask.id},i,s)}) 
 					: [];
 			return collectPromises(notesPromises);
 		})
@@ -86,7 +87,7 @@ function importSubtask (reference, subtaskData) { return new Promise((resolve, r
 		});
 });}
 
-function importTask (reference, taskData) { return new Promise((resolve, reject) => {
+function importTask (reference, priority, taskData) { return new Promise((resolve, reject) => {
 
 	let importedTask;
 
@@ -96,6 +97,7 @@ function importTask (reference, taskData) { return new Promise((resolve, reject)
 	.then(() => {
 			return models.Task.create(_.extend({}, reference, {	
 					name: taskData.task, 
+					priority,
 					isComplete: taskData.complete || false
 				}));
 		})
@@ -105,10 +107,10 @@ function importTask (reference, taskData) { return new Promise((resolve, reject)
 			debug(importedTask);
 
 			let subtaskPromises = taskData.subtasks 
-					? _.map(taskData.subtasks, _.curry(importSubtask)({taskId: task.id}))
+					? _.map(taskData.subtasks, (s,i) => {return importSubtask({taskId: task.id},i,s)})
 					: [], 
 				notesPromises = taskData.notes 
-					? _.map(taskData.notes, _.curry(importNote)({taskId: task.id})) 
+					? _.map(taskData.notes, (n,i) => {return importNote({taskId: task.id},i,n)}) 
 					: [];
 			return collectPromises([ 
 					collectPromises(subtaskPromises),
@@ -128,7 +130,7 @@ function importTask (reference, taskData) { return new Promise((resolve, reject)
 		});
 });}
 
-function importEpic (reference, epicData) { return new Promise((resolve, reject) => {
+function importEpic (reference, priority, epicData) { return new Promise((resolve, reject) => {
 
 	let importedEpic;
 
@@ -138,6 +140,7 @@ function importEpic (reference, epicData) { return new Promise((resolve, reject)
 	.then(() => {
 			return models.Epic.create(_.extend({}, reference, { 
 					name: epicData.epic,
+					priority,
 					isComplete: epicData.complete || false
 				}));
 		})
@@ -147,10 +150,10 @@ function importEpic (reference, epicData) { return new Promise((resolve, reject)
 			debug(importedEpic);
 
 			let taskPromises = epicData.tasks 
-					? _.map(epicData.tasks, _.curry(importTask)({epicId: epic.id}))
+					? _.map(epicData.tasks, (e,i) => {return importTask({epicId: epic.id},i,e)})
 					: [],
 				notesPromises = epicData.notes 
-					? _.map(epicData.notes, _.curry(importNote)({epicId: epic.id}))
+					? _.map(epicData.notes, (n,i) => {return importNote({epicId: epic.id},i,n)})
 					: [];
 
 			return collectPromises([ 
@@ -171,16 +174,17 @@ function importEpic (reference, epicData) { return new Promise((resolve, reject)
 		});
 });}
 
-function importProject (projectData) { return new Promise((resolve, reject) => {
+function importProject (priority, projectData) { return new Promise((resolve, reject) => {
 
 	let importedProject;
 
-	debug("Importing Project", JSON.stringify(projectData.project));
+	debug("Importing Project", JSON.stringify(projectData.project), priority);
 
 	Promise.resolve()
 	.then(() => {
 			return models.Project.create({ 
 					name: projectData.project,
+					priority,
 					isComplete: projectData.complete || false
 				});
 		})
@@ -190,13 +194,13 @@ function importProject (projectData) { return new Promise((resolve, reject) => {
 			debug(importedProject);
 
 			let taskPromises = projectData.tasks 
-					? _.map(projectData.tasks, _.curry(importTask)({projectId: project.id}))
+					? _.map(projectData.tasks, (t,i) => {return importTask({projectId: project.id}, i, t)})
 					: [],
 				epicPromises = projectData.epics 
-					? _.map(projectData.epics, _.curry(importEpic)({projectId: project.id}))
+					? _.map(projectData.epics, (e,i) => {return importEpic({projectId: project.id}, i, e)})
 					: [];
 				notePromises = projectData.notes 
-					? _.map(projectData.notes, _.curry(importNote)({projectId: project.id}))
+					? _.map(projectData.notes, (n,i) => {return importNote({projectId: project.id}, i, n)})
 					: [];
 
 			return collectPromises([
@@ -233,9 +237,6 @@ function importProjects(projectsData) { return new Promise((resolve, reject) => 
 		let dm, 
 			taskModelsQueue = []; // makes sure all epics are processed before any tasks, and 
 								  // all tasks are processed before any subtasks.
-
-		console.log("project");
-		console.log(project);
 
 		dm = dependencyMap[project.project] = {};
 
@@ -277,7 +278,6 @@ function importProjects(projectsData) { return new Promise((resolve, reject) => 
 
 		while (taskModelsQueue.length > 0) {
 			let tm = taskModelsQueue.shift();
-//			console.log(tm);
 			tm.taskModel.depends && console.log(tm.taskModel.depends);
 
 			tm.taskModel.depends && tm.taskModel.depends.forEach(depend => {
@@ -291,13 +291,17 @@ function importProjects(projectsData) { return new Promise((resolve, reject) => 
 			});
 		}
 	});
-	console.log(JSON.stringify(dependencyMap, null, 3));
-	console.log("errors:");
-	console.log(errors);
+	debug("errors:");
+	debug(errors);
 
 	// import
 
-	projectsData.projects.forEach(project => projectPromises.push(importProject(project)));
+	debug("importing");
+	projectPromises = projectsData.projects 
+		? _.map(projectsData.projects, (p,i) => {return importProject(i, p)})
+		: [];
+	debug('projectPromises');
+	debug(projectPromises);
 
 	Promise.resolve()
 	.then(() => {

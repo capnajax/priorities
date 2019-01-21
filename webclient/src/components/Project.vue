@@ -32,9 +32,9 @@ export default {
   },
   mounted() {
     const notes = {relation:'notes',scope:{order:['sequence ASC','id DESC']}},
-          subtasks = {relation:'subtasks',scope:{order:['sequence ASC','id DESC'],include:[notes]}},
-          tasks = {relation:'tasks',scope:{order:['sequence ASC','id DESC'],include:[subtasks,notes]}},
-          epics = {relation:'epics',scope:{order:['sequence ASC','id DESC'],include:[tasks,notes]}},
+          subtasks = {relation:'subtasks',scope:{order:['priority ASC','id DESC'],include:[notes]}},
+          tasks = {relation:'tasks',scope:{order:['priority ASC','id DESC'],include:[subtasks,notes]}},
+          epics = {relation:'epics',scope:{order:['priority ASC','id DESC'],include:[tasks,notes]}},
           projects = {include:[epics,tasks]};
 
     axios
