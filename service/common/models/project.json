@@ -31,5 +31,20 @@
     }
   },
   "acls": [],
-  "methods": {}
+  "methods": {
+    "taskCount": {
+      "http": {"verb": "get"},
+      "accepts": {"arg": "projectId", "type": "string"},
+      "returns": {"arg": "count", "type": "object"}
+    },
+    "getSummary": {
+      "http": {"verb": "get"},
+      "returns": {"arg": "projects", "type": "array"}
+    },
+    "getDetail": {
+      "http": {"path": "/getDetail/:projectId", "verb": "get"},
+      "accepts": {"arg": "projectId", "type": "string", "http": {"source": "path"}},
+      "returns": {"arg": "project", "type": "object"}
+    }
+  }
 }

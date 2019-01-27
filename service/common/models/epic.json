@@ -21,5 +21,11 @@
     }    
   },
   "acls": [],
-  "methods": {}
+  "methods": {
+    "taskCount": {
+      "http": {"verb": "get"},
+      "accepts": {"arg": "epicId", "type": "string"},
+      "returns": {"arg": "tasks", "type": "object"}
+    }
+  }
 }

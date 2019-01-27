@@ -1,5 +1,8 @@
 projects:
 - project: Basement Partition
+  notes:
+    - note: This is a note.
+    - note: This is a second note.
   epics:
   - epic: Concrete Paint
     notes:

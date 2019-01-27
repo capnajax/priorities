@@ -1,0 +1,50 @@
+<template>
+  <nav id="Projects">
+    <ul>
+      <li
+        class="Project"
+        v-for="(project) in data.projects"
+        @click="$emit('open-project', project.id)"
+        :key="project.id">
+        <Complete :item="project" />
+        <span class="name">{{ project.name }}</span>
+      </li>
+    </ul>
+  </nav>
+</template>
+
+<script>
+
+import Complete from './Complete'
+
+export default {
+  name: 'Projects',
+  components: {
+    Complete
+  },
+  data () {
+    return {
+      data: {projects:[]}
+    }
+  },
+  mounted() {
+    axios
+      .get('http://localhost:3000/api/Projects/getSummary')
+      .then(response => { 
+          // preprocess response data to add some attributes useful for UI
+          var projects = response.data.projects;
+          console.log(projects);
+          this.data.projects = projects;
+          if (projects.length > 0) {
+            this.$emit('open-project', projects[0].id)
+          }
+        });
+  }
+}
+
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style>
+
+</style>

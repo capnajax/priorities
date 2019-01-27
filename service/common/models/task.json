@@ -21,5 +21,11 @@
     }
   },
   "acls": [],
-  "methods": {}
+  "methods": {
+    "subtaskCount": {
+      "http": {"verb": "get"},
+      "accepts": {"arg": "taskId", "type": "string"},
+      "returns": {"arg": "tasks", "type": "object"}
+    }
+  }
 }
