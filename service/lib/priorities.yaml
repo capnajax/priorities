@@ -169,6 +169,8 @@ projects:
 - project: Priorities App
   epics:
   - epic: API Service
+    tasks:
+    - task: API
 
   - epic: Web Client
 

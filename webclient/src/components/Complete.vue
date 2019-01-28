@@ -63,8 +63,7 @@ export default {
               }[item.type],
             body = {isComplete: item.isComplete};
         path += '/' + item.id;
-        axios
-          .patch(path, body)
+        this.$axios.patch(path, body)
           .then(response => { 
               // alert("response: " + JSON.stringify(response));
               self.data.pending = false;
@@ -78,10 +77,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-.stats {position: relative; top: -0.6em; font-size: 0.2em;}
+/*.stats {position: relative; top: -0.6em; font-size: 0.2em;}
 .stats .complete {color: green;}
 .stats .incomplete {color: red;}
 [data-children=incomplete] .checkbox.complete {color: red;}
 [data-children=complete] .checkbox.incomplete {color: green;}
-
+*/
 </style>

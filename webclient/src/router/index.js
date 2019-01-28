@@ -2,6 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '@/components/Main'
 
+import axios from 'axios'
+Object.defineProperty(Vue.prototype, '$axios', { value: axios });
+
 Vue.use(Router)
 
 export default new Router({

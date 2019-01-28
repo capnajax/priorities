@@ -1,6 +1,17 @@
 <template>
   <nav id="Projects">
-    <ul>
+    <!-- TEMPORARY -->
+    <div class="colors">
+      <div class="bg-yellow" />
+      <div class="bg-red" />
+      <div class="bg-orange" />
+      <div class="bg-blue" />
+      <div class="bg-red2" />
+      <div class="bg-brass" />
+      <div class="bg-gray" />
+      <div class="bg-navy" />
+    </div>
+    <ul class="Projects">
       <li
         class="Project"
         v-for="(project) in data.projects"
@@ -28,7 +39,7 @@ export default {
     }
   },
   mounted() {
-    axios
+    this.$axios
       .get('http://localhost:3000/api/Projects/getSummary')
       .then(response => { 
           // preprocess response data to add some attributes useful for UI
@@ -45,6 +56,5 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-
+<style lang="less" >
 </style>

@@ -1,0 +1,164 @@
+
+@import "variables.less";
+
+/*
+h1, h2 {
+  font-weight:  normal;
+}
+ul {
+  list-style-type:  none;
+  padding:  0;
+}
+li {
+  display:  inline-block;
+  margin:  0 10px;
+}
+a {
+  color:  #42b983;
+}
+
+.isComplete { display: block; position: absolute; left: 0; width:1.5em; font-size: 1.8em }
+.pending { color: #ccc; }
+.epic { background-color: #f8f8f8; width: 800px; margin-left: auto; margin-right: auto; padding: 10px; position: relative;}
+.epic h2 { text-align: left; margin-left: 2em;}
+.epic .isComplete { left: 0.5em; top: 0.85em; }
+.depends { display: block; left: 2em; text-align: left; position: relative; text-align: left; }
+.note, .notes-wrapper { display: block; position: relative; text-align: left; }
+.task { background-color: #fff; margin: 1em; padding: 10px; position: relative; }
+.task h3 { margin-left: 3.5em; text-align: left; font-weight: normal; font-size: 1em; }
+.task .isComplete { left: 0.5em; top: 0.5em;}
+.task .note { left: 3.5em; }
+.subtasks { border-top: 1px solid #2c3e50; margin-left: 3.5em; }
+.subtask { position: relative; font-size: 0.9em; }
+.subtask h4 { text-align: left; margin-left: 1.7em; font-size: 0.9em; font-weight: normal;}
+.subtask .isComplete { left: -0.4em; top: -0.4em; }
+*/
+
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  color: @cs-text;
+}
+
+.Main {
+	position: relative;
+	margin: 0 auto;
+	@media (min-width: @bp-xl) {
+		width: 1112px;
+	}
+	@media (min-width: @bp-large) {
+		margin: 0 20px;
+	}
+}
+
+@nav-width: 16em;
+
+.Main > nav {
+	position: absolute;
+	@media (min-width: @bp-large) {
+		width: @nav-width;
+	}
+
+	.Projects {
+		background-color: @cs-white;
+		// border-radius: 1.24em 0 0 1.24em;
+		// border: 0.1em solid @cs-orange;
+		// border-right: none
+		margin-top: 1em;
+		display: block;
+
+		.Project~.Project {
+			margin-top: 1em
+		}
+
+		[data-children=incomplete] .checkbox.complete {
+			color: @cs-red2;
+		}
+		[data-children=complete] .checkbox.incomplete {
+			color: @cs-blue;
+		}
+		.isComplete {
+			position: absolute;
+			display: inline-block;
+			width: 1.62em;
+
+			.checkbox {
+				position: absolute;
+				text-align: left;
+				font-size: 3em;
+				left: -0.05em;
+				top: -0.38em;
+				display: block;
+			}
+
+			.stats {
+				display: block;
+				position: absolute;
+				top: 1em;
+				left: 1.8em;
+				font-size: 0.62em;
+				span {
+					display: inline-block;
+					float: left;
+				}
+			}
+			.stats.complete {
+				color: @cs-blue;
+			}
+			.stats.complete:before { content: "☑"; }
+			.stats.incomplete {
+				margin-left: 2.62em;
+				color: @cs-red2;
+			}
+			.stats.incomplete:before { content: "☐"; }
+		}
+		.name {
+			font-size: 1em;
+			height: 1.62em;
+			display: inline-block;
+			text-overflow: clip;
+			left: 2em;
+			position: relative;
+			max-width: (@nav-width - 2em);
+		}
+	}
+
+	ul {
+	  list-style-type:  none;
+	  padding:  0;
+	  li {
+	  	width: 100%;
+	  	left: 2em;
+	  	text-align: left;
+
+	  }
+	}
+
+	// temporary
+	.colors {
+		display: block;
+		height: 3em;
+		div {width: 1em; height: 1em; float: left;}
+		div~div {margin-left: 1em;}
+	}
+	
+}
+
+.Main > .content {
+	position: relative;
+	left: @nav-width;
+
+	> .project {
+		padding: 1em;
+		border-radius: 1.62em;
+		border: 0.1em solid @cs-red2;
+
+	}
+
+}
+
+
+
+
