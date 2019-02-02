@@ -1,12 +1,14 @@
 <template>
-  <div class="tasks">
-    <div
-      class="task"
-      v-for="(task) in parent.tasks"
-      :key="task.id">
-      <ItemDetails :item="task" />
-      <Subtasks :task="task" />
-    </div>
+  <div class="task-wrapper">
+    <ol class="tasks">
+      <li
+        class="task"
+        v-for="(task) in parent.tasks"
+        :key="task.id">
+        <ItemDetails :item="task" />
+        <Subtasks :task="task" />
+      </li>
+    </ol>
     <AddButton
       type="task"
       :parent="parent" />

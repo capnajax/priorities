@@ -1,13 +1,15 @@
 <template>
-  <div 
-    class="subtasks"
-    v-if="task.subtasks.length > 0">
-    <div
-      class="subtask"
-      v-for="(subtask) in task.subtasks"
-      :key="subtask.id">
-      <ItemDetails :item="subtask" />
-    </div>
+  <div class="subtask-wrapper">
+    <ol 
+      class="subtasks"
+      v-if="task.subtasks.length > 0">
+      <li
+        class="subtask"
+        v-for="(subtask) in task.subtasks"
+        :key="subtask.id">
+        <ItemDetails :item="subtask" />
+      </li>
+    </ol>
     <AddButton
       type="subtask"
       :parent="task" />

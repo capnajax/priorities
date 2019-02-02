@@ -1,14 +1,16 @@
 <template>
-  <div
-    class="epics"
-    v-if="(project.epics.length > 0)">
-    <div
-      class="epic"
-      v-for="(epic) in project.epics"
-      :key="epic.id">
-      <ItemDetails :item="epic" />
-      <Tasks :parent="epic" />
-    </div>
+  <div class="epics-wrapper">
+    <ol
+      class="epics"
+      v-if="(project.epics.length > 0)">
+      <li
+        class="epic"
+        v-for="(epic) in project.epics"
+        :key="epic.id">
+        <ItemDetails :item="epic" />
+        <Tasks :parent="epic" />
+      </li>
+    </ol>
     <AddButton
       type="epic"
       :parent="project" />

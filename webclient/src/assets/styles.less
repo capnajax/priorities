@@ -1,4 +1,5 @@
 
+@import "reset.less";
 @import "variables.less";
 
 /*
@@ -35,7 +36,7 @@ a {
 */
 
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: @ff-helvetica;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
@@ -80,9 +81,9 @@ a {
 			color: @cs-blue;
 		}
 		.isComplete {
-			position: absolute;
+			position: relative;
+			left: 0;
 			display: inline-block;
-			width: 1.62em;
 
 			.checkbox {
 				position: absolute;
@@ -92,11 +93,17 @@ a {
 				top: -0.38em;
 				display: block;
 			}
+			.checkbox.complete:before {
+				content: "☑";
+			}
+			.checkbox.incomplete:before {
+				content: "☐";
+			}
 
 			.stats {
 				display: block;
-				position: absolute;
-				top: 1em;
+				position: relative;
+				top: -0.1em;
 				left: 1.8em;
 				font-size: 0.62em;
 				span {
@@ -109,16 +116,15 @@ a {
 			}
 			.stats.complete:before { content: "☑"; }
 			.stats.incomplete {
-				margin-left: 2.62em;
 				color: @cs-red2;
+				margin-left: 1em;
 			}
 			.stats.incomplete:before { content: "☐"; }
 		}
 		.name {
+			font-family: @ff-adelle;
 			font-size: 1em;
-			height: 1.62em;
-			display: inline-block;
-			text-overflow: clip;
+			display: block;
 			left: 2em;
 			position: relative;
 			max-width: (@nav-width - 2em);
@@ -142,21 +148,118 @@ a {
 		height: 3em;
 		div {width: 1em; height: 1em; float: left;}
 		div~div {margin-left: 1em;}
-	}
-	
+	}	
 }
 
 .Main > .content {
 	position: relative;
-	left: @nav-width;
+	margin-left: @nav-width;
+	right: 0;
 
 	> .project {
 		padding: 1em;
 		border-radius: 1.62em;
 		border: 0.1em solid @cs-red2;
+	}
+
+	.item-details {
+		position: relative;
+
+		[data-children=incomplete] .checkbox.complete {
+			color: @cs-red2;
+		}
+		[data-children=complete] .checkbox.incomplete {
+			color: @cs-blue;
+		}
+		.isComplete {
+			display: inline-block;
+			.checkbox {
+				position: absolute;
+				display: block;
+				left: -1.62em;
+			}
+			.checkbox.complete:before {
+				content: "☑";
+			}
+			.checkbox.incomplete:before {
+				content: "☐";
+			}
+			.stats {
+				display: block;
+				position: absolute;
+				span {
+					display: inline-block;
+					float: left;
+				}
+			}
+			.stats.complete {
+				color: @cs-blue;
+			}
+			.stats.complete:before { content: "☑"; }
+			.stats.incomplete {
+				color: @cs-red2;
+			}
+			.stats.incomplete:before { content: "☐"; }
+		}
+		.name {
+			display: inline-block;
+			position: relative;
+		}
+	}
+
+	.task-wrapper {
+		> ol.tasks {
+			list-style-type: none;
+			padding-left: 1.62em;
+		}
+
+		h3 {
+			position: relative;
+			top: 0;
+			margin: 0;
+			padding: 0;
+			font-size: 1em;
+		}
+	}
+
+	.epics-wrapper {
+
+		> ol.epics {
+			list-style-type: none;
+			padding-left: 1.62em;
+		}
+
+		h2 {
+			font-size: 1em;
+			position: relative;
+			margin: 0;
+			padding: 0;
+			.name {
+				font-size: 1.62em;
+			}
+		}
 
 	}
 
+	// temporary
+	.item-add-button {
+		display: none;
+	}
+
+
+	h4 {
+		position: relative;
+		left: 2.62em;
+		font-size: 1em;
+		font-weight: normal;
+	}
+
+	.note {
+		.bullet:before {
+			margin-left: 2em;
+			content: "⩴ ";
+		}
+	}
 }
 
 

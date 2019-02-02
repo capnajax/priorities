@@ -4,10 +4,12 @@
     <div
       class="content" 
       v-if="(data.project)">
-      <div class="project">
+      <article class="project">
+        <h1 class="project-name">{{ data.project.name }}</h1>
+        <!-- should put project notes here -->
         <Tasks :parent="data.project" />
         <Epics :project="data.project" />
-      </div>
+      </article>
     </div>
   </div>
 </template>

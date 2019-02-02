@@ -1,8 +1,10 @@
 <template>
   <div class="item-details">
-    <h2 v-if="item.type === 'epic'"><span class="name">{{ item.name }}</span></h2>
-    <h3 v-else-if="item.type === 'task'"><span class="name">{{ item.name }}</span></h3>
-    <h4 v-else><span class="name">{{ item.name }}</span></h4>
+    <Complete :item="item">
+      <h2 v-if="item.type === 'epic'"><span class="name">{{ item.name }}</span></h2>
+      <h3 v-else-if="item.type === 'task'"><span class="name">{{ item.name }}</span></h3>
+      <h4 v-else><span class="name">{{ item.name }}</span></h4>
+    </Complete>
     <div
       class="depends depends-single"
       v-if="(typeof item.depends) === 'string'">
@@ -15,7 +17,6 @@
         v-for="(depends) in item.depends"
         :key="depends.depends">{{ depends.depends }}</span>
     </div>
-    <Complete :item="item" />
     <div
       class="notes-wrapper"
       v-if="item.notes">
@@ -23,7 +24,7 @@
         class="note"
         v-for="(note) in item.notes"
         :key="note.id">
-        <span>&#x25CB; </span>{{ note.title }}
+        <span class="bullet" />{{ note.title }}
       </div>
     </div>
   </div>

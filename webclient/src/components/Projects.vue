@@ -17,8 +17,7 @@
         v-for="(project) in data.projects"
         @click="$emit('open-project', project.id)"
         :key="project.id">
-        <Complete :item="project" />
-        <span class="name">{{ project.name }}</span>
+        <Complete :item="project"><span class="name">{{ project.name }}</span></Complete>
       </li>
     </ul>
   </nav>

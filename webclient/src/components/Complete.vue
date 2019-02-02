@@ -6,11 +6,11 @@
     @click="updateIsComplete(item)"> 
     <span
       class="checkbox complete"
-      v-if="item.isComplete === true">&#9745;
-    </span>
+      v-if="item.isComplete === true" />
     <span
       class="checkbox incomplete"
-      v-else>&#9744;</span>
+      v-else />
+    <slot />
     <span
       class="stats" 
       v-if="item.count && item.count.total">
