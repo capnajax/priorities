@@ -1,5 +1,14 @@
 <template>
   <nav id="Projects">
+    <ul class="Projects">
+      <li
+        class="Project"
+        v-for="(project) in data.projects"
+        @click="$emit('open-project', project.id)"
+        :key="project.id">
+        <Complete :item="project"><span class="name">{{ project.name }}</span></Complete>
+      </li>
+    </ul>
     <!-- TEMPORARY -->
     <div class="colors">
       <div class="bg-yellow" />
@@ -11,15 +20,6 @@
       <div class="bg-gray" />
       <div class="bg-navy" />
     </div>
-    <ul class="Projects">
-      <li
-        class="Project"
-        v-for="(project) in data.projects"
-        @click="$emit('open-project', project.id)"
-        :key="project.id">
-        <Complete :item="project"><span class="name">{{ project.name }}</span></Complete>
-      </li>
-    </ul>
   </nav>
 </template>
 

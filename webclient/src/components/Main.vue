@@ -1,11 +1,19 @@
 <template>
   <div class="Main">
-    <Projects @open-project="onOpenProject" />
-    <div
-      class="content" 
-      v-if="(data.project)">
-      <article class="project">
-        <h1 class="project-name">{{ data.project.name }}</h1>
+    <header>
+      <div id="logo-area">
+        <div id="logo" />
+      </div>
+      <div id="logo-stripe" />
+      <div id="project-name-area">
+        <h1 class="project-name"><span v-if="(data.project)">{{ data.project.name }}</span></h1>
+      </div>
+    </header>
+    <Nav @open-project="onOpenProject" />
+    <div class="content">
+      <article
+        class="project"
+        v-if="(data.project)">
         <!-- should put project notes here -->
         <Tasks :parent="data.project" />
         <Epics :project="data.project" />
@@ -17,14 +25,14 @@
 <script>
 
 import Epics from './Epics'
-import Projects from './Projects'
+import Nav from './Nav'
 import Tasks from './Tasks'
 
 export default {
   name: 'Main',
   components: {
     Epics,
-    Projects,
+    Nav,
     Tasks
   },
   data () {

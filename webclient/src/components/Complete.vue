@@ -2,13 +2,14 @@
   <span
     class="isComplete"
     :class="{pending: data.pending, complete: item.isComplete}" 
-    :data-children="checkboxClass(item)"
-    @click="updateIsComplete(item)"> 
+    :data-children="checkboxClass(item)"> 
     <span
       class="checkbox complete"
-      v-if="item.isComplete === true" />
+      v-if="item.isComplete === true"
+      @click="updateIsComplete(item)" />
     <span
       class="checkbox incomplete"
+      @click="updateIsComplete(item)"
       v-else />
     <slot />
     <span

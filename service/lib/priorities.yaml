@@ -164,6 +164,14 @@ projects:
     - task: Drywall
   
   tasks:
+  - task: Prepare to celebrate
+    notes:
+    - note: Because we need to celebrate
+    - note: And celebrate and celebrate and celebrate...
+    subtasks:
+    - subtask: pop
+    - subtask: chips
+      complete: true
   - task: Celebrate
 
 - project: Priorities App

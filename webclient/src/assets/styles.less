@@ -45,9 +45,9 @@ a {
 
 .Main {
 	position: relative;
-	margin: 0 auto;
 	@media (min-width: @bp-xl) {
 		width: 1112px;
+		margin: 0 auto !important;
 	}
 	@media (min-width: @bp-large) {
 		margin: 0 20px;
@@ -55,6 +55,56 @@ a {
 }
 
 @nav-width: 16em;
+
+.Main > header {
+
+	#logo-area {
+		height: 101px;
+		width: @nav-width;
+		left: 0px;
+		position: relative;
+		margin: 0;
+	}
+	#logo {
+		height: 97.2px;
+		width: 60px;
+		left: 0px;
+		position: relative;
+		margin: 10px;
+		margin-left: 20px;
+		background-image: url(//capnajax.com/img/logo.svg);
+		background-size: 170%;
+		background-position: 45%;
+	}
+	#logo-stripe {
+		position:absolute;
+		z-index: -1;
+		background-color: @cs-yellow;
+		height: 2px;
+		width: 100%;
+		top: 65px;
+	}
+	#project-name-area {
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: @nav-width;
+		margin-left: 2em;
+	}
+	h1 {
+		position: absolute;
+		font-family: @ff-adelle;
+		font-weight: 100;
+		color: @cs-navy;
+		font-size: 60px;
+		height: 1.2em;
+		left: 0px;
+		top: -1px;
+		width: 100%;
+		white-space: nowrap;
+		overflow: hidden;
+	}
+}
 
 .Main > nav {
 	position: absolute;
@@ -146,6 +196,7 @@ a {
 	.colors {
 		display: block;
 		height: 3em;
+		margin-top: 2em;
 		div {width: 1em; height: 1em; float: left;}
 		div~div {margin-left: 1em;}
 	}	
@@ -155,12 +206,8 @@ a {
 	position: relative;
 	margin-left: @nav-width;
 	right: 0;
-
-	> .project {
-		padding: 1em;
-		border-radius: 1.62em;
-		border: 0.1em solid @cs-red2;
-	}
+	padding-top: 1em;
+	padding-left: 2em;
 
 	.item-details {
 		position: relative;
@@ -211,6 +258,20 @@ a {
 		> ol.tasks {
 			list-style-type: none;
 			padding-left: 1.62em;
+
+			.task {
+				margin-bottom: 0.38em;
+
+				.isComplete {
+
+					.stats {
+						position: relative;
+						top: -0.3em;
+						font-size: 0.38em;
+						padding-right: 0.5em;
+					}
+				}
+			}
 		}
 
 		h3 {
@@ -220,6 +281,20 @@ a {
 			padding: 0;
 			font-size: 1em;
 		}
+
+		.subtask-wrapper {
+			margin-left: 1.62em;
+			> ol.subtasks {
+				list-style-type: none;
+				.subtask {
+					h4 {
+						position: relative;
+						font-size: 1em;
+						font-weight: normal;
+					}
+				}
+			}
+		}
 	}
 
 	.epics-wrapper {
@@ -227,6 +302,26 @@ a {
 		> ol.epics {
 			list-style-type: none;
 			padding-left: 1.62em;
+
+			> li {
+				border-top: 1px dashed @cs-brass;
+				margin-top: 1em;
+				margin-bottom: 0.38em;
+
+				.item-details {
+					top: -0.1em;
+				}
+				.isComplete {
+
+					.stats {
+						position: relative;
+						top: -0.3em;
+						font-size: 0.38em;
+						padding-right: 0.5em;
+					}
+				}
+
+			}
 		}
 
 		h2 {
@@ -235,10 +330,9 @@ a {
 			margin: 0;
 			padding: 0;
 			.name {
-				font-size: 1.62em;
+				font-size: 1.2em;
 			}
 		}
-
 	}
 
 	// temporary
@@ -246,19 +340,23 @@ a {
 		display: none;
 	}
 
-
-	h4 {
-		position: relative;
-		left: 2.62em;
-		font-size: 1em;
-		font-weight: normal;
-	}
-
 	.note {
-		.bullet:before {
-			margin-left: 2em;
-			content: "⩴ ";
+		color: @cs-gray;
+		font-size: 0.8em;
+
+		.bullet:before {			
+			content: "▸";
 		}
+		.bullet {
+			position: absolute;
+		}
+		.note-text {
+			display: block;
+			margin-left: 1em;
+		}
+	}
+	.note:first-child {
+		margin-top: -0.5em;
 	}
 }
 

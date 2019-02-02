@@ -7,6 +7,16 @@
         :key="task.id">
         <ItemDetails :item="task" />
         <Subtasks :task="task" />
+        <div class="tools">
+          <div class="add">
+            <div
+              class="subtask"
+              alt="Add subtask" />
+            <div
+              class="dependency"
+              alt="Add dependency" />
+          </div>
+        </div>
       </li>
     </ol>
     <AddButton

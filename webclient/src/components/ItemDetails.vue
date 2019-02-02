@@ -24,7 +24,7 @@
         class="note"
         v-for="(note) in item.notes"
         :key="note.id">
-        <span class="bullet" />{{ note.title }}
+        <span class="bullet" /><span class="note-text">{{ note.title }}</span>
       </div>
     </div>
   </div>
