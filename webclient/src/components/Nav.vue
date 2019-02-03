@@ -6,7 +6,12 @@
         v-for="(project) in data.projects"
         @click="$emit('open-project', project.id)"
         :key="project.id">
-        <Complete :item="project"><span class="name">{{ project.name }}</span></Complete>
+        <Complete
+          v-if="currentProject && project.id == currentProject.id"
+          :item="currentProject"><span class="name">{{ currentProject.name }}</span></Complete>
+        <Complete
+          v-else
+          :item="project"><span class="name">{{ project.name }}</span></Complete>
       </li>
     </ul>
     <!-- TEMPORARY -->
@@ -32,6 +37,12 @@ export default {
   components: {
     Complete
   },
+  props: {
+    currentProject: {
+      type: [Object],
+      required: true
+    }
+  },
   data () {
     return {
       data: {projects:[]}
@@ -43,8 +54,10 @@ export default {
       .then(response => { 
           // preprocess response data to add some attributes useful for UI
           var projects = response.data.projects;
-          console.log(projects);
           this.data.projects = projects;
+          this.data.projects.forEach(project => {
+            project.type = 'project';
+          });
           if (projects.length > 0) {
             this.$emit('open-project', projects[0].id)
           }

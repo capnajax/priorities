@@ -1,6 +1,8 @@
 <template>
   <div class="item-details">
-    <Complete :item="item">
+    <Complete 
+      :item="item"
+      @updated-iscomplete="onCompletionUpdated">
       <h2 v-if="item.type === 'epic'"><span class="name">{{ item.name }}</span></h2>
       <h3 v-else-if="item.type === 'task'"><span class="name">{{ item.name }}</span></h3>
       <h4 v-else><span class="name">{{ item.name }}</span></h4>
@@ -46,6 +48,11 @@ export default {
         type: Object,
         required: true
       }
+  },
+  methods: {
+    onCompletionUpdated: function(item) {
+      this.$emit('updated-iscomplete', item);
+    }
   }
 }
 

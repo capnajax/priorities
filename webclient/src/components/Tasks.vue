@@ -5,8 +5,12 @@
         class="task"
         v-for="(task) in parent.tasks"
         :key="task.id">
-        <ItemDetails :item="task" />
-        <Subtasks :task="task" />
+        <ItemDetails
+          :item="task"
+          @updated-iscomplete="onTaskUpdate" />
+        <Subtasks
+          :task="task"
+          @updated-task="onTaskUpdate" />
       </li>
     </ol>
     <AddButton
@@ -32,6 +36,21 @@ export default {
     parent: {
       type: [Object], 
       required: true
+    }
+  },
+  methods: {
+    onTaskUpdate: function(task) {
+
+      // first update the task list
+
+      for(let i = 0; i < this.parent.tasks.length; i++) {
+        if (this.parent.tasks[i].id == task.id) {
+          this.parent.tasks[i] = task;
+        }
+      }
+
+      // then send back the task update
+      this.$emit('updated-tasks', this.parent);
     }
   }
 }

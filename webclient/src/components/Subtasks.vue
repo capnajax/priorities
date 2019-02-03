@@ -7,7 +7,9 @@
         class="subtask"
         v-for="(subtask) in task.subtasks"
         :key="subtask.id">
-        <ItemDetails :item="subtask" />
+        <ItemDetails
+          :item="subtask"
+          @updated-iscomplete="onSubtaskUpdate"/>
       </li>
     </ol>
     <AddButton
@@ -31,6 +33,29 @@ export default {
     task: {
       type: [Object], 
       required: true
+    }
+  },
+  methods: {
+    onSubtaskUpdate: function(subtask) {
+      // first update the subtask list
+      var newCount = {total: this.task.subtasks.length, complete: 0, incomplete: 0};
+
+      for(let i = 0; i < newCount.total; i++) {
+        if (this.task.subtasks[i].id == subtask.id) {
+          this.task.subtasks[i] = subtask;
+        }
+        if (this.task.subtasks[i].isComplete) {
+          newCount.complete++;
+        } else {
+          newCount.incomplete++;
+        }
+      }
+
+      // then update the completion count
+      this.task.count = newCount;
+
+      // then send back the task update
+      this.$emit('updated-task', this.task);
     }
   }
 }

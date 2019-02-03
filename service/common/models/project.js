@@ -43,10 +43,10 @@ module.exports = function(Project) {
 						);
 				};
 
+				let	where = {where:{taskId:{inq:_.map(projectTasks, 'id')}}};
 				promises.push(
-					Project.app.models.Subtask.find({where:{inq:_.map(projectTasks, 'taskId')}})
+					Project.app.models.Subtask.find(where)
 					.then(subtasks => {
-
 						for(let i in subtasks) {
 							if (subtasks[i].isComplete) {
 								result.complete ++;
@@ -60,6 +60,12 @@ module.exports = function(Project) {
 				for (let i in projectTasks) {
 					result.complete += projectTasks[i].isComplete ? 1 : 0; 
 					result.incomplete += projectTasks[i].isComplete ? 0 : 1;
+					result.total++; 
+				};
+
+				for (let i in epics) {
+					result.complete += epics[i].isComplete ? 1 : 0; 
+					result.incomplete += epics[i].isComplete ? 0 : 1;
 					result.total++; 
 				};
 

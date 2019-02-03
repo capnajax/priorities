@@ -6,10 +6,10 @@
     <span
       class="checkbox complete"
       v-if="item.isComplete === true"
-      @click="updateIsComplete(item)" />
+      @click.stop="updateIsComplete(item)" />
     <span
       class="checkbox incomplete"
-      @click="updateIsComplete(item)"
+      @click.stop="updateIsComplete(item)"
       v-else />
     <slot />
     <span
@@ -54,13 +54,15 @@ export default {
     },
     updateIsComplete: function(item) {
       var self = this;     
+
       item.isComplete = !item.isComplete;
       self.data.pending = true;
       self.$nextTick(() => {
         var path = {
                 epic: 'http://localhost:3000/api/Epics',
                 task: 'http://localhost:3000/api/Tasks',
-                subtask: 'http://localhost:3000/api/Subtasks'
+                subtask: 'http://localhost:3000/api/Subtasks',
+                project: 'http://localhost:3000/api/Projects',
               }[item.type],
             body = {isComplete: item.isComplete};
         path += '/' + item.id;
@@ -68,6 +70,7 @@ export default {
           .then(response => { 
               // alert("response: " + JSON.stringify(response));
               self.data.pending = false;
+              this.$emit('updated-iscomplete', item);
             });
       });
     }
