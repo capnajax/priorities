@@ -15,9 +15,9 @@
           @updated-tasks="onTasksUpdate" />
       </li>
     </ol>
-    <AddButton
-      type="epic"
-      :parent="project" />
+    <div v-if="project.epics && project.epics.length > 0">
+      <span class="context-control"><span class="button add-epic">add epic</span></span>
+    </div>
   </div>
 </template>
 

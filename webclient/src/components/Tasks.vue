@@ -13,9 +13,9 @@
           @updated-task="onTaskUpdate" />
       </li>
     </ol>
-    <AddButton
-      type="task"
-      :parent="parent" />
+    <div v-if="parent.tasks && parent.tasks.length > 0">
+      <span class="context-control"><span class="button add-task">add task</span></span>
+    </div>
   </div>
 </template>
 

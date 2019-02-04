@@ -12,10 +12,9 @@
       @click.stop="updateIsComplete(item)"
       v-else />
     <slot />
-    <span
-      class="stats" 
-      v-if="item.count && item.count.total">
-      <span class="stats complete">{{ item.count.complete }}</span><span class="stats incomplete">{{ item.count.incomplete }}</span>
+    <span class="stats" >
+      <span v-if="item.count && item.count.total"><span class="stats complete">{{ item.count.complete }}</span><span class="stats incomplete">{{ item.count.incomplete }}</span></span>
+      <slot name="more-details" />
     </span>
   </span>
 </template>

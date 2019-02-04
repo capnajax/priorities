@@ -163,17 +163,6 @@ projects:
     - task: Insulation
     - task: Drywall
   
-  tasks:
-  - task: Prepare to celebrate
-    notes:
-    - note: Because we need to celebrate
-    - note: And celebrate and celebrate and celebrate...
-    subtasks:
-    - subtask: pop
-    - subtask: chips
-      complete: true
-  - task: Celebrate
-
 - project: Priorities App
   epics:
   - epic: API Service
@@ -256,3 +245,34 @@ projects:
     - note: not really epic
     - note: 3Morbi in sapien volutpat, porttitor ex eget, volutpat tortor. Curabitur quis tristique magna. Aliquam non tristique velit. In vitae est gravida, imperdiet sapien eu, efficitur tellus. Mauris dignissim, leo in volutpat aliquet, ex massa vehicula augue, eget vehicula nisi lectus at neque. Phasellus ornare ut augue vel porttitor. Aenean mollis sem ligula, eget vestibulum metus tempor sit amet.
     - note: 3Etiam pharetra tristique eros, vel varius massa imperdiet quis. Pellentesque imperdiet, sapien tincidunt suscipit malesuada, quam lacus pulvinar purus, suscipit feugiat est odio non nunc. Nullam malesuada sagittis nisl, non tristique leo posuere vitae. Maecenas tincidunt ultrices risus, pretium pretium tortor dapibus vitae. Nunc eget euismod ex, sit amet feugiat leo. Nullam consequat finibus rutrum. Nulla facilisi. Donec ac venenatis tortor. Sed ligula enim, sodales et ultricies nec, eleifend vehicula nibh. Nulla sapien lectus, tempor eget augue sagittis, finibus consectetur sapien. Proin ultricies lacinia neque, sit amet sollicitudin risus imperdiet ac.
+
+- project: Tasks-only
+  tasks:
+  - task: This is a task
+  - task: This is another task
+  - task: This is a freakishly super stipd incredibly long crazy task with no limit to the length of its stupid ridiculous name.
+  - task: This is a task with subtasks
+    subtasks:
+    - subtask: Subtask 1
+    - subtask: Subtask with no silly number
+    - subtask: Notable subtask
+      notes:
+      - note: Subtask note
+      - note: A note that would make the most loquatious authors in history rise from the grave just to blush.
+  - task: One final task
+
+- project: Epics-only
+  epics:
+  - epic: This is a epic
+  - epic: This is another epic
+  - epic: This is a freakishly super stipd incredibly long crazy epic with no limit to the length of its stupid ridiculous name.
+  - epic: This is an epic with tasks
+    tasks:
+    - task: Task 1
+    - task: Task with no silly number
+    - task: Notable Task
+      notes:
+      - note: Task note
+      - note: A note that would make the most loquatious authors in history rise from the grave just to blush.
+  - epic: One final epic
+

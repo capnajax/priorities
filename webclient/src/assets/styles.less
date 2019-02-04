@@ -260,7 +260,6 @@ a {
 			padding-left: 1.62em;
 
 			.task {
-				margin-bottom: 0.38em;
 
 				.isComplete {
 
@@ -332,6 +331,44 @@ a {
 			.name {
 				font-size: 1.2em;
 			}
+		}
+
+	}
+
+	.epic > .item-details .context-control,
+	.task > .item-details .context-control,
+	.subtask > .item-details .context-control { display: inline-block; }
+	
+	.epic > .item-details .context-control > span,
+	.task > .item-details .context-control > span,
+	.subtask > .item-details .context-control > span { display: inline; opacity: 0; cursor: pointer; }
+
+	.task-wrapper .tasks ~ div .context-control > span,
+	.subtask-wrapper .subtasks ~ div .context-control > span { opacity: 0; cursor: pointer; }
+
+	.task-wrapper:hover .tasks ~ div .context-control > span,
+	.subtask-wrapper:hover .subtasks ~ div .context-control > span { opacity: 1 }
+
+	.epic > .item-details:hover .context-control > span,
+	.task > .item-details:hover .context-control > span,
+	.subtask > .item-details:hover .context-control > span {opacity: 1;}
+
+	.notes-wrapper .context-control {
+		position: relative;
+		top: -1em;
+		left: 0;
+	}
+
+	.context-control {
+		font-size: 0.38em;
+		top: -0.38em;
+		position: relative;
+
+		span.button {
+			color: @cs-gray;
+			// border: 0.5px solid @cs-gray;
+			// border-radius: 0.3em;
+			padding: 0 1em 0 0;
 		}
 	}
 

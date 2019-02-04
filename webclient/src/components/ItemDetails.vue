@@ -6,6 +6,22 @@
       <h2 v-if="item.type === 'epic'"><span class="name">{{ item.name }}</span></h2>
       <h3 v-else-if="item.type === 'task'"><span class="name">{{ item.name }}</span></h3>
       <h4 v-else><span class="name">{{ item.name }}</span></h4>
+      <template slot="more-details">
+        <span class="context-control">
+          <span
+            v-if="!item.notes || item.notes.length == 0"
+            slot="more-details"
+            class="button add-note">add note</span>
+          <span
+            v-if="item.type === 'epic' && (!item.tasks || !item.tasks.length)"
+            slot="more-details"
+            class="button add-task">add task</span>
+          <span
+            v-if="item.type === 'task' && (!item.subtasks || !item.subtasks.length)"
+            slot="more-details"
+            class="button add-subtask">add subtask</span>
+        </span>
+      </template>
     </Complete>
     <div
       class="depends depends-single"
@@ -27,6 +43,9 @@
         v-for="(note) in item.notes"
         :key="note.id">
         <span class="bullet" /><span class="note-text">{{ note.title }}</span>
+      </div>
+      <div v-if="item.notes && item.notes.length > 0">
+        <span class="context-control"><span class="button add-note">add note</span></span>
       </div>
     </div>
   </div>

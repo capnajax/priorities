@@ -12,9 +12,9 @@
           @updated-iscomplete="onSubtaskUpdate"/>
       </li>
     </ol>
-    <AddButton
-      type="subtask"
-      :parent="task" />
+    <div v-if="task.subtasks && task.subtasks.length > 0">
+      <span class="context-control"><span class="button add-subtask">add subtask</span></span>
+    </div>
   </div>
 </template>
 
