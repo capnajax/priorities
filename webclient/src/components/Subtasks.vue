@@ -20,13 +20,11 @@
 
 <script>
 
-import AddButton from './AddButton'
 import ItemDetails from './ItemDetails'
 
 export default {
   name: 'Subtasks',
   components: {
-    AddButton,
     ItemDetails
   },
   props: {

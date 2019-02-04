@@ -23,14 +23,12 @@
 
 <script>
 
-import AddButton from './AddButton'
 import ItemDetails from './ItemDetails'
 import Tasks from './Tasks'
 
 export default {
   name: 'Epics',
   components: {
-    AddButton,
     ItemDetails,
     Tasks
   },

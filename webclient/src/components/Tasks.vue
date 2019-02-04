@@ -21,14 +21,12 @@
 
 <script>
 
-import AddButton from './AddButton'
 import ItemDetails from './ItemDetails'
 import Subtasks from './Subtasks'
 
 export default {
   name: 'Tasks',
   components: {
-    AddButton,
     ItemDetails,
     Subtasks
   },
