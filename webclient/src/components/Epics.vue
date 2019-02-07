@@ -9,7 +9,7 @@
         :key="epic.id">
         <ItemDetails
           :item="epic"
-          @updated-iscomplete="onEpicsUpdate" />
+          @updated-iscomplete="onEpicsUpdate"/>
         <Tasks
           :parent="epic" 
           @updated-tasks="onTasksUpdate" />

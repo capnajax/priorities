@@ -6,6 +6,28 @@ const
 
 module.exports = function(Epic) {
 
+	/**
+	 *	Observer to ensure that each epic has a priority number at the time it's created.
+	 */
+	Epic.observe('before save', function updatePriority(ctx, next) {
+		// only need to update priority in this method if we have an instance.
+		if (ctx.instance && !ctx.instance.priority) {
+			var filter = {where:{projectId:ctx.instance.projectId},fields:{priority:true}};
+			Epic.find(filter, (err, epics) => {
+				if (err) {
+					console.log("Epic beforeImport err:", err);
+					next(err);
+					return;
+				}
+				var maxPriorityNum = _.max(_.map(epics, epic => {return (epic.priority || 0);}));
+				ctx.instance.priority = maxPriorityNum + 1;
+				next();
+			});
+	  	} else {
+	  		next();
+	  	}
+	});
+
 	Epic.taskCount = function taskCount(_epicId, cb) {
 		var epicId = _.isObject(_epicId) ? _epicId.id : _epicId,
 			result = {

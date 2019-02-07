@@ -11,6 +11,7 @@
           <span
             v-if="!item.notes || item.notes.length == 0"
             slot="more-details"
+            @click="editNewNote"
             class="button add-note">add note</span>
           <span
             v-if="item.type === 'epic' && (!item.tasks || !item.tasks.length)"
@@ -44,8 +45,39 @@
         :key="note.id">
         <span class="bullet" /><span class="note-text">{{ note.title }}</span>
       </div>
-      <div v-if="item.notes && item.notes.length > 0">
-        <span class="context-control"><span class="button add-note">add note</span></span>
+      <div
+        class="note newnote"
+        :class="{pending: item.newNote === 'pending'}"
+        v-if="item.newNote">
+        <textarea
+          class="noteText"
+          v-model="data.noteText" />
+        <div class="button-bar">
+          <span
+            class="button clear"
+            @click="clearNewNote">
+            clear
+          </span>
+          <span
+            class="button cancel"
+            @click="cancelNewNote">
+            cancel
+          </span>
+          <span
+            v-if="data.noteText"
+            class="button done"            
+            @click="addNewNote">
+            done
+          </span>
+        </div>
+        <span style="display: inline-block; background-color: orange; width: 10em; height: 2em;" />
+      </div>
+      <div v-if="item.notes && item.notes.length > 0 && !item.newNote">
+        <span class="context-control">
+          <span
+            @click="editNewNote"
+            class="button add-note">add note</span>
+        </span>
       </div>
     </div>
   </div>
@@ -66,9 +98,65 @@ export default {
       item: {
         type: Object,
         required: true
+      },
+      newNote: {
+        type: Boolean,
+        required: false,
+        default: () => { return false; }
       }
   },
+  data () {
+    return {
+      data: {
+        noteText : ''
+      }
+    }
+  },
   methods: {
+    addNewNote: function() {
+      console.log("ItemDetails -- addNewNote called");
+      console.log(this.data.noteText);
+
+      var self = this;      
+      self.item.newNote = "pending";
+      self.$nextTick(() => {
+        var path = process.env.API_ENDPOINT_BASE+'/Notes',
+            body = {title: this.data.noteText};
+        switch(self.item.type) {
+        case 'project':
+          body.projectId = self.item.id;   break;
+        case 'epic':
+          body.epicId = self.item.id;      break;
+        case 'task':
+          body.taskId = self.item.id;      break;
+        case 'subtask':
+          body.subtaskId = self.item.id;   break;
+        default:
+          console.warn("ItemDetails.addNoteNote invalid type", self.item.type);
+          return;
+        }
+        self.$axios.post(path, body)
+          .then(response => { 
+              self.item.notes.push(response.data);
+              self.item.newNote = false;
+              self.data.noteText = '';
+            });
+
+        this.$emit('new-note-added');
+      });
+    },
+    cancelNewNote: function() {
+      this.item.newNote = false;
+      this.$emit('new-note-canceled', this.item);
+    },
+    clearNewNote: function() {
+      this.data.noteText = '';
+      this.$emit('new-note-cleared', this.item);
+    },
+    editNewNote: function() {
+      this.item.newNote = "editing";
+      this.$emit('new-note-edit', this.item);
+    },
     onCompletionUpdated: function(item) {
       this.$emit('updated-iscomplete', item);
     }

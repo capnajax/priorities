@@ -7,6 +7,8 @@ import VueI18n from 'vue-i18n'
 
 Vue.config.productionTip = false
 
+
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

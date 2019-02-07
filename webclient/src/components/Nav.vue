@@ -50,7 +50,7 @@ export default {
   },
   mounted() {
     this.$axios
-      .get('http://localhost:3000/api/Projects/getSummary')
+      .get(process.env.API_ENDPOINT_BASE+'/Projects/getSummary')
       .then(response => { 
           // preprocess response data to add some attributes useful for UI
           var projects = response.data.projects;

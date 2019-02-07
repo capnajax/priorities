@@ -69,10 +69,31 @@ export default {
       project.count = newCount;
     },
     loadProject: function(projectId) {
-      this.$axios
-        .get('http://localhost:3000/api/Projects/getDetail/' + projectId)
+      var self = this;
+      self.$axios
+        .get(process.env.API_ENDPOINT_BASE+'/Projects/getDetail/' + projectId)
         .then(response => { 
-          this.data.project = response.data.project;
+          console.log(response);
+          // add a few things to each class
+          response.data.project.newEpic = false;
+          response.data.project.newTask = false;
+          response.data.project.newNote = false;
+          response.data.project.tasks.forEach(task => {
+            task.newNote = false;
+            task.newSubtask = false;
+          });
+          response.data.project.epics.forEach(epic => {
+            epic.newNote = false;
+            epic.newTask = false;
+            epic.tasks.forEach(task => {
+              task.newNote = false;
+              task.newSubtask = false;
+              task.subtasks.forEach(subtask => {
+                subtask.newNote = false;
+              })
+            })
+          })
+          self.data.project = response.data.project;
         });
     },
     onEpicsUpdate: function(project) {

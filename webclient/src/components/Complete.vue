@@ -58,18 +58,18 @@ export default {
       self.data.pending = true;
       self.$nextTick(() => {
         var path = {
-                epic: 'http://localhost:3000/api/Epics',
-                task: 'http://localhost:3000/api/Tasks',
-                subtask: 'http://localhost:3000/api/Subtasks',
-                project: 'http://localhost:3000/api/Projects',
+                epic: process.env.API_ENDPOINT_BASE+'/Epics',
+                task: process.env.API_ENDPOINT_BASE+'/Tasks',
+                subtask: process.env.API_ENDPOINT_BASE+'/Subtasks',
+                project: process.env.API_ENDPOINT_BASE+'/Projects',
               }[item.type],
             body = {isComplete: item.isComplete};
         path += '/' + item.id;
-        this.$axios.patch(path, body)
+        self.$axios.patch(path, body)
           .then(response => { 
               // alert("response: " + JSON.stringify(response));
               self.data.pending = false;
-              this.$emit('updated-iscomplete', item);
+              self.$emit('updated-iscomplete', item);
             });
       });
     }

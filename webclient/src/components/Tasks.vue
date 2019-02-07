@@ -38,15 +38,12 @@ export default {
   },
   methods: {
     onTaskUpdate: function(task) {
-
       // first update the task list
-
       for(let i = 0; i < this.parent.tasks.length; i++) {
         if (this.parent.tasks[i].id == task.id) {
           this.parent.tasks[i] = task;
         }
       }
-
       // then send back the task update
       this.$emit('updated-tasks', this.parent);
     }

@@ -6,6 +6,34 @@ const
 
 module.exports = function(Task) {
 
+	/**
+	 *	Observer to ensure that each note has a sequence number at the time it's created.
+	 */
+	Task.observe('before save', function updateSequence(ctx, next) {
+
+		// only need to update sequence in this method if we have an instance.
+		if (ctx.instance && !ctx.instance.sequence) {
+			var filter = {where:{},fields:{sequence:true}};
+			if(ctx.instance.epicId) {
+				filter.where.epicId = ctx.instance.epicId;
+			} else if(ctx.instance.projectId) {
+				filter.where.projectId = ctx.instance.projectId;
+			}
+			Task.find(filter, (err, tasks) => {
+				if (err) {
+					next(err);
+					return;
+				}
+				var maxSequence = _.max(_.map(tasks, note => {return (task.sequence || 0);}));
+				ctx.instance.sequence = maxSequence + 1;
+				next();
+			});
+	  	} else {
+	  		next();
+	  	}
+	});
+
+
 	Task.subtaskCount = function subtaskCount(_taskId) {
 
 		debug("Task.subtaskCount(", taskId, ") called");
