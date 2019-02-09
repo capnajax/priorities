@@ -33,18 +33,43 @@
   "acls": [],
   "methods": {
     "taskCount": {
-      "http": {"verb": "get"},
-      "accepts": {"arg": "projectId", "type": "string"},
-      "returns": {"arg": "count", "type": "object"}
+      "accepts": {
+        "arg": "projectId",
+        "type": "string"
+      },
+      "returns": {
+        "arg": "count",
+        "type": "object"
+      },
+      "http": {
+        "verb": "get"
+      }
     },
     "getSummary": {
-      "http": {"verb": "get"},
-      "returns": {"arg": "projects", "type": "array"}
+      "returns": {
+        "arg": "projects",
+        "type": "array"
+      },
+      "http": {
+        "verb": "get"
+      }
     },
     "getDetail": {
-      "http": {"path": "/getDetail/:projectId", "verb": "get"},
-      "accepts": {"arg": "projectId", "type": "string", "http": {"source": "path"}},
-      "returns": {"arg": "project", "type": "object"}
+      "accepts": {
+        "arg": "projectId",
+        "type": "string",
+        "http": {
+          "source": "path"
+        }
+      },
+      "returns": {
+        "arg": "project",
+        "type": "object"
+      },
+      "http": {
+        "path": "/getDetail/:projectId",
+        "verb": "get"
+      }
     }
   }
 }

@@ -276,3 +276,9 @@ projects:
       - note: A note that would make the most loquatious authors in history rise from the grave just to blush.
   - epic: One final epic
 
+- project: Empty Project
+
+- project: Empty Project with notes
+  notes:
+  - note: This project has a note
+  - note: And it has another note

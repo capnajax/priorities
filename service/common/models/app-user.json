@@ -1,0 +1,37 @@
+{
+  "name": "AppUser",
+  "plural": "AppUsers",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {},
+  "acls": [
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "passwordEntropy"
+    }
+  ],
+  "methods": {
+    "passwordEntropy": {
+      "accepts": {
+        "arg": "password",
+        "type": "string"
+      },
+      "returns": {
+        "arg": "entropy",
+        "type": "object"
+      },
+      "http": {
+        "verb": "get",
+        "path": "/entropy"
+      }
+    }
+  }
+}

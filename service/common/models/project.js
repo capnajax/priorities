@@ -120,7 +120,7 @@ module.exports = function(Project) {
 	          tasks = {relation:'tasks',scope:{order:['priority ASC','id DESC'],include:[subtasks,notes]}},
 	          epics = {relation:'epics',scope:{order:['priority ASC','id DESC'],include:[tasks,notes]}};
 	          
-	    var project = {where:{id:projectId},scope:{order:['priority ASC','id DESC']},include:[epics,tasks]};
+	    var project = {where:{id:projectId},scope:{order:['priority ASC','id DESC']},include:[epics,tasks,notes]};
 
 		return Project.find(project)
 			.then(projects => {

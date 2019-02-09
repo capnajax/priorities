@@ -9,17 +9,19 @@
       <template slot="more-details">
         <span class="context-control">
           <span
-            v-if="!item.notes || item.notes.length == 0"
+            v-if="(!item.notes || item.notes.length == 0) && !item.newNote"
             slot="more-details"
             @click="editNewNote"
             class="button add-note">add note</span>
           <span
             v-if="item.type === 'epic' && (!item.tasks || !item.tasks.length)"
             slot="more-details"
+            @click="editNewTask"
             class="button add-task">add task</span>
           <span
             v-if="item.type === 'task' && (!item.subtasks || !item.subtasks.length)"
             slot="more-details"
+            @click="editNewSubtask"
             class="button add-subtask">add subtask</span>
         </span>
       </template>
@@ -36,50 +38,7 @@
         v-for="(depends) in item.depends"
         :key="depends.depends">{{ depends.depends }}</span>
     </div>
-    <div
-      class="notes-wrapper"
-      v-if="item.notes">
-      <div
-        class="note"
-        v-for="(note) in item.notes"
-        :key="note.id">
-        <span class="bullet" /><span class="note-text">{{ note.title }}</span>
-      </div>
-      <div
-        class="note newnote"
-        :class="{pending: item.newNote === 'pending'}"
-        v-if="item.newNote">
-        <textarea
-          class="noteText"
-          v-model="data.noteText" />
-        <div class="button-bar">
-          <span
-            class="button clear"
-            @click="clearNewNote">
-            clear
-          </span>
-          <span
-            class="button cancel"
-            @click="cancelNewNote">
-            cancel
-          </span>
-          <span
-            v-if="data.noteText"
-            class="button done"            
-            @click="addNewNote">
-            done
-          </span>
-        </div>
-        <span style="display: inline-block; background-color: orange; width: 10em; height: 2em;" />
-      </div>
-      <div v-if="item.notes && item.notes.length > 0 && !item.newNote">
-        <span class="context-control">
-          <span
-            @click="editNewNote"
-            class="button add-note">add note</span>
-        </span>
-      </div>
-    </div>
+    <Notes :item="item" />
   </div>
 
 </template>
@@ -87,32 +46,23 @@
 <script>
 
 import Complete from './Complete'
+import Notes from './Notes'
 
 export default {
 
   name: 'ItemDetails',
   components: {
-    Complete
+    Complete,
+    Notes
   },
   props: {
       item: {
         type: Object,
         required: true
-      },
-      newNote: {
-        type: Boolean,
-        required: false,
-        default: () => { return false; }
       }
-  },
-  data () {
-    return {
-      data: {
-        noteText : ''
-      }
-    }
   },
   methods: {
+
     addNewNote: function() {
       console.log("ItemDetails -- addNewNote called");
       console.log(this.data.noteText);
@@ -157,6 +107,17 @@ export default {
       this.item.newNote = "editing";
       this.$emit('new-note-edit', this.item);
     },
+
+    editNewSubtask: function() {
+      this.item.newSubtask = "editing";
+      this.$emit('new-subtask-edit', this.item);
+    },
+
+    editNewTask: function() {
+      this.item.newTask = "editing";
+      this.$emit('new-task-edit', this.item);
+    },
+
     onCompletionUpdated: function(item) {
       this.$emit('updated-iscomplete', item);
     }

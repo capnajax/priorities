@@ -57,5 +57,9 @@
   "Subtask": {
     "dataSource": "db",
     "public": true
+  },
+  "AppUser": {
+    "dataSource": "db",
+    "public": true
   }
 }

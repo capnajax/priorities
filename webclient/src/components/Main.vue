@@ -17,9 +17,28 @@
         class="project"
         v-if="(data.project && data.project.id)">
         <!-- should put project notes here -->
+        <span class="context-control">
+          <span
+            v-if="(!data.project.notes || data.project.notes.length == 0) && !data.project.newNote"
+            slot="more-details"
+            class="button add-note">add note</span>
+          <span
+            v-if="!data.project.tasks || !data.project.tasks.length"
+            slot="more-details"
+            class="button add-task">add task</span>
+          <span
+            v-if="(!data.project.epics || !data.project.epics.length) && (!data.project.tasks || !data.project.tasks.length)"
+            slot="more-details"
+            class="button add-subtask">add epic</span>
+        </span>
+        <Notes :item="data.project" />
         <Tasks
           :parent="data.project"
           @updated-tasks="onTasksUpdate" />
+        <span
+          v-if="(!data.project.epics || !data.project.epics.length) && (data.project.tasks && data.project.tasks.length)"
+          slot="more-details"
+          class="button add-subtask">add epic</span>
         <Epics
           :project="data.project"
           @updated-epics="onEpicsUpdate" />
@@ -32,6 +51,7 @@
 
 import Epics from './Epics'
 import Nav from './Nav'
+import Notes from './Notes'
 import Tasks from './Tasks'
 
 export default {
@@ -39,6 +59,7 @@ export default {
   components: {
     Epics,
     Nav,
+    Notes,
     Tasks
   },
   data () {

@@ -18,14 +18,8 @@
       "type": "hasMany",
       "model": "Note",
       "foreignKey": "epicId"
-    }    
+    }
   },
   "acls": [],
-  "methods": {
-    "taskCount": {
-      "http": {"verb": "get"},
-      "accepts": {"arg": "epicId", "type": "string"},
-      "returns": {"arg": "tasks", "type": "object"}
-    }
-  }
+  "methods": {}
 }

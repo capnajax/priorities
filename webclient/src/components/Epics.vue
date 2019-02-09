@@ -15,8 +15,41 @@
           @updated-tasks="onTasksUpdate" />
       </li>
     </ol>
+    <div
+      class="epic new-epic"
+      :class="{pending: project.newEpic === 'pending'}"
+      v-if="project.newEpic">
+      <textarea
+        class="epicName"
+        v-model="data.epic.name" />
+      <div class="button-bar">
+        <span
+          class="button clear"
+          @click="clearNewEpic">
+          clear
+        </span>
+        <span
+          class="button cancel"
+          @click="cancelNewEpic">
+          cancel
+        </span>
+        <span
+          v-if="data.epic.name"
+          class="button done"            
+          @click="addNewEpic">
+          done
+        </span>
+      </div>
+      <span style="display: inline-block; background-color: orange; width: 10em; height: 2em;" />
+    </div>
     <div v-if="project.epics && project.epics.length > 0">
-      <span class="context-control"><span class="button add-epic">add epic</span></span>
+      <span class="context-control">
+        <span
+          @click="editNewEpic"
+          class="button add-epic">
+          add epic
+        </span>
+      </span>
     </div>
   </div>
 </template>
@@ -38,7 +71,45 @@ export default {
       required: true
     }
   },
+  data () {
+    return {
+      data: {
+        // for creating a new epic
+        epic : {name: ''}
+      }
+    };
+  },
   methods: {
+    addNewEpic: function() {
+      console.log("Epics -- addNewEpic called");
+      var self = this;      
+      self.project.newEpic = "pending";
+      self.$nextTick(() => {
+        var path = process.env.API_ENDPOINT_BASE+'/Epics',
+            body = {name: self.data.epic.name, projectId: self.project.id};
+        self.$axios.post(path, body)
+          .then(response => { 
+              self.project.epics.push(response.data);
+              self.project.newEpic = false;
+              self.data.epic.name = '';
+            });
+        this.$emit('new-epic-added');
+      });
+    },
+    cancelNewEpic: function() {
+      this.project.newEpic = false;
+      this.$emit('new-epic-canceled', this.project);
+    },
+    clearNewEpic: function() {
+      this.data.epic.name = '';
+      this.$emit('new-epic-cleared', this.project);
+    },
+    editNewEpic: function() {
+      console.log("Edit new epics");
+      this.project.newEpic = "editing";
+      this.$emit('new-epic-edit', this.project);
+    },
+
     onEpicsUpdate: function(epic) {
       this.$emit('updated-epics', this.project);
     },

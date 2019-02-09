@@ -278,11 +278,14 @@ function importProjects(projectsData) { return new Promise((resolve, reject) => 
 
 		while (taskModelsQueue.length > 0) {
 			let tm = taskModelsQueue.shift();
-			tm.taskModel.depends && console.log(tm.taskModel.depends);
+
+			if (debug.enabled) {
+				tm.taskModel.depends && debug(tm.taskModel.depends);
+			}
 
 			tm.taskModel.depends && tm.taskModel.depends.forEach(depend => {
 				if (dm[depend.depend]) {
-					console.log("PUSH of tm", tm);
+					debug("PUSH of tm", tm);
 					dm[depend.depend].dependants.push(tm);
 				} else {
 					errors.push({ code: "UNKNOWN_DEPENDENCY",
@@ -335,7 +338,7 @@ function importYaml(appModels) {
 	models = appModels;
 	fs.readFile('lib/priorities.yaml', (err, dataYaml) => {
 		if (err) {
-			console.log("error reading import file:", err);
+			console.error("error reading import file:", err);
 			process.exit(1);
 		} else {
 			var projectsData = YAML.parse(dataYaml.toString());
@@ -343,10 +346,10 @@ function importYaml(appModels) {
 			importProjects(projectsData)
 			.then(() => {
 				let endTime = new Date().getTime();
-				console.log("Import completed in", (endTime-startTime)/1000 + "s");
+				debug("Import completed in", (endTime-startTime)/1000 + "s");
 			})
 			.catch((reason) => {
-				console.log("error importing:", reason)
+				console.error("error importing:", reason)
 			})
 		}
 	})

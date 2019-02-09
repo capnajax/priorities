@@ -23,9 +23,17 @@
   "acls": [],
   "methods": {
     "subtaskCount": {
-      "http": {"verb": "get"},
-      "accepts": {"arg": "taskId", "type": "string"},
-      "returns": {"arg": "tasks", "type": "object"}
+      "accepts": {
+        "arg": "taskId",
+        "type": "string"
+      },
+      "returns": {
+        "arg": "tasks",
+        "type": "object"
+      },
+      "http": {
+        "verb": "get"
+      }
     }
   }
 }
