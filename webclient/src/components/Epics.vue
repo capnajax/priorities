@@ -85,8 +85,12 @@ export default {
       var self = this;      
       self.project.newEpic = "pending";
       self.$nextTick(() => {
-        var path = process.env.API_ENDPOINT_BASE+'/Epics',
-            body = {name: self.data.epic.name, projectId: self.project.id};
+        var path = process.env.API_ENDPOINT_BASE+'/WorkItems',
+            body = {
+                name: self.data.epic.name, 
+                projectId: self.project.id,
+                taskLevel: 200
+              };
         self.$axios.post(path, body)
           .then(response => { 
               self.project.epics.push(response.data);

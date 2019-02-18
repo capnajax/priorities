@@ -57,12 +57,7 @@ export default {
       item.isComplete = !item.isComplete;
       self.data.pending = true;
       self.$nextTick(() => {
-        var path = {
-                epic: process.env.API_ENDPOINT_BASE+'/Epics',
-                task: process.env.API_ENDPOINT_BASE+'/Tasks',
-                subtask: process.env.API_ENDPOINT_BASE+'/Subtasks',
-                project: process.env.API_ENDPOINT_BASE+'/Projects',
-              }[item.type],
+        var path = process.env.API_ENDPOINT_BASE+'/WorkItems',
             body = {isComplete: item.isComplete};
         path += '/' + item.id;
         self.$axios.patch(path, body)

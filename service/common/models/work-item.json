@@ -1,0 +1,74 @@
+{
+  "name": "WorkItem",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string"
+    },
+    "taskLevel": {
+      "type": "number",
+      "required": true
+    },
+    "isComplete": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "priority": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    }
+  },
+  "validations": [],
+  "relations": {
+    "childItems": {
+      "type": "hasMany",
+      "model": "WorkItem",
+      "foreignKey": "parentId"
+    },
+    "notes": {
+      "type": "hasMany",
+      "model": "Note",
+      "foreignKey": "workItemId"
+    }
+  },
+  "acls": [],
+  "methods": {
+    "getProjectDetail": {
+      "accepts": {
+        "arg": "projectId",
+        "type": "string",
+        "http": {
+          "source": "path"
+        }
+      },
+      "returns": {
+        "arg": "project",
+        "type": "object"
+      },
+      "http": {
+        "path": "/getProjectDetail/:projectId",
+        "verb": "get"
+      }
+    },
+    "getProjectSummary": {
+      "returns": {
+        "arg": "projects",
+        "type": "array"
+      },
+      "http": {
+        "verb": "get",
+        "path": "/getProjectSummary"
+      }
+    }
+  }
+}

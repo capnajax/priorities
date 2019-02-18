@@ -77,8 +77,11 @@ export default {
       var self = this;      
       self.parent.newTask = "pending";
       self.$nextTick(() => {
-        var path = process.env.API_ENDPOINT_BASE+'/Tasks',
-            body = {name: self.data.task.name};
+        var path = process.env.API_ENDPOINT_BASE+'/WorkItems',
+            body = {
+                name: self.data.task.name,
+                taskLevel: 300
+              };
         if (self.parent.type === 'epic') {
           body.epicId = self.parent.id;
         } else {

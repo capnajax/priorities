@@ -61,5 +61,9 @@
   "AppUser": {
     "dataSource": "db",
     "public": true
+  },
+  "WorkItem": {
+    "dataSource": "db",
+    "public": true
   }
 }

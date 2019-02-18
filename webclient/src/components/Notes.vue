@@ -73,20 +73,10 @@ export default {
       self.item.newNote = "pending";
       self.$nextTick(() => {
         var path = process.env.API_ENDPOINT_BASE+'/Notes',
-            body = {title: this.data.noteText};
-        switch(self.item.type) {
-        case 'project':
-          body.projectId = self.item.id;   break;
-        case 'epic':
-          body.epicId = self.item.id;      break;
-        case 'task':
-          body.taskId = self.item.id;      break;
-        case 'subtask':
-          body.subtaskId = self.item.id;   break;
-        default:
-          console.warn("ItemDetails.addNoteNote invalid type", self.item.type);
-          return;
-        }
+            body = {
+                title: this.data.noteText,
+                workItemId: self.item.id
+              };
         self.$axios.post(path, body)
           .then(response => { 
               self.item.notes.push(response.data);

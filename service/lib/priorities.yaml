@@ -282,3 +282,44 @@ projects:
   notes:
   - note: This project has a note
   - note: And it has another note
+
+- project: mocha test project
+  notes:
+  - note: project note 1
+  - note: This project is for mocha testing
+  - note: project note 3
+  - note: project note 4
+  epics:
+  - epic: project epic 0
+    tasks:
+    - task: epic task 0
+    - task: epic task 1
+      subtask:
+      - subtask: subtask t2-1
+      - subtask: subtask t2-2
+        notes:
+        - note: subtask t2-2 note 1
+        - note: subtask t2-2 note 2
+      notes:
+      - note: task e2 note 1
+      - note: task e2 note 2
+    notes:
+    - note: epic note 0
+    - note: epic note 1
+  - epic: project epic 1
+  tasks:
+  - task: project task 0
+    subtasks:
+    - subtask: subtask et1
+      notes:
+      - note: subtask et1 note 1
+      - note: subtask et1 note 2
+    - subtask: subtask et2
+      notes:
+      - note: subtask et2 note 1
+    - subtask: subtask et3
+    notes:
+    - note: pt0 note 0
+    - note: pt0 note 1
+  - task: project task 1
+

@@ -81,8 +81,12 @@ export default {
       var self = this;      
       self.task.newSubtask = "pending";
       self.$nextTick(() => {
-        var path = process.env.API_ENDPOINT_BASE+'/Subtasks',
-            body = {name: this.data.subtask.name, taskId: this.task.id};
+        var path = process.env.API_ENDPOINT_BASE+'/WorkItems',
+            body = {
+                name: this.data.subtask.name, 
+                parentId: this.task.id, 
+                taskLevel: 400
+              };
         self.$axios.post(path, body)
           .then(response => { 
               self.task.subtasks.push(response.data);

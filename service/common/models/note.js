@@ -11,6 +11,8 @@ module.exports = function(Note) {
 	Note.observe('before save', function updateSequence(ctx, next) {
 
 		// only need to update sequence in this method if we have an instance.
+		console.log(ctx.instance);
+
 		if (ctx.instance && !ctx.instance.sequence) {
 			var filter = {where:{},fields:{sequence:true}};
 			if (ctx.instance.subtaskId) {

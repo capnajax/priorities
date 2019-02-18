@@ -6,8 +6,10 @@ const
 module.exports = function(Project) {
 
 	var app = require('../../server/server'),
+		importYamlOld = require('../../lib/import-old'),
 		importYaml = require('../../lib/import');
 
+	importYamlOld(app.models);
 	importYaml(app.models);
 
 	Project.taskCount = function taskCount(_projectId) {

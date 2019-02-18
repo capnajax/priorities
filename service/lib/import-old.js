@@ -1,11 +1,10 @@
 
 const
-	c 	 	= require('./constants'),
-	debug 	= require('debug')('priorities:import'),
-	fs 		= require('fs'),
+	debug=require('debug')('priorities:import-old'),
+	fs=require('fs'),
 	randomstring=require('randomstring'),
-	YAML 	= require('yamljs'),
-	_ 		= require('lodash'),
+	YAML=require('yamljs'),
+	_=require('lodash'),
 
 	MODEL_NOTE = 'note',
 	MODEL_PROJECT = 'project',
@@ -26,13 +25,13 @@ function collectPromises(promises) { return new Promise((resolve, reject) => {
 		});
 })}
 
-function importNote (workItemId, sequence, noteData) { return new Promise((resolve, reject) => {
+function importNote (reference, sequence, noteData) { return new Promise((resolve, reject) => {
 
 	debug("Importing note", JSON.stringify(noteData.note));
 
 	Promise.resolve()
 	.then(() => {
-			return models.Note.create({title: noteData.note, workItemId, sequence});
+			return models.Note.create(_.extend({}, reference, {title: noteData.note, sequence}));
 		})
 	.then(note => {
 			resolve(note);
@@ -51,7 +50,7 @@ function importNote (workItemId, sequence, noteData) { return new Promise((resol
 		});
 });}
 
-function importSubtask (parentId, priority, subtaskData) { return new Promise((resolve, reject) => {
+function importSubtask (reference, priority, subtaskData) { return new Promise((resolve, reject) => {
 
 	var importedSubtask;
 
@@ -59,13 +58,11 @@ function importSubtask (parentId, priority, subtaskData) { return new Promise((r
 
 	Promise.resolve()
 	.then(() => {
-			return models.WorkItem.create({	
+			return models.Subtask.create(_.extend({}, reference, {	
 					name: subtaskData.subtask,
-					taskLevel: c.TASKLEVEL_SUBTASK,
-					parentId,
 					priority,
 					isComplete: subtaskData.complete || false
-				});
+				}));
 		})
 	.then(subtask => {
 			importedSubtask = subtask;
@@ -73,7 +70,7 @@ function importSubtask (parentId, priority, subtaskData) { return new Promise((r
 			debug(importedSubtask);
 
 			let notesPromises = subtaskData.notes 
-					? _.map(subtaskData.notes, (s,i) => {return importNote(subtask.id,i,s)}) 
+					? _.map(subtaskData.notes, (s,i) => {return importNote({subtaskId: subtask.id},i,s)}) 
 					: [];
 			return collectPromises(notesPromises);
 		})
@@ -90,7 +87,7 @@ function importSubtask (parentId, priority, subtaskData) { return new Promise((r
 		});
 });}
 
-function importTask (parentId, priority, taskData) { return new Promise((resolve, reject) => {
+function importTask (reference, priority, taskData) { return new Promise((resolve, reject) => {
 
 	let importedTask;
 
@@ -98,13 +95,11 @@ function importTask (parentId, priority, taskData) { return new Promise((resolve
 
 	Promise.resolve()
 	.then(() => {
-			return models.WorkItem.create({	
+			return models.Task.create(_.extend({}, reference, {	
 					name: taskData.task, 
-					taskLevel: c.TASKLEVEL_TASK,
-					parentId: parentId,
 					priority,
 					isComplete: taskData.complete || false
-				});
+				}));
 		})
 	.then(task => {
 			importedTask = task;
@@ -112,10 +107,10 @@ function importTask (parentId, priority, taskData) { return new Promise((resolve
 			debug(importedTask);
 
 			let subtaskPromises = taskData.subtasks 
-					? _.map(taskData.subtasks, (s,i) => {return importSubtask(task.id,i,s)})
+					? _.map(taskData.subtasks, (s,i) => {return importSubtask({taskId: task.id},i,s)})
 					: [], 
 				notesPromises = taskData.notes 
-					? _.map(taskData.notes, (n,i) => {return importNote(task.id,i,n)}) 
+					? _.map(taskData.notes, (n,i) => {return importNote({taskId: task.id},i,n)}) 
 					: [];
 			return collectPromises([ 
 					collectPromises(subtaskPromises),
@@ -135,7 +130,7 @@ function importTask (parentId, priority, taskData) { return new Promise((resolve
 		});
 });}
 
-function importEpic (parentId, priority, epicData) { return new Promise((resolve, reject) => {
+function importEpic (reference, priority, epicData) { return new Promise((resolve, reject) => {
 
 	let importedEpic;
 
@@ -143,13 +138,11 @@ function importEpic (parentId, priority, epicData) { return new Promise((resolve
 
 	Promise.resolve()
 	.then(() => {
-			return models.WorkItem.create({ 
+			return models.Epic.create(_.extend({}, reference, { 
 					name: epicData.epic,
-					taskLevel: c.TASKLEVEL_EPIC,
-					parentId,
 					priority,
 					isComplete: epicData.complete || false
-				});
+				}));
 		})
 	.then(epic => {
 			importedEpic = epic;
@@ -157,10 +150,10 @@ function importEpic (parentId, priority, epicData) { return new Promise((resolve
 			debug(importedEpic);
 
 			let taskPromises = epicData.tasks 
-					? _.map(epicData.tasks, (e,i) => {return importTask(epic.id,i,e)})
+					? _.map(epicData.tasks, (e,i) => {return importTask({epicId: epic.id},i,e)})
 					: [],
 				notesPromises = epicData.notes 
-					? _.map(epicData.notes, (n,i) => {return importNote(epic.id,i,n)})
+					? _.map(epicData.notes, (n,i) => {return importNote({epicId: epic.id},i,n)})
 					: [];
 
 			return collectPromises([ 
@@ -189,15 +182,11 @@ function importProject (priority, projectData) { return new Promise((resolve, re
 
 	Promise.resolve()
 	.then(() => {
-			var importData = { 
+			return models.Project.create({ 
 					name: projectData.project,
-					taskLevel: c.TASKLEVEL_PROJECT,
-					parentId: null,
 					priority,
 					isComplete: projectData.complete || false
-				};
-			debug("Importing Project with importData:" + JSON.stringify(importData));
-			return models.WorkItem.create(importData);
+				});
 		})
 	.then(project => {
 			importedProject = project;
@@ -205,13 +194,13 @@ function importProject (priority, projectData) { return new Promise((resolve, re
 			debug(importedProject);
 
 			let taskPromises = projectData.tasks 
-					? _.map(projectData.tasks, (t,i) => {return importTask(project.id, i+1, t)})
+					? _.map(projectData.tasks, (t,i) => {return importTask({projectId: project.id}, i, t)})
 					: [],
 				epicPromises = projectData.epics 
-					? _.map(projectData.epics, (e,i) => {return importEpic(project.id, i+1, e)})
+					? _.map(projectData.epics, (e,i) => {return importEpic({projectId: project.id}, i, e)})
 					: [];
 				notePromises = projectData.notes 
-					? _.map(projectData.notes, (n,i) => {return importNote(project.id, i+1, n)})
+					? _.map(projectData.notes, (n,i) => {return importNote({projectId: project.id}, i, n)})
 					: [];
 
 			return collectPromises([
@@ -244,69 +233,69 @@ function importProjects(projectsData) { return new Promise((resolve, reject) => 
 
 	// build a list of titles to match task dependencies against
 
-	// projectsData.projects.forEach(project => {
-	// 	let dm, 
-	// 		taskModelsQueue = []; // makes sure all epics are processed before any tasks, and 
-	// 							  // all tasks are processed before any subtasks.
+	projectsData.projects.forEach(project => {
+		let dm, 
+			taskModelsQueue = []; // makes sure all epics are processed before any tasks, and 
+								  // all tasks are processed before any subtasks.
 
-	// 	dm = dependencyMap[project.project] = {};
+		dm = dependencyMap[project.project] = {};
 
-	// 	// first gather all the names
-	// 	project.epics && project.epics.forEach(epic => {
-	// 		taskModelsQueue.push({type: MODEL_EPIC, taskModel: epic, name: epic.epic});
-	// 	});
-	// 	project.tasks && project.tasks.forEach(task => {
-	// 		taskModelsQueue.push({type: MODEL_TASK, taskModel: task, name: task.task});
-	// 	});
-	// 	for (let i = 0; i < taskModelsQueue.length; i++) {
-	// 		let tm = taskModelsQueue[i];
-	// 		switch(tm.type) {
-	// 		case MODEL_EPIC: 
-	// 			tm.taskModel.tasks || (tm.taskModel.tasks = []);
-	// 			tm.taskModel.tasks.forEach(task => {
-	// 				taskModelsQueue.push({type: MODEL_TASK, taskModel: task, name: task.task});
-	// 			})
-	// 			break;
-	// 		case MODEL_TASK:
-	// 			tm.taskModel.subtasks && tm.taskModel.subtasks.forEach(subtask => {
-	// 				taskModelsQueue.push({type: MODEL_SUBTASK, taskModel: subtask, name: subtask.subtask});
-	// 			})
-	// 			break;
-	// 		default:
-	// 			// subtask -- do nothing
-	// 			break;
-	// 		}
+		// first gather all the names
+		project.epics && project.epics.forEach(epic => {
+			taskModelsQueue.push({type: MODEL_EPIC, taskModel: epic, name: epic.epic});
+		});
+		project.tasks && project.tasks.forEach(task => {
+			taskModelsQueue.push({type: MODEL_TASK, taskModel: task, name: task.task});
+		});
+		for (let i = 0; i < taskModelsQueue.length; i++) {
+			let tm = taskModelsQueue[i];
+			switch(tm.type) {
+			case MODEL_EPIC: 
+				tm.taskModel.tasks || (tm.taskModel.tasks = []);
+				tm.taskModel.tasks.forEach(task => {
+					taskModelsQueue.push({type: MODEL_TASK, taskModel: task, name: task.task});
+				})
+				break;
+			case MODEL_TASK:
+				tm.taskModel.subtasks && tm.taskModel.subtasks.forEach(subtask => {
+					taskModelsQueue.push({type: MODEL_SUBTASK, taskModel: subtask, name: subtask.subtask});
+				})
+				break;
+			default:
+				// subtask -- do nothing
+				break;
+			}
 
-	// 		if (_.includes(dm, tm.name)) {
-	// 			errors.push({	code: "DUPLICATE_NAME", 
-	// 							message: "Two things have the same title. Assuming title " +
-	// 									JSON.stringify(tm.name) +
-	// 									" refers to the " + tm.type});
-	// 		} else {
-	// 			dm[tm.name] = {type: tm.type, dependants: []};
-	// 		}
-	// 	}
+			if (_.includes(dm, tm.name)) {
+				errors.push({	code: "DUPLICATE_NAME", 
+								message: "Two things have the same title. Assuming title " +
+										JSON.stringify(tm.name) +
+										" refers to the " + tm.type});
+			} else {
+				dm[tm.name] = {type: tm.type, dependants: []};
+			}
+		}
 
-	// 	while (taskModelsQueue.length > 0) {
-	// 		let tm = taskModelsQueue.shift();
+		while (taskModelsQueue.length > 0) {
+			let tm = taskModelsQueue.shift();
 
-	// 		if (debug.enabled) {
-	// 			tm.taskModel.depends && debug(tm.taskModel.depends);
-	// 		}
+			if (debug.enabled) {
+				tm.taskModel.depends && debug(tm.taskModel.depends);
+			}
 
-	// 		tm.taskModel.depends && tm.taskModel.depends.forEach(depend => {
-	// 			if (dm[depend.depend]) {
-	// 				debug("PUSH of tm", tm);
-	// 				dm[depend.depend].dependants.push(tm);
-	// 			} else {
-	// 				errors.push({ code: "UNKNOWN_DEPENDENCY",
-	// 							  message: "Uknown dependency of name" + JSON.stringify(depend.depend)});
-	// 			}
-	// 		});
-	// 	}
-	// });
-	// debug("errors:");
-	// debug(errors);
+			tm.taskModel.depends && tm.taskModel.depends.forEach(depend => {
+				if (dm[depend.depend]) {
+					debug("PUSH of tm", tm);
+					dm[depend.depend].dependants.push(tm);
+				} else {
+					errors.push({ code: "UNKNOWN_DEPENDENCY",
+								  message: "Uknown dependency of name" + JSON.stringify(depend.depend)});
+				}
+			});
+		}
+	});
+	debug("errors:");
+	debug(errors);
 
 	// import
 
