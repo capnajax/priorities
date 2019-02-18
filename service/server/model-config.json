@@ -38,26 +38,6 @@
   "Note": {
     "dataSource": "db"
   },
-  "Project": {
-    "dataSource": "db",
-    "public": true
-  },
-  "TaskModel": {
-    "dataSource": "db",
-    "public": false
-  },
-  "Epic": {
-    "dataSource": "db",
-    "public": true
-  },
-  "Task": {
-    "dataSource": "db",
-    "public": true
-  },
-  "Subtask": {
-    "dataSource": "db",
-    "public": true
-  },
   "AppUser": {
     "dataSource": "db",
     "public": true

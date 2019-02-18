@@ -7,6 +7,11 @@ const
 
 module.exports = function(WorkItem) {
 
+	var app = require('../../server/server'),
+		importYaml = require('../../lib/import');
+
+	importYaml(app.models);
+
 	WorkItem.observe('before save', function setPriority(ctx, next) {
 		// only need to update priority in this method if we have an instance.
 		if (ctx.instance && !ctx.instance.priority) {
