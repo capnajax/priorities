@@ -96,6 +96,7 @@ module.exports = function(WorkItem) {
 				query = {
 						where: {
 							parentId: { inq: parentIds },
+							taskLevel: c.TASKLEVEL_TASK
 						},
 						order: ['priority ASC', 'id DESC'],
 						include: [
@@ -164,7 +165,7 @@ module.exports = function(WorkItem) {
 							debug("task.parentId ==", JSON.stringify(task.parentId), ", epic.id ==", JSON.stringify(project.epics[j].parentId));
 							if (project.epics[j].id === task.parentId) {
 								found = true;
-								project.epics[j].tasks = [task];
+								project.epics[j].tasks.push(task);
 							}
 						}
 						found || errors.push({status: 500, message: "ERROR WI0132"});
@@ -222,7 +223,7 @@ module.exports = function(WorkItem) {
 				if (_.has(_.first(_reason), 'status')) {
 					errorResult = {status:_.first(_reason).status,error: _reason};
 				} else {
-					errorResult = {status:500,error: _reason};
+					errorResult = {status: 500, error: _reason};
 				}
 				cb && cb(errorResult);
 			})

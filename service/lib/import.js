@@ -1,7 +1,7 @@
 
 const
 	c 	 	= require('./constants'),
-	debug 	= require('debug')('priorities:import'),
+	debug 	= require('debug')('Priorities:import'),
 	fs 		= require('fs'),
 	randomstring=require('randomstring'),
 	YAML 	= require('yamljs'),
@@ -73,7 +73,7 @@ function importSubtask (parentId, priority, subtaskData) { return new Promise((r
 			debug(importedSubtask);
 
 			let notesPromises = subtaskData.notes 
-					? _.map(subtaskData.notes, (s,i) => {return importNote(subtask.id,i,s)}) 
+					? _.map(subtaskData.notes, (s,i) => {return importNote(subtask.id,i+1,s)}) 
 					: [];
 			return collectPromises(notesPromises);
 		})
@@ -112,10 +112,10 @@ function importTask (parentId, priority, taskData) { return new Promise((resolve
 			debug(importedTask);
 
 			let subtaskPromises = taskData.subtasks 
-					? _.map(taskData.subtasks, (s,i) => {return importSubtask(task.id,i,s)})
+					? _.map(taskData.subtasks, (s,i) => {return importSubtask(task.id,i+1,s)})
 					: [], 
 				notesPromises = taskData.notes 
-					? _.map(taskData.notes, (n,i) => {return importNote(task.id,i,n)}) 
+					? _.map(taskData.notes, (n,i) => {return importNote(task.id,i+1,n)}) 
 					: [];
 			return collectPromises([ 
 					collectPromises(subtaskPromises),
@@ -157,10 +157,10 @@ function importEpic (parentId, priority, epicData) { return new Promise((resolve
 			debug(importedEpic);
 
 			let taskPromises = epicData.tasks 
-					? _.map(epicData.tasks, (e,i) => {return importTask(epic.id,i,e)})
+					? _.map(epicData.tasks, (e,i) => {return importTask(epic.id,i+1,e)})
 					: [],
 				notesPromises = epicData.notes 
-					? _.map(epicData.notes, (n,i) => {return importNote(epic.id,i,n)})
+					? _.map(epicData.notes, (n,i) => {return importNote(epic.id,i+1,n)})
 					: [];
 
 			return collectPromises([ 
@@ -312,7 +312,7 @@ function importProjects(projectsData) { return new Promise((resolve, reject) => 
 
 	debug("importing");
 	projectPromises = projectsData.projects 
-		? _.map(projectsData.projects, (p,i) => {return importProject(i, p)})
+		? _.map(projectsData.projects, (p,i) => {return importProject(i+1, p)})
 		: [];
 	debug('projectPromises');
 	debug(projectPromises);
