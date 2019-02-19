@@ -88,7 +88,7 @@ export default {
         var path = process.env.API_ENDPOINT_BASE+'/WorkItems',
             body = {
                 name: self.data.epic.name, 
-                projectId: self.project.id,
+                parentId: self.project.id,
                 taskLevel: 200
               };
         self.$axios.post(path, body)

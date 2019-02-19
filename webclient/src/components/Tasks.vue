@@ -41,7 +41,13 @@
       <span style="display: inline-block; background-color: orange; width: 10em; height: 2em;" />
     </div>
     <div v-if="parent.tasks && parent.tasks.length > 0">
-      <span class="context-control"><span class="button add-task">add task</span></span>
+      <span class="context-control">
+        <span
+          @click="editNewTask"
+          class="button add-task">
+          add task
+        </span>
+      </span>
     </div>
   </div>
 </template>
@@ -80,13 +86,9 @@ export default {
         var path = process.env.API_ENDPOINT_BASE+'/WorkItems',
             body = {
                 name: self.data.task.name,
-                taskLevel: 300
+                taskLevel: 300,
+                parentId: self.parent.id
               };
-        if (self.parent.type === 'epic') {
-          body.epicId = self.parent.id;
-        } else {
-          body.projectId = self.parent.id;
-        }
         self.$axios.post(path, body)
           .then(response => { 
               self.parent.tasks.push(response.data);
