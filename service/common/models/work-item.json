@@ -39,6 +39,12 @@
       "type": "hasMany",
       "model": "Note",
       "foreignKey": "workItemId"
+    },
+    "dependencies": {
+      "type": "hasMany",
+      "through": "Dependency",
+      "model": "WorkItem",
+      "foreignKey": "dependencyId"
     }
   },
   "acls": [],

@@ -13,7 +13,7 @@ const
 	MODEL_TASK = 'task',
 	MODEL_SUBTASK = 'subtask';
 
-var dependencyMap = {},
+var idMap = {}, // maps titles or references to ids
 	models;
 
 function collectPromises(promises) { return new Promise((resolve, reject) => {
@@ -65,6 +65,22 @@ function importSubtask (parentId, priority, subtaskData) { return new Promise((r
 					parentId,
 					priority,
 					isComplete: subtaskData.complete || false
+				})
+				.then(subtask => {
+					let key = subtaskData.ref || subtaskData.subtask;
+					if (_.has(idMap, key)) {
+						return Promise.reject({
+							code: "ERROR_DUPLICATE_REFERENCE",
+							message: "more than one item with a title or ref " + key,
+							details: {
+									key,
+									ids: [subtask.id, idMap[key].id]
+								}
+						});
+					}
+					idMap[key] = subtask.id;
+					console.log("Mapping Subtask", key, "to", idMap[key]);
+					return subtask;
 				});
 		})
 	.then(subtask => {
@@ -104,6 +120,22 @@ function importTask (parentId, priority, taskData) { return new Promise((resolve
 					parentId: parentId,
 					priority,
 					isComplete: taskData.complete || false
+				})
+				.then(task => {
+					let key = taskData.ref || taskData.task;
+					if (_.has(idMap, key)) {
+						return Promise.reject({
+							code: "ERROR_DUPLICATE_REFERENCE",
+							message: "more than one item with a title or ref " + key,
+							details: {
+									key,
+									ids: [task.id, idMap[key].id]
+								}
+						});
+					}
+					idMap[key] = task.id;
+					console.log("Mapping Task", key, "to", idMap[key]);
+					return task;
 				});
 		})
 	.then(task => {
@@ -149,6 +181,22 @@ function importEpic (parentId, priority, epicData) { return new Promise((resolve
 					parentId,
 					priority,
 					isComplete: epicData.complete || false
+				})
+				.then(epic => {
+					let key = epicData.ref || epicData.epic;
+					if (_.has(idMap, key)) {
+						return Promise.reject({
+							code: "ERROR_DUPLICATE_REFERENCE",
+							message: "more than one item with a title or ref " + key,
+							details: {
+									key,
+									ids: [epic.id, idMap[key].id]
+								}
+						});
+					}
+					idMap[key] = epic.id;
+					console.log("Mapping Epic", key, "to", idMap[key]);
+					return epic;
 				});
 		})
 	.then(epic => {
@@ -197,7 +245,23 @@ function importProject (priority, projectData) { return new Promise((resolve, re
 					isComplete: projectData.complete || false
 				};
 			debug("Importing Project with importData:" + JSON.stringify(importData));
-			return models.WorkItem.create(importData);
+			return models.WorkItem.create(importData)
+				.then(project => {
+					let key = projectData.ref || projectData.project;
+					if (_.has(idMap, key)) {
+						return Promise.reject({
+							code: "ERROR_DUPLICATE_REFERENCE",
+							message: "more than one item with a title or ref " + key,
+							details: {
+									key,
+									ids: [project.id, idMap[key].id]
+								}
+						});
+					}
+					idMap[key] = project.id;
+					console.log("Mapping Project", key, "to", idMap[key]);
+					return project;
+				});
 		})
 	.then(project => {
 			importedProject = project;
@@ -242,72 +306,6 @@ function importProjects(projectsData) { return new Promise((resolve, reject) => 
 		warnings = [],
 		errors = [];
 
-	// build a list of titles to match task dependencies against
-
-	// projectsData.projects.forEach(project => {
-	// 	let dm, 
-	// 		taskModelsQueue = []; // makes sure all epics are processed before any tasks, and 
-	// 							  // all tasks are processed before any subtasks.
-
-	// 	dm = dependencyMap[project.project] = {};
-
-	// 	// first gather all the names
-	// 	project.epics && project.epics.forEach(epic => {
-	// 		taskModelsQueue.push({type: MODEL_EPIC, taskModel: epic, name: epic.epic});
-	// 	});
-	// 	project.tasks && project.tasks.forEach(task => {
-	// 		taskModelsQueue.push({type: MODEL_TASK, taskModel: task, name: task.task});
-	// 	});
-	// 	for (let i = 0; i < taskModelsQueue.length; i++) {
-	// 		let tm = taskModelsQueue[i];
-	// 		switch(tm.type) {
-	// 		case MODEL_EPIC: 
-	// 			tm.taskModel.tasks || (tm.taskModel.tasks = []);
-	// 			tm.taskModel.tasks.forEach(task => {
-	// 				taskModelsQueue.push({type: MODEL_TASK, taskModel: task, name: task.task});
-	// 			})
-	// 			break;
-	// 		case MODEL_TASK:
-	// 			tm.taskModel.subtasks && tm.taskModel.subtasks.forEach(subtask => {
-	// 				taskModelsQueue.push({type: MODEL_SUBTASK, taskModel: subtask, name: subtask.subtask});
-	// 			})
-	// 			break;
-	// 		default:
-	// 			// subtask -- do nothing
-	// 			break;
-	// 		}
-
-	// 		if (_.includes(dm, tm.name)) {
-	// 			errors.push({	code: "DUPLICATE_NAME", 
-	// 							message: "Two things have the same title. Assuming title " +
-	// 									JSON.stringify(tm.name) +
-	// 									" refers to the " + tm.type});
-	// 		} else {
-	// 			dm[tm.name] = {type: tm.type, dependants: []};
-	// 		}
-	// 	}
-
-	// 	while (taskModelsQueue.length > 0) {
-	// 		let tm = taskModelsQueue.shift();
-
-	// 		if (debug.enabled) {
-	// 			tm.taskModel.depends && debug(tm.taskModel.depends);
-	// 		}
-
-	// 		tm.taskModel.depends && tm.taskModel.depends.forEach(depend => {
-	// 			if (dm[depend.depend]) {
-	// 				debug("PUSH of tm", tm);
-	// 				dm[depend.depend].dependants.push(tm);
-	// 			} else {
-	// 				errors.push({ code: "UNKNOWN_DEPENDENCY",
-	// 							  message: "Uknown dependency of name" + JSON.stringify(depend.depend)});
-	// 			}
-	// 		});
-	// 	}
-	// });
-	// debug("errors:");
-	// debug(errors);
-
 	// import
 
 	debug("importing");
@@ -332,6 +330,7 @@ function importProjects(projectsData) { return new Promise((resolve, reject) => 
 		})
 	.catch(reason => {
 			debug("Error importing:", reason);
+			debug.enabled && debug(JSON.stringify(reason));
 			reject({
 				code: "ERRORS_ON_IMPORT",
 				messages: "Failed to import project set",
@@ -360,7 +359,8 @@ function importYaml(appModels) {
 				debug("Import completed in", (endTime-startTime)/1000 + "s");
 			})
 			.catch((reason) => {
-				console.error("error importing:", reason)
+				console.error("error importing:", reason);
+				console.error(JSON.stringify(reason));
 			})
 		}
 	})

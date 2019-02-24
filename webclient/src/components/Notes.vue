@@ -6,15 +6,23 @@
       class="note"
       v-for="(note) in item.notes"
       :key="note.id">
-      <span class="bullet" /><span class="note-text">{{ note.title }}</span>
+      <span class="bullet" />
+      <span
+        class="note-text"
+        v-html="note.title" />
     </div>
     <div
       class="note newnote"
       :class="{pending: item.newNote === 'pending'}"
       v-if="item.newNote">
-      <textarea
+      <editor
+        api-key="9l8cmq5aruur8sgk3ol7lo6et7wbcpwu7e8ed7caqz24suy1"
+        :init="tinymceInit"
         class="noteText"
         v-model="data.noteText" />
+      <!-- textarea
+        class="noteText ephox"
+        v-model="data.noteText" /-->
       <div class="button-bar">
         <span
           class="button clear"
@@ -47,9 +55,14 @@
 
 <script>
 
+import Editor from '@tinymce/tinymce-vue';
+
 export default {
 
   name: 'Notes',
+  components: {
+    editor: Editor
+  },
   props: {
       item: {
         type: Object,
@@ -60,15 +73,42 @@ export default {
     return {
       data: {
         noteText : ''
+      },
+      tinymceInit: {
+        block_formats: 'Paragraph=p;Heading 1=h5;Heading 2=h6;Preformatted=pre',
+        browser_spellcheck: true,
+        fix_list_elements: true,
+        font_formats: 'Sans Serif=\'Avenir\', Helvetica-Neue, Helvetica, Arial, sans-serif;Slab Serif=\'Adelle\',serif;Monospace=courier new,courier,monospace',
+        menubar: '',
+        plugins: 'code, link, textcolor',
+        style_formats: [
+          {title: 'Headers', items: [
+            {title: 'Header 1', format: 'h5'},
+            {title: 'Header 2', format: 'h6'},
+          ]},
+          {title: 'Inline', items: [
+            {title: 'Bold', icon: 'bold', format: 'bold'},
+            {title: 'Italic', icon: 'italic', format: 'italic'},
+            {title: 'Underline', icon: 'underline', format: 'underline'},
+            {title: 'Strikethrough', icon: 'strikethrough', format: 'strikethrough'},
+            {title: 'Superscript', icon: 'superscript', format: 'superscript'},
+            {title: 'Subscript', icon: 'subscript', format: 'subscript'},
+            {title: 'Code', icon: 'code', format: 'code'}
+          ]},
+          {title: 'Blocks', items: [
+            {title: 'Paragraph', format: 'p'},
+            {title: 'Blockquote', format: 'blockquote'},
+            {title: 'Div', format: 'div'},
+            {title: 'Pre', format: 'pre'}
+          ]}
+        ],
+        toolbar: 'undo redo | styleselect | fontselect | bold italic underline | forecolor backcolor | link code'
       }
     }
   },
   methods: {
 
     addNewNote: function() {
-      console.log("ItemDetails -- addNewNote called");
-      console.log(this.data.noteText);
-
       var self = this;      
       self.item.newNote = "pending";
       self.$nextTick(() => {

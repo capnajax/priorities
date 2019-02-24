@@ -63,10 +63,10 @@ module.exports = function(WorkItem) {
 						}
 						if (debug.enabled) {
 							if (errors.length > 0) {
-								debug("Errors:");
+								debug("[getProjectDetail] Errors:");
 								debug(errors);
 							} else {
-								debug("Project:");
+								debug("[getProjectDetail] Project:");
 								debug(project);
 							}
 						}
@@ -82,7 +82,7 @@ module.exports = function(WorkItem) {
 					})
 					.then(_epics => {
 						epics = _epics;
-						debug("epics:");
+						debug("[getProjectDetail] epics:");
 						debug(epics);
 					})
 			})
@@ -92,7 +92,7 @@ module.exports = function(WorkItem) {
 				for (let i in epics) {
 					parentIds.push(epics[i].id);
 				}
-				debug("parentIds ==", parentIds);
+				debug("[getProjectDetail] parentIds ==", parentIds);
 				query = {
 						where: {
 							parentId: { inq: parentIds },
@@ -108,7 +108,7 @@ module.exports = function(WorkItem) {
 							NOTES
 						]
 					};
-				debug("query ==", JSON.stringify(query));
+				debug("[getProjectDetail] query ==", JSON.stringify(query));
 				return WorkItem.find(query)
 					.then(_tasks => {
 						_tasks = JSON.parse(JSON.stringify(_tasks));				
@@ -118,7 +118,7 @@ module.exports = function(WorkItem) {
 							delete _tasks[i].childItems;
 						}
 						tasks = _tasks;
-						debug("tasks:");
+						debug("[getProjectDetail] tasks:");
 						debug(tasks);
 					});
 			})
@@ -141,7 +141,7 @@ module.exports = function(WorkItem) {
 					}
 					tasks[i].count = count;
 				}
-				debug("tasks with counts:");
+				debug("[getProjectDetail] tasks with counts:");
 				debug(tasks);
 				return Promise.resolve();
 			})
@@ -149,30 +149,30 @@ module.exports = function(WorkItem) {
 				// collate epics and tasks
 				project.epics = epics;
 				project.tasks = [];
-				debug("ok -2")
+				debug("[getProjectDetail] ok -2")
 				for (let i in epics) {
 					project.epics[i].tasks = [];
 				}
-				debug("ok -1")
+				debug("[getProjectDetail] ok -1")
 				for (let i in tasks) {
 					let task = tasks[i];
 					if (task.parentId == projectId) {
 						project.tasks.push(task);
-						debug("ok", i, "1 with project parent");
+						debug("[getProjectDetail] ok", i, "1 with project parent");
 					} else {
 						let found = false;
 						for (let j in project.epics) {
-							debug("task.parentId ==", JSON.stringify(task.parentId), ", epic.id ==", JSON.stringify(project.epics[j].parentId));
+							debug("[getProjectDetail] task.parentId ==", JSON.stringify(task.parentId), ", epic.id ==", JSON.stringify(project.epics[j].parentId));
 							if (project.epics[j].id === task.parentId) {
 								found = true;
 								project.epics[j].tasks.push(task);
 							}
 						}
 						found || errors.push({status: 500, message: "ERROR WI0132"});
-						debug("ok", i, "1 with epic parent");
+						debug("[getProjectDetail] ok", i, "1 with epic parent");
 					}
 				}
-				debug("collated epics:");
+				debug("[getProjectDetail] collated epics:");
 				debug(epics);
 				return;
 			})
@@ -186,9 +186,9 @@ module.exports = function(WorkItem) {
 					}
 					for (let j in epics[i].tasks) {
 						let task = epics[i].tasks[j];
-						count.complete += task.count.complete + task.isComplete?1:0;
-						count.incomplete += task.count.incomplete + task.isComplete?0:1;
-						count.total += task.count.total + 1;
+						count.complete += (task.count.complete + (task.isComplete?1:0));
+						count.incomplete += (task.count.incomplete + (task.isComplete?0:1));
+						count.total += (task.count.total + 1);
 					}
 					epics[i].count = count;
 				}
@@ -199,13 +199,22 @@ module.exports = function(WorkItem) {
 					total: 0
 				}
 				for (let i in epics) {
-					let epic = epics[i]
-					count.complete += epic.count.complete + epic.isComplete?1:0;
-					count.incomplete += epic.count.incomplete + epic.isComplete?0:1;
-					count.total += epic.count.total + 1;
+					let epic = epics[i];
+					debug("[getProjectDetail] epics["+i+"].count ==", epic.count);
+					count.complete += (epic.count.complete + (epic.isComplete?1:0));
+					count.incomplete += (epic.count.incomplete + (epic.isComplete?0:1));
+					count.total += (epic.count.total + 1);
+				}
+				for (let i in project.tasks) {
+					let task = project.tasks[i];
+					debug("[getProjectDetail] tasks["+i+"].count ==", task.count);
+					count.complete += (task.count.complete + (task.isComplete?1:0));
+					count.incomplete += (task.count.incomplete + (task.isComplete?0:1));
+					count.total += (task.count.total + 1);
 				}
 				project.count = count;
-				debug("project with counts:")
+				debug("[getProjectDetail] project.count ==", project.count);
+				debug("[getProjectDetail] project with counts:")
 				debug(project);
 				return;
 			})
@@ -271,49 +280,62 @@ module.exports = function(WorkItem) {
 				incomplete: 0,
 				total: 0
 			},
-			getChildren = function(_parentIds, _level) {
-				debug("[getProjectTaskCount:getChildren] called on _parentIds", _parentIds);
+			getDescendants = function(_parentIds, _level) {
 				return WorkItem.find({
 						where: {
-							parentId: { inq: _parentIds}
+							parentId: { inq: _parentIds }
 						},
-						fields: ['id', 'taskLevel', 'isComplete']
+						fields: ['id', 'taskLevel']
 					})
 					.then(_children => {
-						var ids = [], stop = false, lowestLevel = Infinity;
-						for (let i in _children) {
-							let ci = _children[i];
-							ids.push(ci.id);
-							lowestLevel = Math.min(lowestLevel, ci.taskLevel);
-							ci.isComplete
-								? count.complete++
-								: count.incomplete++;
-							ci.total++;
-						}
-						if (lowestLevel <= _level || lowestLevel > c.TASKLEVEL_MAX) {
-							stop = true; // circuit breaker in case of circular reference
-						}
-						if (!stop) {
-							if (ids.length > 0) {
-								return getChildren(ids, lowestLevel);
-							} else {
-								return Promise.resolve(count);
+						if (_children.length) {
+							
+							// there are still records to grab. 
+
+							// let's check for a doubleplusungood circular reference
+							// could never happen but it'll cause infinite recursion
+							let lowestLevel = Infinity, ids = [];
+							for (let i in _children) {
+								ids.push(_children[i].id);
+								lowestLevel = Math.min(lowestLevel, _children[i].taskLevel);
 							}
+							if (lowestLevel <= _level || lowestLevel > c.TASKLEVEL_MAX) {
+								return Promise.reject("Error WI0293");
+							} else {
+								return getDescendants(ids, lowestLevel)
+									.then(_descendants => {
+										return _.uniq(_.flatten([ids, _parentIds, _descendants]));
+									});
+							}
+
 						} else {
-							return Promise.reject("Error WI0266");
+
+							return [];
+
 						}
-					})
-			}
-			return getChildren([_projectId])
-				.then(_count => {
-					debug("[getProjectTaskCount:getChildren] _count:", _count);
-					_cb && _cb(null, _count);
-					return Promise.resolve(_count);
-				})
-				.catch(_reason => {
-					_cb && _cb(_reason);
-					return Promise.reject(_reason);
-				})
+					});
+			};
+		return getDescendants([_projectId])
+			.then(_descendants => {
+				debug("[getProjectTaskCount] _projectId", _projectId, "	_descendants ==", _descendants);
+				return WorkItem.find({
+						where: {
+							id: { inq: _.without(_descendants, _projectId) }
+						},
+						fields: ['isComplete']
+					});
+			})
+			.then(_items => {
+				var complete = 0;
+				for (let i in _items) {
+					_items[i].isComplete && complete++;
+				}
+				return {
+					complete,
+					incomplete: _items.length - complete,
+					total: _items.length
+				};
+			});
 	}
 
 

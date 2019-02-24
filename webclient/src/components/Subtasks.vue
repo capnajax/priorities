@@ -2,7 +2,7 @@
   <div class="subtask-wrapper">
     <ol 
       class="subtasks"
-      v-if="task.subtasks.length > 0">
+      v-if="task.subtasks && task.subtasks.length > 0">
       <li
         class="subtask"
         v-for="(subtask) in task.subtasks"
@@ -76,8 +76,6 @@ export default {
   },
   methods: {
     addNewSubtask: function() {
-      console.log("Subtasks -- addNewSubtask called");
-      console.log(this.data.noteText);
       var self = this;      
       self.task.newSubtask = "pending";
       self.$nextTick(() => {
@@ -105,7 +103,6 @@ export default {
       this.$emit('new-subtask-cleared', this.task);
     },
     editNewSubtask: function() {
-      console.log("Edit new subtasks");
       this.task.newSubtask = "editing";
       this.$emit('new-subtask-edit', this.task);
     },

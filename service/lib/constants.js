@@ -1,7 +1,15 @@
 
 const
+	sanitizeHtml = require('sanitize-html'),
 	_ = require('lodash'),
+
 	fc = { // fc == fundamental constants
+		NOTES_HTML 	: {
+			allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'span' ]),
+			allowedAttributes: false,
+			allowedStyles: false
+		},
+
 		TASKLEVEL_PROJECT	: 100,
 		TASKLEVEL_EPIC		: 200,
 		TASKLEVEL_TASK 		: 300,

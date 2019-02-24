@@ -94,7 +94,6 @@ export default {
       self.$axios
         .get(process.env.API_ENDPOINT_BASE+'/WorkItems/getProjectDetail/' + projectId)
         .then(response => { 
-          console.log(response);
           // add a few things to each class
           response.data.project.newEpic = false;
           response.data.project.newTask = false;
@@ -106,9 +105,7 @@ export default {
           response.data.project.epics.forEach(epic => {
             epic.newNote = false;
             epic.newTask = false;
-            console.log(epic);
             epic.tasks.forEach(task => {
-              console.log(task);
               task.newNote = false;
               task.newSubtask = false;
               task.subtasks.forEach(subtask => {

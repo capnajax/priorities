@@ -45,5 +45,9 @@
   "WorkItem": {
     "dataSource": "db",
     "public": true
+  },
+  "Dependency": {
+    "dataSource": "db",
+    "public": true
   }
 }

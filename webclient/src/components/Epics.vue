@@ -81,7 +81,6 @@ export default {
   },
   methods: {
     addNewEpic: function() {
-      console.log("Epics -- addNewEpic called");
       var self = this;      
       self.project.newEpic = "pending";
       self.$nextTick(() => {
@@ -109,7 +108,6 @@ export default {
       this.$emit('new-epic-cleared', this.project);
     },
     editNewEpic: function() {
-      console.log("Edit new epics");
       this.project.newEpic = "editing";
       this.$emit('new-epic-edit', this.project);
     },

@@ -1,0 +1,25 @@
+{
+  "name": "Dependency",
+  "plural": "Dependencies",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "dependency": {
+      "type": "belongsTo",
+      "model": "WorkItem",
+      "foreignKey": "dependencyId"    
+    },
+    "workItem": {
+      "type": "belongsTo",
+      "model": "WorkItem",
+      "foreignKey": "dependantId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

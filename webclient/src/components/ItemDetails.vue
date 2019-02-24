@@ -14,12 +14,12 @@
             @click="editNewNote"
             class="button add-note">add note</span>
           <span
-            v-if="item.type === 'epic' && (!item.tasks || !item.tasks.length)"
+            v-if="item.taskLevel === 200 && (!item.tasks || !item.tasks.length)"
             slot="more-details"
             @click="editNewTask"
             class="button add-task">add task</span>
           <span
-            v-if="item.type === 'task' && (!item.subtasks || !item.subtasks.length)"
+            v-if="item.taskLevel === 300 && (!item.subtasks || !item.subtasks.length)"
             slot="more-details"
             @click="editNewSubtask"
             class="button add-subtask">add subtask</span>
@@ -62,11 +62,7 @@ export default {
       }
   },
   methods: {
-
     addNewNote: function() {
-      console.log("ItemDetails -- addNewNote called");
-      console.log(this.data.noteText);
-
       var self = this;      
       self.item.newNote = "pending";
       self.$nextTick(() => {

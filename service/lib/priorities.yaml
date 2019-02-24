@@ -225,12 +225,15 @@ projects:
     - note: 2Etiam pharetra tristique eros, vel varius massa imperdiet quis. Pellentesque imperdiet, sapien tincidunt suscipit malesuada, quam lacus pulvinar purus, suscipit feugiat est odio non nunc. Nullam malesuada sagittis nisl, non tristique leo posuere vitae. Maecenas tincidunt ultrices risus, pretium pretium tortor dapibus vitae. Nunc eget euismod ex, sit amet feugiat leo. Nullam consequat finibus rutrum. Nulla facilisi. Donec ac venenatis tortor. Sed ligula enim, sodales et ultricies nec, eleifend vehicula nibh. Nulla sapien lectus, tempor eget augue sagittis, finibus consectetur sapien. Proin ultricies lacinia neque, sit amet sollicitudin risus imperdiet ac.
   - epic: Short name
   - epic: 3Epic with super duper extra crazy insane silly rude outrageous unusual extreme astronomically long name.
+    ref: 3Epic dupe
     tasks:
     - task: Short task
+      ref: Short tast dupe
     - task: 3Task with a name that's long. Long like a trek accross the outback. Long like the Minnesota winter. Long like John Holmes.
       subtasks:
       - subtask: Short task
       - subtask: 3A subtask with a name that would make the most loquatious authors in history rise from the grave just to blush.
+        ref: 3A-dupe
         notes:
         - note: short note
         - note: 3Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse finibus pellentesque tortor. Aenean et purus nec elit condimentum sollicitudin. Nunc cursus turpis nisi, a euismod ex posuere sit amet. Aliquam erat volutpat. Sed iaculis aliquet magna, quis congue dui tempus ut. Ut mattis elit lacus, id lobortis nibh condimentum vel. Etiam viverra, nisi vel ornare pretium, felis nisl vulputate metus, a ultricies quam velit in ligula. Integer pulvinar mi id elit rutrum tempus.

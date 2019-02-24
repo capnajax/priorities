@@ -79,7 +79,6 @@ export default {
   },
   methods: {
     addNewTask: function() {
-      console.log("Tasks -- addNewTask called");
       var self = this;      
       self.parent.newTask = "pending";
       self.$nextTick(() => {
@@ -107,7 +106,6 @@ export default {
       this.$emit('new-task-cleared', this.parent);
     },
     editNewTask: function() {
-      console.log("Edit new tasks");
       this.parent.newTask = "editing";
       this.$emit('new-task-edit', this.parent);
     },

@@ -1,6 +1,9 @@
 'use strict';
 
 const
+	c = require('../../lib/constants'),
+	debug = require('debug')('Priorities:Note'),
+	sanitizeHtml = require('sanitize-html'),
 	_ = require('lodash');
 
 module.exports = function(Note) {
@@ -36,5 +39,16 @@ module.exports = function(Note) {
 	  	} else {
 	  		next();
 	  	}
+	});
+
+	/**
+	 *	Observer to ensure that any HTML provided is safe
+	 */
+	Note.observe('before save', function sanitizeHtmlAction(ctx, next) {
+		debug("html: ", ctx.instance.title);
+		ctx.instance.title = sanitizeHtml(ctx.instance.title, c.NOTES_HTML);
+		ctx.instance.detail = sanitizeHtml(ctx.instance.detail, c.NOTES_HTML);
+		debug(" -->: ", ctx.instance.title);
+		next();
 	});
 };

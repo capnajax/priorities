@@ -1032,4829 +1032,6 @@ paths:
                 type: number
                 format: double
       deprecated: false
-  '/Projects/{id}/dependencies/{fk}':
-    get:
-      tags:
-        - Project
-      summary: Find a related item by id for dependencies.
-      operationId: Project.prototype.__findById__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/TaskModel'
-      deprecated: false
-    delete:
-      tags:
-        - Project
-      summary: Delete a related item by id for dependencies.
-      operationId: Project.prototype.__destroyById__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    put:
-      tags:
-        - Project
-      summary: Update a related item by id for dependencies.
-      operationId: Project.prototype.__updateById__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/TaskModel'
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/TaskModel'
-      deprecated: false
-  '/Projects/{id}/dependencies/rel/{fk}':
-    put:
-      tags:
-        - Project
-      summary: Add a related item by id for dependencies.
-      operationId: Project.prototype.__link__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/ProjectTaskModel'
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/ProjectTaskModel'
-      deprecated: false
-    delete:
-      tags:
-        - Project
-      summary: Remove the dependencies relation to an item by id.
-      operationId: Project.prototype.__unlink__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    head:
-      tags:
-        - Project
-      summary: Check the existence of dependencies relation to an item by id.
-      operationId: Project.prototype.__exists__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: boolean
-      deprecated: false
-  '/Projects/{id}/notes/{fk}':
-    get:
-      tags:
-        - Project
-      summary: Find a related item by id for notes.
-      operationId: Project.prototype.__findById__notes
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for notes
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Note'
-      deprecated: false
-    delete:
-      tags:
-        - Project
-      summary: Delete a related item by id for notes.
-      operationId: Project.prototype.__destroyById__notes
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for notes
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    put:
-      tags:
-        - Project
-      summary: Update a related item by id for notes.
-      operationId: Project.prototype.__updateById__notes
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for notes
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/Note'
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Note'
-      deprecated: false
-  '/Projects/{id}/epics/{fk}':
-    get:
-      tags:
-        - Project
-      summary: Find a related item by id for epics.
-      operationId: Project.prototype.__findById__epics
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for epics
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Epic'
-      deprecated: false
-    delete:
-      tags:
-        - Project
-      summary: Delete a related item by id for epics.
-      operationId: Project.prototype.__destroyById__epics
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for epics
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    put:
-      tags:
-        - Project
-      summary: Update a related item by id for epics.
-      operationId: Project.prototype.__updateById__epics
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for epics
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/Epic'
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Epic'
-      deprecated: false
-  '/Projects/{id}/tasks/{fk}':
-    get:
-      tags:
-        - Project
-      summary: Find a related item by id for tasks.
-      operationId: Project.prototype.__findById__tasks
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for tasks
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Task'
-      deprecated: false
-    delete:
-      tags:
-        - Project
-      summary: Delete a related item by id for tasks.
-      operationId: Project.prototype.__destroyById__tasks
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for tasks
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    put:
-      tags:
-        - Project
-      summary: Update a related item by id for tasks.
-      operationId: Project.prototype.__updateById__tasks
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for tasks
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/Task'
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Task'
-      deprecated: false
-  '/Projects/{id}/dependencies':
-    get:
-      tags:
-        - Project
-      summary: Queries dependencies of Project.
-      operationId: Project.prototype.__get__dependencies
-      parameters:
-        - name: filter
-          in: query
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/TaskModel'
-      deprecated: false
-    post:
-      tags:
-        - Project
-      summary: Creates a new instance in dependencies of this model.
-      operationId: Project.prototype.__create__dependencies
-      parameters:
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/TaskModel'
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/TaskModel'
-      deprecated: false
-    delete:
-      tags:
-        - Project
-      summary: Deletes all dependencies of this model.
-      operationId: Project.prototype.__delete__dependencies
-      parameters:
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-  '/Projects/{id}/dependencies/count':
-    get:
-      tags:
-        - Project
-      summary: Counts dependencies of Project.
-      operationId: Project.prototype.__count__dependencies
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              count:
-                type: number
-                format: double
-      deprecated: false
-  '/Projects/{id}/notes':
-    get:
-      tags:
-        - Project
-      summary: Queries notes of Project.
-      operationId: Project.prototype.__get__notes
-      parameters:
-        - name: filter
-          in: query
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Note'
-      deprecated: false
-    post:
-      tags:
-        - Project
-      summary: Creates a new instance in notes of this model.
-      operationId: Project.prototype.__create__notes
-      parameters:
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/Note'
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Note'
-      deprecated: false
-    delete:
-      tags:
-        - Project
-      summary: Deletes all notes of this model.
-      operationId: Project.prototype.__delete__notes
-      parameters:
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-  '/Projects/{id}/notes/count':
-    get:
-      tags:
-        - Project
-      summary: Counts notes of Project.
-      operationId: Project.prototype.__count__notes
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              count:
-                type: number
-                format: double
-      deprecated: false
-  '/Projects/{id}/epics':
-    get:
-      tags:
-        - Project
-      summary: Queries epics of Project.
-      operationId: Project.prototype.__get__epics
-      parameters:
-        - name: filter
-          in: query
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Epic'
-      deprecated: false
-    post:
-      tags:
-        - Project
-      summary: Creates a new instance in epics of this model.
-      operationId: Project.prototype.__create__epics
-      parameters:
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/Epic'
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Epic'
-      deprecated: false
-    delete:
-      tags:
-        - Project
-      summary: Deletes all epics of this model.
-      operationId: Project.prototype.__delete__epics
-      parameters:
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-  '/Projects/{id}/epics/count':
-    get:
-      tags:
-        - Project
-      summary: Counts epics of Project.
-      operationId: Project.prototype.__count__epics
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              count:
-                type: number
-                format: double
-      deprecated: false
-  '/Projects/{id}/tasks':
-    get:
-      tags:
-        - Project
-      summary: Queries tasks of Project.
-      operationId: Project.prototype.__get__tasks
-      parameters:
-        - name: filter
-          in: query
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Task'
-      deprecated: false
-    post:
-      tags:
-        - Project
-      summary: Creates a new instance in tasks of this model.
-      operationId: Project.prototype.__create__tasks
-      parameters:
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/Task'
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Task'
-      deprecated: false
-    delete:
-      tags:
-        - Project
-      summary: Deletes all tasks of this model.
-      operationId: Project.prototype.__delete__tasks
-      parameters:
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-  '/Projects/{id}/tasks/count':
-    get:
-      tags:
-        - Project
-      summary: Counts tasks of Project.
-      operationId: Project.prototype.__count__tasks
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              count:
-                type: number
-                format: double
-      deprecated: false
-  /Projects:
-    post:
-      tags:
-        - Project
-      summary: Create a new instance of the model and persist it into the data source.
-      operationId: Project.create
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/Project'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Project'
-      deprecated: false
-    patch:
-      tags:
-        - Project
-      summary: Patch an existing model instance or insert a new one into the data source.
-      operationId: Project.patchOrCreate
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/Project'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Project'
-      deprecated: false
-    put:
-      tags:
-        - Project
-      summary: Replace an existing model instance or insert a new one into the data source.
-      operationId: Project.replaceOrCreate__put_Projects
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/Project'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Project'
-      deprecated: false
-    get:
-      tags:
-        - Project
-      summary: Find all instances of the model matched by filter from the data source.
-      operationId: Project.find
-      parameters:
-        - name: filter
-          in: query
-          description: 'Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string ({"something":"value"})'
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Project'
-      deprecated: false
-  /Projects/replaceOrCreate:
-    post:
-      tags:
-        - Project
-      summary: Replace an existing model instance or insert a new one into the data source.
-      operationId: Project.replaceOrCreate__post_Projects_replaceOrCreate
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/Project'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Project'
-      deprecated: false
-  /Projects/upsertWithWhere:
-    post:
-      tags:
-        - Project
-      summary: Update an existing model instance or insert a new one into the data source based on the where criteria.
-      operationId: Project.upsertWithWhere
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/Project'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Project'
-      deprecated: false
-  '/Projects/{id}/exists':
-    get:
-      tags:
-        - Project
-      summary: Check whether a model instance exists in the data source.
-      operationId: 'Project.exists__get_Projects_{id}_exists'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              exists:
-                type: boolean
-      deprecated: false
-  '/Projects/{id}':
-    head:
-      tags:
-        - Project
-      summary: Check whether a model instance exists in the data source.
-      operationId: 'Project.exists__head_Projects_{id}'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              exists:
-                type: boolean
-      deprecated: false
-    get:
-      tags:
-        - Project
-      summary: 'Find a model instance by {{id}} from the data source.'
-      operationId: Project.findById
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-        - name: filter
-          in: query
-          description: 'Filter defining fields and include - must be a JSON-encoded string ({"something":"value"})'
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Project'
-      deprecated: false
-    put:
-      tags:
-        - Project
-      summary: Replace attributes for a model instance and persist it into the data source.
-      operationId: 'Project.replaceById__put_Projects_{id}'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/Project'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Project'
-      deprecated: false
-    delete:
-      tags:
-        - Project
-      summary: 'Delete a model instance by {{id}} from the data source.'
-      operationId: Project.deleteById
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-      deprecated: false
-    patch:
-      tags:
-        - Project
-      summary: Patch attributes for a model instance and persist it into the data source.
-      operationId: Project.prototype.patchAttributes
-      parameters:
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/Project'
-        - name: id
-          in: path
-          description: Project id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Project'
-      deprecated: false
-  '/Projects/{id}/replace':
-    post:
-      tags:
-        - Project
-      summary: Replace attributes for a model instance and persist it into the data source.
-      operationId: 'Project.replaceById__post_Projects_{id}_replace'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/Project'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Project'
-      deprecated: false
-  /Projects/findOne:
-    get:
-      tags:
-        - Project
-      summary: Find first instance of the model matched by filter from the data source.
-      operationId: Project.findOne
-      parameters:
-        - name: filter
-          in: query
-          description: 'Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string ({"something":"value"})'
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Project'
-      deprecated: false
-  /Projects/update:
-    post:
-      tags:
-        - Project
-      summary: 'Update instances of the model matched by {{where}} from the data source.'
-      operationId: Project.updateAll
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/Project'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            description: Information related to the outcome of the operation
-            type: object
-            properties:
-              count:
-                description: The number of instances updated
-                type: number
-                format: double
-      deprecated: false
-  /Projects/count:
-    get:
-      tags:
-        - Project
-      summary: Count instances of the model matched by where from the data source.
-      operationId: Project.count
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              count:
-                type: number
-                format: double
-      deprecated: false
-  /Projects/taskCount:
-    get:
-      tags:
-        - Project
-      operationId: Project.taskCount
-      parameters:
-        - name: projectId
-          in: query
-          required: false
-          type: string
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              count:
-                type: object
-      deprecated: false
-  /Projects/getSummary:
-    get:
-      tags:
-        - Project
-      operationId: Project.getSummary
-      parameters: []
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              projects:
-                type: array
-                items:
-                  type: object
-      deprecated: false
-  '/Projects/getDetail/{projectId}':
-    get:
-      tags:
-        - Project
-      operationId: Project.getDetail
-      parameters:
-        - name: projectId
-          in: path
-          required: false
-          type: string
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              project:
-                type: object
-      deprecated: false
-  '/Epics/{id}/dependencies/{fk}':
-    get:
-      tags:
-        - Epic
-      summary: Find a related item by id for dependencies.
-      operationId: Epic.prototype.__findById__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Epic id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/TaskModel'
-      deprecated: false
-    delete:
-      tags:
-        - Epic
-      summary: Delete a related item by id for dependencies.
-      operationId: Epic.prototype.__destroyById__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Epic id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    put:
-      tags:
-        - Epic
-      summary: Update a related item by id for dependencies.
-      operationId: Epic.prototype.__updateById__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/TaskModel'
-        - name: id
-          in: path
-          description: Epic id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/TaskModel'
-      deprecated: false
-  '/Epics/{id}/dependencies/rel/{fk}':
-    put:
-      tags:
-        - Epic
-      summary: Add a related item by id for dependencies.
-      operationId: Epic.prototype.__link__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/EpicTaskModel'
-        - name: id
-          in: path
-          description: Epic id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/EpicTaskModel'
-      deprecated: false
-    delete:
-      tags:
-        - Epic
-      summary: Remove the dependencies relation to an item by id.
-      operationId: Epic.prototype.__unlink__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Epic id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    head:
-      tags:
-        - Epic
-      summary: Check the existence of dependencies relation to an item by id.
-      operationId: Epic.prototype.__exists__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Epic id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: boolean
-      deprecated: false
-  '/Epics/{id}/notes/{fk}':
-    get:
-      tags:
-        - Epic
-      summary: Find a related item by id for notes.
-      operationId: Epic.prototype.__findById__notes
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for notes
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Epic id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Note'
-      deprecated: false
-    delete:
-      tags:
-        - Epic
-      summary: Delete a related item by id for notes.
-      operationId: Epic.prototype.__destroyById__notes
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for notes
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Epic id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    put:
-      tags:
-        - Epic
-      summary: Update a related item by id for notes.
-      operationId: Epic.prototype.__updateById__notes
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for notes
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/Note'
-        - name: id
-          in: path
-          description: Epic id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Note'
-      deprecated: false
-  '/Epics/{id}/tasks/{fk}':
-    get:
-      tags:
-        - Epic
-      summary: Find a related item by id for tasks.
-      operationId: Epic.prototype.__findById__tasks
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for tasks
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Epic id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Task'
-      deprecated: false
-    delete:
-      tags:
-        - Epic
-      summary: Delete a related item by id for tasks.
-      operationId: Epic.prototype.__destroyById__tasks
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for tasks
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Epic id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    put:
-      tags:
-        - Epic
-      summary: Update a related item by id for tasks.
-      operationId: Epic.prototype.__updateById__tasks
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for tasks
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/Task'
-        - name: id
-          in: path
-          description: Epic id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Task'
-      deprecated: false
-  '/Epics/{id}/dependencies':
-    get:
-      tags:
-        - Epic
-      summary: Queries dependencies of Epic.
-      operationId: Epic.prototype.__get__dependencies
-      parameters:
-        - name: filter
-          in: query
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Epic id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/TaskModel'
-      deprecated: false
-    post:
-      tags:
-        - Epic
-      summary: Creates a new instance in dependencies of this model.
-      operationId: Epic.prototype.__create__dependencies
-      parameters:
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/TaskModel'
-        - name: id
-          in: path
-          description: Epic id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/TaskModel'
-      deprecated: false
-    delete:
-      tags:
-        - Epic
-      summary: Deletes all dependencies of this model.
-      operationId: Epic.prototype.__delete__dependencies
-      parameters:
-        - name: id
-          in: path
-          description: Epic id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-  '/Epics/{id}/dependencies/count':
-    get:
-      tags:
-        - Epic
-      summary: Counts dependencies of Epic.
-      operationId: Epic.prototype.__count__dependencies
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Epic id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              count:
-                type: number
-                format: double
-      deprecated: false
-  '/Epics/{id}/notes':
-    get:
-      tags:
-        - Epic
-      summary: Queries notes of Epic.
-      operationId: Epic.prototype.__get__notes
-      parameters:
-        - name: filter
-          in: query
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Epic id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Note'
-      deprecated: false
-    post:
-      tags:
-        - Epic
-      summary: Creates a new instance in notes of this model.
-      operationId: Epic.prototype.__create__notes
-      parameters:
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/Note'
-        - name: id
-          in: path
-          description: Epic id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Note'
-      deprecated: false
-    delete:
-      tags:
-        - Epic
-      summary: Deletes all notes of this model.
-      operationId: Epic.prototype.__delete__notes
-      parameters:
-        - name: id
-          in: path
-          description: Epic id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-  '/Epics/{id}/notes/count':
-    get:
-      tags:
-        - Epic
-      summary: Counts notes of Epic.
-      operationId: Epic.prototype.__count__notes
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Epic id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              count:
-                type: number
-                format: double
-      deprecated: false
-  '/Epics/{id}/tasks':
-    get:
-      tags:
-        - Epic
-      summary: Queries tasks of Epic.
-      operationId: Epic.prototype.__get__tasks
-      parameters:
-        - name: filter
-          in: query
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Epic id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Task'
-      deprecated: false
-    post:
-      tags:
-        - Epic
-      summary: Creates a new instance in tasks of this model.
-      operationId: Epic.prototype.__create__tasks
-      parameters:
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/Task'
-        - name: id
-          in: path
-          description: Epic id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Task'
-      deprecated: false
-    delete:
-      tags:
-        - Epic
-      summary: Deletes all tasks of this model.
-      operationId: Epic.prototype.__delete__tasks
-      parameters:
-        - name: id
-          in: path
-          description: Epic id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-  '/Epics/{id}/tasks/count':
-    get:
-      tags:
-        - Epic
-      summary: Counts tasks of Epic.
-      operationId: Epic.prototype.__count__tasks
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Epic id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              count:
-                type: number
-                format: double
-      deprecated: false
-  /Epics:
-    post:
-      tags:
-        - Epic
-      summary: Create a new instance of the model and persist it into the data source.
-      operationId: Epic.create
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/Epic'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Epic'
-      deprecated: false
-    patch:
-      tags:
-        - Epic
-      summary: Patch an existing model instance or insert a new one into the data source.
-      operationId: Epic.patchOrCreate
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/Epic'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Epic'
-      deprecated: false
-    put:
-      tags:
-        - Epic
-      summary: Replace an existing model instance or insert a new one into the data source.
-      operationId: Epic.replaceOrCreate__put_Epics
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/Epic'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Epic'
-      deprecated: false
-    get:
-      tags:
-        - Epic
-      summary: Find all instances of the model matched by filter from the data source.
-      operationId: Epic.find
-      parameters:
-        - name: filter
-          in: query
-          description: 'Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string ({"something":"value"})'
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Epic'
-      deprecated: false
-  /Epics/replaceOrCreate:
-    post:
-      tags:
-        - Epic
-      summary: Replace an existing model instance or insert a new one into the data source.
-      operationId: Epic.replaceOrCreate__post_Epics_replaceOrCreate
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/Epic'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Epic'
-      deprecated: false
-  /Epics/upsertWithWhere:
-    post:
-      tags:
-        - Epic
-      summary: Update an existing model instance or insert a new one into the data source based on the where criteria.
-      operationId: Epic.upsertWithWhere
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/Epic'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Epic'
-      deprecated: false
-  '/Epics/{id}/exists':
-    get:
-      tags:
-        - Epic
-      summary: Check whether a model instance exists in the data source.
-      operationId: 'Epic.exists__get_Epics_{id}_exists'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              exists:
-                type: boolean
-      deprecated: false
-  '/Epics/{id}':
-    head:
-      tags:
-        - Epic
-      summary: Check whether a model instance exists in the data source.
-      operationId: 'Epic.exists__head_Epics_{id}'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              exists:
-                type: boolean
-      deprecated: false
-    get:
-      tags:
-        - Epic
-      summary: 'Find a model instance by {{id}} from the data source.'
-      operationId: Epic.findById
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-        - name: filter
-          in: query
-          description: 'Filter defining fields and include - must be a JSON-encoded string ({"something":"value"})'
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Epic'
-      deprecated: false
-    put:
-      tags:
-        - Epic
-      summary: Replace attributes for a model instance and persist it into the data source.
-      operationId: 'Epic.replaceById__put_Epics_{id}'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/Epic'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Epic'
-      deprecated: false
-    delete:
-      tags:
-        - Epic
-      summary: 'Delete a model instance by {{id}} from the data source.'
-      operationId: Epic.deleteById
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-      deprecated: false
-    patch:
-      tags:
-        - Epic
-      summary: Patch attributes for a model instance and persist it into the data source.
-      operationId: Epic.prototype.patchAttributes
-      parameters:
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/Epic'
-        - name: id
-          in: path
-          description: Epic id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Epic'
-      deprecated: false
-  '/Epics/{id}/replace':
-    post:
-      tags:
-        - Epic
-      summary: Replace attributes for a model instance and persist it into the data source.
-      operationId: 'Epic.replaceById__post_Epics_{id}_replace'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/Epic'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Epic'
-      deprecated: false
-  /Epics/findOne:
-    get:
-      tags:
-        - Epic
-      summary: Find first instance of the model matched by filter from the data source.
-      operationId: Epic.findOne
-      parameters:
-        - name: filter
-          in: query
-          description: 'Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string ({"something":"value"})'
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Epic'
-      deprecated: false
-  /Epics/update:
-    post:
-      tags:
-        - Epic
-      summary: 'Update instances of the model matched by {{where}} from the data source.'
-      operationId: Epic.updateAll
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/Epic'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            description: Information related to the outcome of the operation
-            type: object
-            properties:
-              count:
-                description: The number of instances updated
-                type: number
-                format: double
-      deprecated: false
-  /Epics/count:
-    get:
-      tags:
-        - Epic
-      summary: Count instances of the model matched by where from the data source.
-      operationId: Epic.count
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              count:
-                type: number
-                format: double
-      deprecated: false
-  '/Tasks/{id}/dependencies/{fk}':
-    get:
-      tags:
-        - Task
-      summary: Find a related item by id for dependencies.
-      operationId: Task.prototype.__findById__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Task id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/TaskModel'
-      deprecated: false
-    delete:
-      tags:
-        - Task
-      summary: Delete a related item by id for dependencies.
-      operationId: Task.prototype.__destroyById__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Task id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    put:
-      tags:
-        - Task
-      summary: Update a related item by id for dependencies.
-      operationId: Task.prototype.__updateById__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/TaskModel'
-        - name: id
-          in: path
-          description: Task id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/TaskModel'
-      deprecated: false
-  '/Tasks/{id}/dependencies/rel/{fk}':
-    put:
-      tags:
-        - Task
-      summary: Add a related item by id for dependencies.
-      operationId: Task.prototype.__link__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/TaskTaskModel'
-        - name: id
-          in: path
-          description: Task id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/TaskTaskModel'
-      deprecated: false
-    delete:
-      tags:
-        - Task
-      summary: Remove the dependencies relation to an item by id.
-      operationId: Task.prototype.__unlink__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Task id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    head:
-      tags:
-        - Task
-      summary: Check the existence of dependencies relation to an item by id.
-      operationId: Task.prototype.__exists__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Task id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: boolean
-      deprecated: false
-  '/Tasks/{id}/notes/{fk}':
-    get:
-      tags:
-        - Task
-      summary: Find a related item by id for notes.
-      operationId: Task.prototype.__findById__notes
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for notes
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Task id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Note'
-      deprecated: false
-    delete:
-      tags:
-        - Task
-      summary: Delete a related item by id for notes.
-      operationId: Task.prototype.__destroyById__notes
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for notes
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Task id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    put:
-      tags:
-        - Task
-      summary: Update a related item by id for notes.
-      operationId: Task.prototype.__updateById__notes
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for notes
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/Note'
-        - name: id
-          in: path
-          description: Task id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Note'
-      deprecated: false
-  '/Tasks/{id}/subtasks/{fk}':
-    get:
-      tags:
-        - Task
-      summary: Find a related item by id for subtasks.
-      operationId: Task.prototype.__findById__subtasks
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for subtasks
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Task id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Subtask'
-      deprecated: false
-    delete:
-      tags:
-        - Task
-      summary: Delete a related item by id for subtasks.
-      operationId: Task.prototype.__destroyById__subtasks
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for subtasks
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Task id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    put:
-      tags:
-        - Task
-      summary: Update a related item by id for subtasks.
-      operationId: Task.prototype.__updateById__subtasks
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for subtasks
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/Subtask'
-        - name: id
-          in: path
-          description: Task id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Subtask'
-      deprecated: false
-  '/Tasks/{id}/dependencies':
-    get:
-      tags:
-        - Task
-      summary: Queries dependencies of Task.
-      operationId: Task.prototype.__get__dependencies
-      parameters:
-        - name: filter
-          in: query
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Task id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/TaskModel'
-      deprecated: false
-    post:
-      tags:
-        - Task
-      summary: Creates a new instance in dependencies of this model.
-      operationId: Task.prototype.__create__dependencies
-      parameters:
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/TaskModel'
-        - name: id
-          in: path
-          description: Task id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/TaskModel'
-      deprecated: false
-    delete:
-      tags:
-        - Task
-      summary: Deletes all dependencies of this model.
-      operationId: Task.prototype.__delete__dependencies
-      parameters:
-        - name: id
-          in: path
-          description: Task id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-  '/Tasks/{id}/dependencies/count':
-    get:
-      tags:
-        - Task
-      summary: Counts dependencies of Task.
-      operationId: Task.prototype.__count__dependencies
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Task id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              count:
-                type: number
-                format: double
-      deprecated: false
-  '/Tasks/{id}/notes':
-    get:
-      tags:
-        - Task
-      summary: Queries notes of Task.
-      operationId: Task.prototype.__get__notes
-      parameters:
-        - name: filter
-          in: query
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Task id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Note'
-      deprecated: false
-    post:
-      tags:
-        - Task
-      summary: Creates a new instance in notes of this model.
-      operationId: Task.prototype.__create__notes
-      parameters:
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/Note'
-        - name: id
-          in: path
-          description: Task id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Note'
-      deprecated: false
-    delete:
-      tags:
-        - Task
-      summary: Deletes all notes of this model.
-      operationId: Task.prototype.__delete__notes
-      parameters:
-        - name: id
-          in: path
-          description: Task id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-  '/Tasks/{id}/notes/count':
-    get:
-      tags:
-        - Task
-      summary: Counts notes of Task.
-      operationId: Task.prototype.__count__notes
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Task id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              count:
-                type: number
-                format: double
-      deprecated: false
-  '/Tasks/{id}/subtasks':
-    get:
-      tags:
-        - Task
-      summary: Queries subtasks of Task.
-      operationId: Task.prototype.__get__subtasks
-      parameters:
-        - name: filter
-          in: query
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Task id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Subtask'
-      deprecated: false
-    post:
-      tags:
-        - Task
-      summary: Creates a new instance in subtasks of this model.
-      operationId: Task.prototype.__create__subtasks
-      parameters:
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/Subtask'
-        - name: id
-          in: path
-          description: Task id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Subtask'
-      deprecated: false
-    delete:
-      tags:
-        - Task
-      summary: Deletes all subtasks of this model.
-      operationId: Task.prototype.__delete__subtasks
-      parameters:
-        - name: id
-          in: path
-          description: Task id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-  '/Tasks/{id}/subtasks/count':
-    get:
-      tags:
-        - Task
-      summary: Counts subtasks of Task.
-      operationId: Task.prototype.__count__subtasks
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Task id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              count:
-                type: number
-                format: double
-      deprecated: false
-  /Tasks:
-    post:
-      tags:
-        - Task
-      summary: Create a new instance of the model and persist it into the data source.
-      operationId: Task.create
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/Task'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Task'
-      deprecated: false
-    patch:
-      tags:
-        - Task
-      summary: Patch an existing model instance or insert a new one into the data source.
-      operationId: Task.patchOrCreate
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/Task'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Task'
-      deprecated: false
-    put:
-      tags:
-        - Task
-      summary: Replace an existing model instance or insert a new one into the data source.
-      operationId: Task.replaceOrCreate__put_Tasks
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/Task'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Task'
-      deprecated: false
-    get:
-      tags:
-        - Task
-      summary: Find all instances of the model matched by filter from the data source.
-      operationId: Task.find
-      parameters:
-        - name: filter
-          in: query
-          description: 'Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string ({"something":"value"})'
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Task'
-      deprecated: false
-  /Tasks/replaceOrCreate:
-    post:
-      tags:
-        - Task
-      summary: Replace an existing model instance or insert a new one into the data source.
-      operationId: Task.replaceOrCreate__post_Tasks_replaceOrCreate
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/Task'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Task'
-      deprecated: false
-  /Tasks/upsertWithWhere:
-    post:
-      tags:
-        - Task
-      summary: Update an existing model instance or insert a new one into the data source based on the where criteria.
-      operationId: Task.upsertWithWhere
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/Task'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Task'
-      deprecated: false
-  '/Tasks/{id}/exists':
-    get:
-      tags:
-        - Task
-      summary: Check whether a model instance exists in the data source.
-      operationId: 'Task.exists__get_Tasks_{id}_exists'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              exists:
-                type: boolean
-      deprecated: false
-  '/Tasks/{id}':
-    head:
-      tags:
-        - Task
-      summary: Check whether a model instance exists in the data source.
-      operationId: 'Task.exists__head_Tasks_{id}'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              exists:
-                type: boolean
-      deprecated: false
-    get:
-      tags:
-        - Task
-      summary: 'Find a model instance by {{id}} from the data source.'
-      operationId: Task.findById
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-        - name: filter
-          in: query
-          description: 'Filter defining fields and include - must be a JSON-encoded string ({"something":"value"})'
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Task'
-      deprecated: false
-    put:
-      tags:
-        - Task
-      summary: Replace attributes for a model instance and persist it into the data source.
-      operationId: 'Task.replaceById__put_Tasks_{id}'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/Task'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Task'
-      deprecated: false
-    delete:
-      tags:
-        - Task
-      summary: 'Delete a model instance by {{id}} from the data source.'
-      operationId: Task.deleteById
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-      deprecated: false
-    patch:
-      tags:
-        - Task
-      summary: Patch attributes for a model instance and persist it into the data source.
-      operationId: Task.prototype.patchAttributes
-      parameters:
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/Task'
-        - name: id
-          in: path
-          description: Task id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Task'
-      deprecated: false
-  '/Tasks/{id}/replace':
-    post:
-      tags:
-        - Task
-      summary: Replace attributes for a model instance and persist it into the data source.
-      operationId: 'Task.replaceById__post_Tasks_{id}_replace'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/Task'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Task'
-      deprecated: false
-  /Tasks/findOne:
-    get:
-      tags:
-        - Task
-      summary: Find first instance of the model matched by filter from the data source.
-      operationId: Task.findOne
-      parameters:
-        - name: filter
-          in: query
-          description: 'Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string ({"something":"value"})'
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Task'
-      deprecated: false
-  /Tasks/update:
-    post:
-      tags:
-        - Task
-      summary: 'Update instances of the model matched by {{where}} from the data source.'
-      operationId: Task.updateAll
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/Task'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            description: Information related to the outcome of the operation
-            type: object
-            properties:
-              count:
-                description: The number of instances updated
-                type: number
-                format: double
-      deprecated: false
-  /Tasks/count:
-    get:
-      tags:
-        - Task
-      summary: Count instances of the model matched by where from the data source.
-      operationId: Task.count
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              count:
-                type: number
-                format: double
-      deprecated: false
-  /Tasks/subtaskCount:
-    get:
-      tags:
-        - Task
-      operationId: Task.subtaskCount
-      parameters:
-        - name: taskId
-          in: query
-          required: false
-          type: string
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              tasks:
-                type: object
-      deprecated: false
-  '/TasksNew/{id}/children/{fk}':
-    get:
-      tags:
-        - TaskNew
-      summary: Find a related item by id for children.
-      operationId: TaskNew.prototype.__findById__children
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for children
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: TaskNew id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Task'
-      deprecated: false
-    delete:
-      tags:
-        - TaskNew
-      summary: Delete a related item by id for children.
-      operationId: TaskNew.prototype.__destroyById__children
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for children
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: TaskNew id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    put:
-      tags:
-        - TaskNew
-      summary: Update a related item by id for children.
-      operationId: TaskNew.prototype.__updateById__children
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for children
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/Task'
-        - name: id
-          in: path
-          description: TaskNew id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Task'
-      deprecated: false
-  '/TasksNew/{id}/dependencies/{fk}':
-    get:
-      tags:
-        - TaskNew
-      summary: Find a related item by id for dependencies.
-      operationId: TaskNew.prototype.__findById__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: TaskNew id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Task'
-      deprecated: false
-    delete:
-      tags:
-        - TaskNew
-      summary: Delete a related item by id for dependencies.
-      operationId: TaskNew.prototype.__destroyById__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: TaskNew id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    put:
-      tags:
-        - TaskNew
-      summary: Update a related item by id for dependencies.
-      operationId: TaskNew.prototype.__updateById__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/Task'
-        - name: id
-          in: path
-          description: TaskNew id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Task'
-      deprecated: false
-  '/TasksNew/{id}/dependencies/rel/{fk}':
-    put:
-      tags:
-        - TaskNew
-      summary: Add a related item by id for dependencies.
-      operationId: TaskNew.prototype.__link__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/TaskNewTask'
-        - name: id
-          in: path
-          description: TaskNew id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/TaskNewTask'
-      deprecated: false
-    delete:
-      tags:
-        - TaskNew
-      summary: Remove the dependencies relation to an item by id.
-      operationId: TaskNew.prototype.__unlink__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: TaskNew id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    head:
-      tags:
-        - TaskNew
-      summary: Check the existence of dependencies relation to an item by id.
-      operationId: TaskNew.prototype.__exists__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: TaskNew id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: boolean
-      deprecated: false
-  '/TasksNew/{id}/notes/{fk}':
-    get:
-      tags:
-        - TaskNew
-      summary: Find a related item by id for notes.
-      operationId: TaskNew.prototype.__findById__notes
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for notes
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: TaskNew id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Note'
-      deprecated: false
-    delete:
-      tags:
-        - TaskNew
-      summary: Delete a related item by id for notes.
-      operationId: TaskNew.prototype.__destroyById__notes
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for notes
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: TaskNew id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    put:
-      tags:
-        - TaskNew
-      summary: Update a related item by id for notes.
-      operationId: TaskNew.prototype.__updateById__notes
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for notes
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/Note'
-        - name: id
-          in: path
-          description: TaskNew id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Note'
-      deprecated: false
-  '/TasksNew/{id}/children':
-    get:
-      tags:
-        - TaskNew
-      summary: Queries children of TaskNew.
-      operationId: TaskNew.prototype.__get__children
-      parameters:
-        - name: filter
-          in: query
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: TaskNew id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Task'
-      deprecated: false
-    post:
-      tags:
-        - TaskNew
-      summary: Creates a new instance in children of this model.
-      operationId: TaskNew.prototype.__create__children
-      parameters:
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/Task'
-        - name: id
-          in: path
-          description: TaskNew id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Task'
-      deprecated: false
-    delete:
-      tags:
-        - TaskNew
-      summary: Deletes all children of this model.
-      operationId: TaskNew.prototype.__delete__children
-      parameters:
-        - name: id
-          in: path
-          description: TaskNew id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-  '/TasksNew/{id}/children/count':
-    get:
-      tags:
-        - TaskNew
-      summary: Counts children of TaskNew.
-      operationId: TaskNew.prototype.__count__children
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: TaskNew id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              count:
-                type: number
-                format: double
-      deprecated: false
-  '/TasksNew/{id}/dependencies':
-    get:
-      tags:
-        - TaskNew
-      summary: Queries dependencies of TaskNew.
-      operationId: TaskNew.prototype.__get__dependencies
-      parameters:
-        - name: filter
-          in: query
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: TaskNew id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Task'
-      deprecated: false
-    post:
-      tags:
-        - TaskNew
-      summary: Creates a new instance in dependencies of this model.
-      operationId: TaskNew.prototype.__create__dependencies
-      parameters:
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/Task'
-        - name: id
-          in: path
-          description: TaskNew id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Task'
-      deprecated: false
-    delete:
-      tags:
-        - TaskNew
-      summary: Deletes all dependencies of this model.
-      operationId: TaskNew.prototype.__delete__dependencies
-      parameters:
-        - name: id
-          in: path
-          description: TaskNew id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-  '/TasksNew/{id}/dependencies/count':
-    get:
-      tags:
-        - TaskNew
-      summary: Counts dependencies of TaskNew.
-      operationId: TaskNew.prototype.__count__dependencies
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: TaskNew id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              count:
-                type: number
-                format: double
-      deprecated: false
-  '/TasksNew/{id}/notes':
-    get:
-      tags:
-        - TaskNew
-      summary: Queries notes of TaskNew.
-      operationId: TaskNew.prototype.__get__notes
-      parameters:
-        - name: filter
-          in: query
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: TaskNew id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Note'
-      deprecated: false
-    post:
-      tags:
-        - TaskNew
-      summary: Creates a new instance in notes of this model.
-      operationId: TaskNew.prototype.__create__notes
-      parameters:
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/Note'
-        - name: id
-          in: path
-          description: TaskNew id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Note'
-      deprecated: false
-    delete:
-      tags:
-        - TaskNew
-      summary: Deletes all notes of this model.
-      operationId: TaskNew.prototype.__delete__notes
-      parameters:
-        - name: id
-          in: path
-          description: TaskNew id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-  '/TasksNew/{id}/notes/count':
-    get:
-      tags:
-        - TaskNew
-      summary: Counts notes of TaskNew.
-      operationId: TaskNew.prototype.__count__notes
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: TaskNew id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              count:
-                type: number
-                format: double
-      deprecated: false
-  /TasksNew:
-    post:
-      tags:
-        - TaskNew
-      summary: Create a new instance of the model and persist it into the data source.
-      operationId: TaskNew.create
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/TaskNew'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/TaskNew'
-      deprecated: false
-    patch:
-      tags:
-        - TaskNew
-      summary: Patch an existing model instance or insert a new one into the data source.
-      operationId: TaskNew.patchOrCreate
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/TaskNew'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/TaskNew'
-      deprecated: false
-    put:
-      tags:
-        - TaskNew
-      summary: Replace an existing model instance or insert a new one into the data source.
-      operationId: TaskNew.replaceOrCreate__put_TasksNew
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/TaskNew'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/TaskNew'
-      deprecated: false
-    get:
-      tags:
-        - TaskNew
-      summary: Find all instances of the model matched by filter from the data source.
-      operationId: TaskNew.find
-      parameters:
-        - name: filter
-          in: query
-          description: 'Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string ({"something":"value"})'
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/TaskNew'
-      deprecated: false
-  /TasksNew/replaceOrCreate:
-    post:
-      tags:
-        - TaskNew
-      summary: Replace an existing model instance or insert a new one into the data source.
-      operationId: TaskNew.replaceOrCreate__post_TasksNew_replaceOrCreate
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/TaskNew'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/TaskNew'
-      deprecated: false
-  /TasksNew/upsertWithWhere:
-    post:
-      tags:
-        - TaskNew
-      summary: Update an existing model instance or insert a new one into the data source based on the where criteria.
-      operationId: TaskNew.upsertWithWhere
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/TaskNew'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/TaskNew'
-      deprecated: false
-  '/TasksNew/{id}/exists':
-    get:
-      tags:
-        - TaskNew
-      summary: Check whether a model instance exists in the data source.
-      operationId: 'TaskNew.exists__get_TasksNew_{id}_exists'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              exists:
-                type: boolean
-      deprecated: false
-  '/TasksNew/{id}':
-    head:
-      tags:
-        - TaskNew
-      summary: Check whether a model instance exists in the data source.
-      operationId: 'TaskNew.exists__head_TasksNew_{id}'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              exists:
-                type: boolean
-      deprecated: false
-    get:
-      tags:
-        - TaskNew
-      summary: 'Find a model instance by {{id}} from the data source.'
-      operationId: TaskNew.findById
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-        - name: filter
-          in: query
-          description: 'Filter defining fields and include - must be a JSON-encoded string ({"something":"value"})'
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/TaskNew'
-      deprecated: false
-    put:
-      tags:
-        - TaskNew
-      summary: Replace attributes for a model instance and persist it into the data source.
-      operationId: 'TaskNew.replaceById__put_TasksNew_{id}'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/TaskNew'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/TaskNew'
-      deprecated: false
-    delete:
-      tags:
-        - TaskNew
-      summary: 'Delete a model instance by {{id}} from the data source.'
-      operationId: TaskNew.deleteById
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-      deprecated: false
-    patch:
-      tags:
-        - TaskNew
-      summary: Patch attributes for a model instance and persist it into the data source.
-      operationId: TaskNew.prototype.patchAttributes
-      parameters:
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/TaskNew'
-        - name: id
-          in: path
-          description: TaskNew id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/TaskNew'
-      deprecated: false
-  '/TasksNew/{id}/replace':
-    post:
-      tags:
-        - TaskNew
-      summary: Replace attributes for a model instance and persist it into the data source.
-      operationId: 'TaskNew.replaceById__post_TasksNew_{id}_replace'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/TaskNew'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/TaskNew'
-      deprecated: false
-  /TasksNew/findOne:
-    get:
-      tags:
-        - TaskNew
-      summary: Find first instance of the model matched by filter from the data source.
-      operationId: TaskNew.findOne
-      parameters:
-        - name: filter
-          in: query
-          description: 'Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string ({"something":"value"})'
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/TaskNew'
-      deprecated: false
-  /TasksNew/update:
-    post:
-      tags:
-        - TaskNew
-      summary: 'Update instances of the model matched by {{where}} from the data source.'
-      operationId: TaskNew.updateAll
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/TaskNew'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            description: Information related to the outcome of the operation
-            type: object
-            properties:
-              count:
-                description: The number of instances updated
-                type: number
-                format: double
-      deprecated: false
-  /TasksNew/count:
-    get:
-      tags:
-        - TaskNew
-      summary: Count instances of the model matched by where from the data source.
-      operationId: TaskNew.count
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              count:
-                type: number
-                format: double
-      deprecated: false
-  /TasksNew/getTaskTree:
-    get:
-      tags:
-        - TaskNew
-      operationId: TaskNew.getTaskTree
-      parameters:
-        - name: taskId
-          in: query
-          required: false
-          type: string
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              tasks:
-                type: object
-      deprecated: false
-  '/Subtasks/{id}/dependencies/{fk}':
-    get:
-      tags:
-        - Subtask
-      summary: Find a related item by id for dependencies.
-      operationId: Subtask.prototype.__findById__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Subtask id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/TaskModel'
-      deprecated: false
-    delete:
-      tags:
-        - Subtask
-      summary: Delete a related item by id for dependencies.
-      operationId: Subtask.prototype.__destroyById__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Subtask id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    put:
-      tags:
-        - Subtask
-      summary: Update a related item by id for dependencies.
-      operationId: Subtask.prototype.__updateById__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/TaskModel'
-        - name: id
-          in: path
-          description: Subtask id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/TaskModel'
-      deprecated: false
-  '/Subtasks/{id}/dependencies/rel/{fk}':
-    put:
-      tags:
-        - Subtask
-      summary: Add a related item by id for dependencies.
-      operationId: Subtask.prototype.__link__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/SubtaskTaskModel'
-        - name: id
-          in: path
-          description: Subtask id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/SubtaskTaskModel'
-      deprecated: false
-    delete:
-      tags:
-        - Subtask
-      summary: Remove the dependencies relation to an item by id.
-      operationId: Subtask.prototype.__unlink__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Subtask id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    head:
-      tags:
-        - Subtask
-      summary: Check the existence of dependencies relation to an item by id.
-      operationId: Subtask.prototype.__exists__dependencies
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for dependencies
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Subtask id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: boolean
-      deprecated: false
-  '/Subtasks/{id}/notes/{fk}':
-    get:
-      tags:
-        - Subtask
-      summary: Find a related item by id for notes.
-      operationId: Subtask.prototype.__findById__notes
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for notes
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Subtask id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Note'
-      deprecated: false
-    delete:
-      tags:
-        - Subtask
-      summary: Delete a related item by id for notes.
-      operationId: Subtask.prototype.__destroyById__notes
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for notes
-          required: true
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Subtask id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-    put:
-      tags:
-        - Subtask
-      summary: Update a related item by id for notes.
-      operationId: Subtask.prototype.__updateById__notes
-      parameters:
-        - name: fk
-          in: path
-          description: Foreign key for notes
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/Note'
-        - name: id
-          in: path
-          description: Subtask id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Note'
-      deprecated: false
-  '/Subtasks/{id}/dependencies':
-    get:
-      tags:
-        - Subtask
-      summary: Queries dependencies of Subtask.
-      operationId: Subtask.prototype.__get__dependencies
-      parameters:
-        - name: filter
-          in: query
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Subtask id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/TaskModel'
-      deprecated: false
-    post:
-      tags:
-        - Subtask
-      summary: Creates a new instance in dependencies of this model.
-      operationId: Subtask.prototype.__create__dependencies
-      parameters:
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/TaskModel'
-        - name: id
-          in: path
-          description: Subtask id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/TaskModel'
-      deprecated: false
-    delete:
-      tags:
-        - Subtask
-      summary: Deletes all dependencies of this model.
-      operationId: Subtask.prototype.__delete__dependencies
-      parameters:
-        - name: id
-          in: path
-          description: Subtask id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-  '/Subtasks/{id}/dependencies/count':
-    get:
-      tags:
-        - Subtask
-      summary: Counts dependencies of Subtask.
-      operationId: Subtask.prototype.__count__dependencies
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Subtask id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              count:
-                type: number
-                format: double
-      deprecated: false
-  '/Subtasks/{id}/notes':
-    get:
-      tags:
-        - Subtask
-      summary: Queries notes of Subtask.
-      operationId: Subtask.prototype.__get__notes
-      parameters:
-        - name: filter
-          in: query
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Subtask id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Note'
-      deprecated: false
-    post:
-      tags:
-        - Subtask
-      summary: Creates a new instance in notes of this model.
-      operationId: Subtask.prototype.__create__notes
-      parameters:
-        - name: data
-          in: body
-          required: false
-          schema:
-            $ref: '#/definitions/Note'
-        - name: id
-          in: path
-          description: Subtask id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Note'
-      deprecated: false
-    delete:
-      tags:
-        - Subtask
-      summary: Deletes all notes of this model.
-      operationId: Subtask.prototype.__delete__notes
-      parameters:
-        - name: id
-          in: path
-          description: Subtask id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '204':
-          description: Request was successful
-      deprecated: false
-  '/Subtasks/{id}/notes/count':
-    get:
-      tags:
-        - Subtask
-      summary: Counts notes of Subtask.
-      operationId: Subtask.prototype.__count__notes
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: id
-          in: path
-          description: Subtask id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              count:
-                type: number
-                format: double
-      deprecated: false
-  /Subtasks:
-    post:
-      tags:
-        - Subtask
-      summary: Create a new instance of the model and persist it into the data source.
-      operationId: Subtask.create
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/Subtask'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Subtask'
-      deprecated: false
-    patch:
-      tags:
-        - Subtask
-      summary: Patch an existing model instance or insert a new one into the data source.
-      operationId: Subtask.patchOrCreate
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/Subtask'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Subtask'
-      deprecated: false
-    put:
-      tags:
-        - Subtask
-      summary: Replace an existing model instance or insert a new one into the data source.
-      operationId: Subtask.replaceOrCreate__put_Subtasks
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/Subtask'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Subtask'
-      deprecated: false
-    get:
-      tags:
-        - Subtask
-      summary: Find all instances of the model matched by filter from the data source.
-      operationId: Subtask.find
-      parameters:
-        - name: filter
-          in: query
-          description: 'Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string ({"something":"value"})'
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Subtask'
-      deprecated: false
-  /Subtasks/replaceOrCreate:
-    post:
-      tags:
-        - Subtask
-      summary: Replace an existing model instance or insert a new one into the data source.
-      operationId: Subtask.replaceOrCreate__post_Subtasks_replaceOrCreate
-      parameters:
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/Subtask'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Subtask'
-      deprecated: false
-  /Subtasks/upsertWithWhere:
-    post:
-      tags:
-        - Subtask
-      summary: Update an existing model instance or insert a new one into the data source based on the where criteria.
-      operationId: Subtask.upsertWithWhere
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/Subtask'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Subtask'
-      deprecated: false
-  '/Subtasks/{id}/exists':
-    get:
-      tags:
-        - Subtask
-      summary: Check whether a model instance exists in the data source.
-      operationId: 'Subtask.exists__get_Subtasks_{id}_exists'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              exists:
-                type: boolean
-      deprecated: false
-  '/Subtasks/{id}':
-    head:
-      tags:
-        - Subtask
-      summary: Check whether a model instance exists in the data source.
-      operationId: 'Subtask.exists__head_Subtasks_{id}'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              exists:
-                type: boolean
-      deprecated: false
-    get:
-      tags:
-        - Subtask
-      summary: 'Find a model instance by {{id}} from the data source.'
-      operationId: Subtask.findById
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-        - name: filter
-          in: query
-          description: 'Filter defining fields and include - must be a JSON-encoded string ({"something":"value"})'
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Subtask'
-      deprecated: false
-    put:
-      tags:
-        - Subtask
-      summary: Replace attributes for a model instance and persist it into the data source.
-      operationId: 'Subtask.replaceById__put_Subtasks_{id}'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/Subtask'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Subtask'
-      deprecated: false
-    delete:
-      tags:
-        - Subtask
-      summary: 'Delete a model instance by {{id}} from the data source.'
-      operationId: Subtask.deleteById
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-      deprecated: false
-    patch:
-      tags:
-        - Subtask
-      summary: Patch attributes for a model instance and persist it into the data source.
-      operationId: Subtask.prototype.patchAttributes
-      parameters:
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/Subtask'
-        - name: id
-          in: path
-          description: Subtask id
-          required: true
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Subtask'
-      deprecated: false
-  '/Subtasks/{id}/replace':
-    post:
-      tags:
-        - Subtask
-      summary: Replace attributes for a model instance and persist it into the data source.
-      operationId: 'Subtask.replaceById__post_Subtasks_{id}_replace'
-      parameters:
-        - name: id
-          in: path
-          description: Model id
-          required: true
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: Model instance data
-          required: false
-          schema:
-            description: Model instance data
-            $ref: '#/definitions/Subtask'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Subtask'
-      deprecated: false
-  /Subtasks/findOne:
-    get:
-      tags:
-        - Subtask
-      summary: Find first instance of the model matched by filter from the data source.
-      operationId: Subtask.findOne
-      parameters:
-        - name: filter
-          in: query
-          description: 'Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string ({"something":"value"})'
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            $ref: '#/definitions/Subtask'
-      deprecated: false
-  /Subtasks/update:
-    post:
-      tags:
-        - Subtask
-      summary: 'Update instances of the model matched by {{where}} from the data source.'
-      operationId: Subtask.updateAll
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-        - name: data
-          in: body
-          description: An object of model property name/value pairs
-          required: false
-          schema:
-            description: An object of model property name/value pairs
-            $ref: '#/definitions/Subtask'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            description: Information related to the outcome of the operation
-            type: object
-            properties:
-              count:
-                description: The number of instances updated
-                type: number
-                format: double
-      deprecated: false
-  /Subtasks/count:
-    get:
-      tags:
-        - Subtask
-      summary: Count instances of the model matched by where from the data source.
-      operationId: Subtask.count
-      parameters:
-        - name: where
-          in: query
-          description: Criteria to match model instances
-          required: false
-          type: string
-          format: JSON
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: object
-            properties:
-              count:
-                type: number
-                format: double
-      deprecated: false
   '/AppUsers/{id}/accessTokens/{fk}':
     get:
       tags:
@@ -6547,6 +1724,346 @@ paths:
               entropy:
                 type: object
       deprecated: false
+  '/WorkItems/{id}/childItems/{fk}':
+    get:
+      tags:
+        - WorkItem
+      summary: Find a related item by id for childItems.
+      operationId: WorkItem.prototype.__findById__childItems
+      parameters:
+        - name: fk
+          in: path
+          description: Foreign key for childItems
+          required: true
+          type: string
+          format: JSON
+        - name: id
+          in: path
+          description: WorkItem id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/WorkItem'
+      deprecated: false
+    delete:
+      tags:
+        - WorkItem
+      summary: Delete a related item by id for childItems.
+      operationId: WorkItem.prototype.__destroyById__childItems
+      parameters:
+        - name: fk
+          in: path
+          description: Foreign key for childItems
+          required: true
+          type: string
+          format: JSON
+        - name: id
+          in: path
+          description: WorkItem id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '204':
+          description: Request was successful
+      deprecated: false
+    put:
+      tags:
+        - WorkItem
+      summary: Update a related item by id for childItems.
+      operationId: WorkItem.prototype.__updateById__childItems
+      parameters:
+        - name: fk
+          in: path
+          description: Foreign key for childItems
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/WorkItem'
+        - name: id
+          in: path
+          description: WorkItem id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/WorkItem'
+      deprecated: false
+  '/WorkItems/{id}/notes/{fk}':
+    get:
+      tags:
+        - WorkItem
+      summary: Find a related item by id for notes.
+      operationId: WorkItem.prototype.__findById__notes
+      parameters:
+        - name: fk
+          in: path
+          description: Foreign key for notes
+          required: true
+          type: string
+          format: JSON
+        - name: id
+          in: path
+          description: WorkItem id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Note'
+      deprecated: false
+    delete:
+      tags:
+        - WorkItem
+      summary: Delete a related item by id for notes.
+      operationId: WorkItem.prototype.__destroyById__notes
+      parameters:
+        - name: fk
+          in: path
+          description: Foreign key for notes
+          required: true
+          type: string
+          format: JSON
+        - name: id
+          in: path
+          description: WorkItem id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '204':
+          description: Request was successful
+      deprecated: false
+    put:
+      tags:
+        - WorkItem
+      summary: Update a related item by id for notes.
+      operationId: WorkItem.prototype.__updateById__notes
+      parameters:
+        - name: fk
+          in: path
+          description: Foreign key for notes
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/Note'
+        - name: id
+          in: path
+          description: WorkItem id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Note'
+      deprecated: false
+  '/WorkItems/{id}/childItems':
+    get:
+      tags:
+        - WorkItem
+      summary: Queries childItems of WorkItem.
+      operationId: WorkItem.prototype.__get__childItems
+      parameters:
+        - name: filter
+          in: query
+          required: false
+          type: string
+          format: JSON
+        - name: id
+          in: path
+          description: WorkItem id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/WorkItem'
+      deprecated: false
+    post:
+      tags:
+        - WorkItem
+      summary: Creates a new instance in childItems of this model.
+      operationId: WorkItem.prototype.__create__childItems
+      parameters:
+        - name: data
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/WorkItem'
+        - name: id
+          in: path
+          description: WorkItem id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/WorkItem'
+      deprecated: false
+    delete:
+      tags:
+        - WorkItem
+      summary: Deletes all childItems of this model.
+      operationId: WorkItem.prototype.__delete__childItems
+      parameters:
+        - name: id
+          in: path
+          description: WorkItem id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '204':
+          description: Request was successful
+      deprecated: false
+  '/WorkItems/{id}/childItems/count':
+    get:
+      tags:
+        - WorkItem
+      summary: Counts childItems of WorkItem.
+      operationId: WorkItem.prototype.__count__childItems
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+        - name: id
+          in: path
+          description: WorkItem id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              count:
+                type: number
+                format: double
+      deprecated: false
+  '/WorkItems/{id}/notes':
+    get:
+      tags:
+        - WorkItem
+      summary: Queries notes of WorkItem.
+      operationId: WorkItem.prototype.__get__notes
+      parameters:
+        - name: filter
+          in: query
+          required: false
+          type: string
+          format: JSON
+        - name: id
+          in: path
+          description: WorkItem id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Note'
+      deprecated: false
+    post:
+      tags:
+        - WorkItem
+      summary: Creates a new instance in notes of this model.
+      operationId: WorkItem.prototype.__create__notes
+      parameters:
+        - name: data
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/Note'
+        - name: id
+          in: path
+          description: WorkItem id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Note'
+      deprecated: false
+    delete:
+      tags:
+        - WorkItem
+      summary: Deletes all notes of this model.
+      operationId: WorkItem.prototype.__delete__notes
+      parameters:
+        - name: id
+          in: path
+          description: WorkItem id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '204':
+          description: Request was successful
+      deprecated: false
+  '/WorkItems/{id}/notes/count':
+    get:
+      tags:
+        - WorkItem
+      summary: Counts notes of WorkItem.
+      operationId: WorkItem.prototype.__count__notes
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+        - name: id
+          in: path
+          description: WorkItem id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              count:
+                type: number
+                format: double
+      deprecated: false
   /WorkItems:
     post:
       tags:
@@ -6907,6 +2424,402 @@ paths:
                 type: number
                 format: double
       deprecated: false
+  '/WorkItems/getProjectDetail/{projectId}':
+    get:
+      tags:
+        - WorkItem
+      operationId: WorkItem.getProjectDetail
+      parameters:
+        - name: projectId
+          in: path
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              project:
+                type: object
+      deprecated: false
+  /WorkItems/getProjectSummary:
+    get:
+      tags:
+        - WorkItem
+      operationId: WorkItem.getProjectSummary
+      parameters: []
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              projects:
+                type: array
+                items:
+                  type: object
+      deprecated: false
+  /Dependencies:
+    post:
+      tags:
+        - Dependency
+      summary: Create a new instance of the model and persist it into the data source.
+      operationId: Dependency.create
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Dependency'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Dependency'
+      deprecated: false
+    patch:
+      tags:
+        - Dependency
+      summary: Patch an existing model instance or insert a new one into the data source.
+      operationId: Dependency.patchOrCreate
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Dependency'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Dependency'
+      deprecated: false
+    put:
+      tags:
+        - Dependency
+      summary: Replace an existing model instance or insert a new one into the data source.
+      operationId: Dependency.replaceOrCreate__put_Dependencies
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Dependency'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Dependency'
+      deprecated: false
+    get:
+      tags:
+        - Dependency
+      summary: Find all instances of the model matched by filter from the data source.
+      operationId: Dependency.find
+      parameters:
+        - name: filter
+          in: query
+          description: 'Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string ({"something":"value"})'
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Dependency'
+      deprecated: false
+  /Dependencies/replaceOrCreate:
+    post:
+      tags:
+        - Dependency
+      summary: Replace an existing model instance or insert a new one into the data source.
+      operationId: Dependency.replaceOrCreate__post_Dependencies_replaceOrCreate
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Dependency'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Dependency'
+      deprecated: false
+  /Dependencies/upsertWithWhere:
+    post:
+      tags:
+        - Dependency
+      summary: Update an existing model instance or insert a new one into the data source based on the where criteria.
+      operationId: Dependency.upsertWithWhere
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: An object of model property name/value pairs
+          required: false
+          schema:
+            description: An object of model property name/value pairs
+            $ref: '#/definitions/Dependency'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Dependency'
+      deprecated: false
+  '/Dependencies/{id}/exists':
+    get:
+      tags:
+        - Dependency
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'Dependency.exists__get_Dependencies_{id}_exists'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+  '/Dependencies/{id}':
+    head:
+      tags:
+        - Dependency
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'Dependency.exists__head_Dependencies_{id}'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+    get:
+      tags:
+        - Dependency
+      summary: 'Find a model instance by {{id}} from the data source.'
+      operationId: Dependency.findById
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: filter
+          in: query
+          description: 'Filter defining fields and include - must be a JSON-encoded string ({"something":"value"})'
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Dependency'
+      deprecated: false
+    put:
+      tags:
+        - Dependency
+      summary: Replace attributes for a model instance and persist it into the data source.
+      operationId: 'Dependency.replaceById__put_Dependencies_{id}'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Dependency'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Dependency'
+      deprecated: false
+    delete:
+      tags:
+        - Dependency
+      summary: 'Delete a model instance by {{id}} from the data source.'
+      operationId: Dependency.deleteById
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+      deprecated: false
+    patch:
+      tags:
+        - Dependency
+      summary: Patch attributes for a model instance and persist it into the data source.
+      operationId: Dependency.prototype.patchAttributes
+      parameters:
+        - name: data
+          in: body
+          description: An object of model property name/value pairs
+          required: false
+          schema:
+            description: An object of model property name/value pairs
+            $ref: '#/definitions/Dependency'
+        - name: id
+          in: path
+          description: Dependency id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Dependency'
+      deprecated: false
+  '/Dependencies/{id}/replace':
+    post:
+      tags:
+        - Dependency
+      summary: Replace attributes for a model instance and persist it into the data source.
+      operationId: 'Dependency.replaceById__post_Dependencies_{id}_replace'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Dependency'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Dependency'
+      deprecated: false
+  /Dependencies/findOne:
+    get:
+      tags:
+        - Dependency
+      summary: Find first instance of the model matched by filter from the data source.
+      operationId: Dependency.findOne
+      parameters:
+        - name: filter
+          in: query
+          description: 'Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string ({"something":"value"})'
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Dependency'
+      deprecated: false
+  /Dependencies/update:
+    post:
+      tags:
+        - Dependency
+      summary: 'Update instances of the model matched by {{where}} from the data source.'
+      operationId: Dependency.updateAll
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: An object of model property name/value pairs
+          required: false
+          schema:
+            description: An object of model property name/value pairs
+            $ref: '#/definitions/Dependency'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            description: Information related to the outcome of the operation
+            type: object
+            properties:
+              count:
+                description: The number of instances updated
+                type: number
+                format: double
+      deprecated: false
+  /Dependencies/count:
+    get:
+      tags:
+        - Dependency
+      summary: Count instances of the model matched by where from the data source.
+      operationId: Dependency.count
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              count:
+                type: number
+                format: double
+      deprecated: false
 definitions:
   x-any:
     properties: {}
@@ -6962,218 +2875,11 @@ definitions:
       id:
         type: number
         format: double
-      projectId:
-        type: number
-        format: double
-      epicId:
-        type: number
-        format: double
-      taskId:
-        type: number
-        format: double
-      subtaskId:
+      workItemId:
         type: number
         format: double
     required:
       - title
-    additionalProperties: false
-  TaskModel:
-    properties:
-      name:
-        type: string
-      description:
-        type: string
-      isComplete:
-        default: false
-        type: boolean
-      priority:
-        default: 0
-        type: number
-        format: double
-      id:
-        type: number
-        format: double
-    required:
-      - name
-      - isComplete
-    additionalProperties: false
-  ProjectTaskModel:
-    properties:
-      id:
-        type: number
-        format: double
-      projectId:
-        type: number
-        format: double
-      taskModelId:
-        type: number
-        format: double
-    additionalProperties: false
-  Epic:
-    properties:
-      name:
-        type: string
-      description:
-        type: string
-      isComplete:
-        default: false
-        type: boolean
-      priority:
-        default: 0
-        type: number
-        format: double
-      id:
-        type: number
-        format: double
-      projectId:
-        type: number
-        format: double
-    required:
-      - name
-      - isComplete
-    additionalProperties: false
-  Task:
-    properties:
-      name:
-        type: string
-      description:
-        type: string
-      isComplete:
-        default: false
-        type: boolean
-      priority:
-        default: 0
-        type: number
-        format: double
-      id:
-        type: number
-        format: double
-      projectId:
-        type: number
-        format: double
-      epicId:
-        type: number
-        format: double
-      parentId:
-        type: number
-        format: double
-    required:
-      - name
-      - isComplete
-    additionalProperties: false
-  Project:
-    properties:
-      name:
-        type: string
-      description:
-        type: string
-      isComplete:
-        default: false
-        type: boolean
-      priority:
-        default: 0
-        type: number
-        format: double
-      id:
-        type: number
-        format: double
-    required:
-      - name
-      - isComplete
-    additionalProperties: false
-  EpicTaskModel:
-    properties:
-      id:
-        type: number
-        format: double
-      epicId:
-        type: number
-        format: double
-      taskModelId:
-        type: number
-        format: double
-    additionalProperties: false
-  TaskTaskModel:
-    properties:
-      id:
-        type: number
-        format: double
-      taskId:
-        type: number
-        format: double
-      taskModelId:
-        type: number
-        format: double
-    additionalProperties: false
-  Subtask:
-    properties:
-      name:
-        type: string
-      description:
-        type: string
-      isComplete:
-        default: false
-        type: boolean
-      priority:
-        default: 0
-        type: number
-        format: double
-      id:
-        type: number
-        format: double
-      taskId:
-        type: number
-        format: double
-    required:
-      - name
-      - isComplete
-    additionalProperties: false
-  TaskNewTask:
-    properties:
-      id:
-        type: number
-        format: double
-      taskNewId:
-        type: number
-        format: double
-      taskId:
-        type: number
-        format: double
-    additionalProperties: false
-  TaskNew:
-    properties:
-      name:
-        type: string
-      taskLevel:
-        type: integer
-      description:
-        type: string
-      isComplete:
-        default: false
-        type: boolean
-      priority:
-        default: 0
-        type: number
-        format: double
-      id:
-        type: number
-        format: double
-    required:
-      - name
-      - taskLevel
-      - isComplete
-    additionalProperties: false
-  SubtaskTaskModel:
-    properties:
-      id:
-        type: number
-        format: double
-      subtaskId:
-        type: number
-        format: double
-      taskModelId:
-        type: number
-        format: double
     additionalProperties: false
   AppUser:
     properties:
@@ -7210,11 +2916,25 @@ definitions:
       id:
         type: number
         format: double
+      parentId:
+        type: number
+        format: double
     required:
       - name
       - taskLevel
       - isComplete
       - priority
+    additionalProperties: false
+  Dependency:
+    properties:
+      id:
+        type: number
+        format: double
+      fk:
+        type: number
+        format: double
+    required:
+      - fk
     additionalProperties: false
 basePath: /api
 swagger: '2.0'
