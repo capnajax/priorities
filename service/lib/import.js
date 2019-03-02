@@ -51,245 +51,79 @@ function importNote (workItemId, sequence, noteData) { return new Promise((resol
 		});
 });}
 
-function importSubtask (parentId, priority, subtaskData) { return new Promise((resolve, reject) => {
+function importItem (_parentId, _priority, _taskLevel, _itemData) { return new Promise((resolve, reject) => {
 
-	var importedSubtask;
+	var importedItem,
+		levelName = c.TASKLEVELS[_taskLevel].item;
 
-	debug("Importing subtask", JSON.stringify(subtaskData.subtask));
+	debug("Importing item _taskLevel", _taskLevel, "content:", JSON.stringify(_itemData.subtask));
 
 	Promise.resolve()
+	.then(() => {
+			// check projects have no parent
+			if (_taskLevel === c.TASKLEVEL_PROJECT) {
+				if (_parentId) {
+					return Promise.reject({
+						code: "ERROR_PROJECT_WITH_PARENT",
+						message: "projects should not have parents"
+					});
+				}
+			}
+		})
 	.then(() => {
 			return models.WorkItem.create({	
-					name: subtaskData.subtask,
-					taskLevel: c.TASKLEVEL_SUBTASK,
-					parentId,
-					priority,
-					isComplete: subtaskData.complete || false
+					name: _itemData[levelName],
+					taskLevel: _taskLevel,
+					parentId: _parentId,
+					priority: _priority,
+					isComplete: _itemData.complete || false
 				})
-				.then(subtask => {
-					let key = subtaskData.ref || subtaskData.subtask;
+				.then(_item => {
+					let key = _itemData.ref || _itemData[levelName];
 					if (_.has(idMap, key)) {
 						return Promise.reject({
 							code: "ERROR_DUPLICATE_REFERENCE",
 							message: "more than one item with a title or ref " + key,
 							details: {
 									key,
-									ids: [subtask.id, idMap[key].id]
+									ids: [_item.id, idMap[key].id]
 								}
 						});
 					}
-					idMap[key] = subtask.id;
-					console.log("Mapping Subtask", key, "to", idMap[key]);
-					return subtask;
+					idMap[key] = _item.id;
+					console.log("Mapping", levelName, key, "to", idMap[key]);
+					return _item;
 				});
 		})
-	.then(subtask => {
-			importedSubtask = subtask;
-			debug("Imported Subtask:");
-			debug(importedSubtask);
+	.then(_item => {
+			importedItem = _item;
+			debug("Imported", levelName+':');
+			debug(importedItem);
 
-			let notesPromises = subtaskData.notes 
-					? _.map(subtaskData.notes, (s,i) => {return importNote(subtask.id,i+1,s)}) 
-					: [];
-			return collectPromises(notesPromises);
+			let children = c.TASKLEVELS[_taskLevel].children,
+				childPromises = [];
+
+			childPromises.push(_itemData.notes 
+				? _.map(_itemData.notes, (_s,_i) => {return importNote(_item.id,_i+1,_s)}) 
+				: []);
+
+			for (let i in children) {
+				let childLevel = c.TASKLEVELS[children[i]];
+				childPromises.push(_itemData[childLevel.list]
+					? _.map(_itemData[childLevel.list], (_n,_i) => {
+							return importItem(_item.id,_i+1,children[i],_n);
+						})
+					: []);
+			}
+
+			return collectPromises.apply(null, childPromises);
 		})
-	.then(notes => resolve(importedSubtask))
+	.then(_promises => resolve(importedItem))
 	.catch(reason => {
 			var failure = {
 					status: "Failure",
-					message: "Failed to import subtask \"" + subtaskData.subtask + "\"",
-					subtask: subtaskData,
-					reason: reason
-				};
-			debug(failure);
-			reject(failure);
-		});
-});}
-
-function importTask (parentId, priority, taskData) { return new Promise((resolve, reject) => {
-
-	let importedTask;
-
-	debug("Importing task", JSON.stringify(taskData.task));
-
-	Promise.resolve()
-	.then(() => {
-			return models.WorkItem.create({	
-					name: taskData.task, 
-					taskLevel: c.TASKLEVEL_TASK,
-					parentId: parentId,
-					priority,
-					isComplete: taskData.complete || false
-				})
-				.then(task => {
-					let key = taskData.ref || taskData.task;
-					if (_.has(idMap, key)) {
-						return Promise.reject({
-							code: "ERROR_DUPLICATE_REFERENCE",
-							message: "more than one item with a title or ref " + key,
-							details: {
-									key,
-									ids: [task.id, idMap[key].id]
-								}
-						});
-					}
-					idMap[key] = task.id;
-					console.log("Mapping Task", key, "to", idMap[key]);
-					return task;
-				});
-		})
-	.then(task => {
-			importedTask = task;
-			debug("Imported Task:");
-			debug(importedTask);
-
-			let subtaskPromises = taskData.subtasks 
-					? _.map(taskData.subtasks, (s,i) => {return importSubtask(task.id,i+1,s)})
-					: [], 
-				notesPromises = taskData.notes 
-					? _.map(taskData.notes, (n,i) => {return importNote(task.id,i+1,n)}) 
-					: [];
-			return collectPromises([ 
-					collectPromises(subtaskPromises),
-					collectPromises(notesPromises)
-				]);
-		})
-	.then(dependencies => resolve(importedTask))
-	.catch(reason => {
-			var failure = {
-					status: "Failure",
-					message: "Failed to import task \"" + taskData.task + "\"",
-					task: taskData,
-					reason: reason
-				};
-			debug(failure);
-			reject(failure);
-		});
-});}
-
-function importEpic (parentId, priority, epicData) { return new Promise((resolve, reject) => {
-
-	let importedEpic;
-
-	debug("Importing Epic", JSON.stringify(epicData.epic));
-
-	Promise.resolve()
-	.then(() => {
-			return models.WorkItem.create({ 
-					name: epicData.epic,
-					taskLevel: c.TASKLEVEL_EPIC,
-					parentId,
-					priority,
-					isComplete: epicData.complete || false
-				})
-				.then(epic => {
-					let key = epicData.ref || epicData.epic;
-					if (_.has(idMap, key)) {
-						return Promise.reject({
-							code: "ERROR_DUPLICATE_REFERENCE",
-							message: "more than one item with a title or ref " + key,
-							details: {
-									key,
-									ids: [epic.id, idMap[key].id]
-								}
-						});
-					}
-					idMap[key] = epic.id;
-					console.log("Mapping Epic", key, "to", idMap[key]);
-					return epic;
-				});
-		})
-	.then(epic => {
-			importedEpic = epic;
-			debug("Imported Epic:");
-			debug(importedEpic);
-
-			let taskPromises = epicData.tasks 
-					? _.map(epicData.tasks, (e,i) => {return importTask(epic.id,i+1,e)})
-					: [],
-				notesPromises = epicData.notes 
-					? _.map(epicData.notes, (n,i) => {return importNote(epic.id,i+1,n)})
-					: [];
-
-			return collectPromises([ 
-					collectPromises(taskPromises),
-					collectPromises(notesPromises)
-				]);
-		})
- 	.then(tasksAndNotes => resolve(importedEpic))
-	.catch(reason => {
-			var failure = {
-					status: "Failure",
-					message: "Failed to import epic \"" + epicData.epic + "\"",
-					epic: epicData,
-					reason: reason
-				};
-			debug(failure);
-			reject(failure);
-		});
-});}
-
-function importProject (priority, projectData) { return new Promise((resolve, reject) => {
-
-	let importedProject;
-
-	debug("Importing Project", JSON.stringify(projectData.project), priority);
-
-	Promise.resolve()
-	.then(() => {
-			var importData = { 
-					name: projectData.project,
-					taskLevel: c.TASKLEVEL_PROJECT,
-					parentId: null,
-					priority,
-					isComplete: projectData.complete || false
-				};
-			debug("Importing Project with importData:" + JSON.stringify(importData));
-			return models.WorkItem.create(importData)
-				.then(project => {
-					let key = projectData.ref || projectData.project;
-					if (_.has(idMap, key)) {
-						return Promise.reject({
-							code: "ERROR_DUPLICATE_REFERENCE",
-							message: "more than one item with a title or ref " + key,
-							details: {
-									key,
-									ids: [project.id, idMap[key].id]
-								}
-						});
-					}
-					idMap[key] = project.id;
-					console.log("Mapping Project", key, "to", idMap[key]);
-					return project;
-				});
-		})
-	.then(project => {
-			importedProject = project;
-			debug("Imported Project:");
-			debug(importedProject);
-
-			let taskPromises = projectData.tasks 
-					? _.map(projectData.tasks, (t,i) => {return importTask(project.id, i+1, t)})
-					: [],
-				epicPromises = projectData.epics 
-					? _.map(projectData.epics, (e,i) => {return importEpic(project.id, i+1, e)})
-					: [];
-				notePromises = projectData.notes 
-					? _.map(projectData.notes, (n,i) => {return importNote(project.id, i+1, n)})
-					: [];
-
-			return collectPromises([
-					collectPromises(taskPromises),
-					collectPromises(epicPromises),
-					collectPromises(notePromises)
-				]);
-		})
-	.then(dependencies => resolve(importedProject))
-	.catch(reason => {
-			var failure = {
-					status: "Failure",
-					message: "Failed to import project \"" + projectData.project + "\"",
-					epic: projectData,
+					message: "Failed to import " + levelName + " \"" + _itemData[levelName] + "\"",
+					subtask: _itemData,
 					reason: reason
 				};
 			debug(failure);
@@ -310,7 +144,7 @@ function importProjects(projectsData) { return new Promise((resolve, reject) => 
 
 	debug("importing");
 	projectPromises = projectsData.projects 
-		? _.map(projectsData.projects, (p,i) => {return importProject(i+1, p)})
+		? _.map(projectsData.projects, (p,i) => {return importItem(null, i+1, c.TASKLEVEL_PROJECT, p)})
 		: [];
 	debug('projectPromises');
 	debug(projectPromises);
@@ -344,7 +178,6 @@ function importYaml(appModels) {
 	var startTime = new Date().getTime();
 
 	debug("importYaml called, appModels ==", appModels);
-	debug("importTask.length ==", importTask.length);
 	models = appModels;
 	fs.readFile('lib/priorities.yaml', (err, dataYaml) => {
 		if (err) {
