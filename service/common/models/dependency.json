@@ -17,7 +17,7 @@
     "workItem": {
       "type": "belongsTo",
       "model": "WorkItem",
-      "foreignKey": "dependantId"
+      "foreignKey": "dependentId"
     }
   },
   "acls": [],
