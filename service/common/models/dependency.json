@@ -14,7 +14,7 @@
       "model": "WorkItem",
       "foreignKey": "dependencyId"    
     },
-    "workItem": {
+    "dependent": {
       "type": "belongsTo",
       "model": "WorkItem",
       "foreignKey": "dependentId"

@@ -44,7 +44,15 @@
       "type": "hasMany",
       "through": "Dependency",
       "model": "WorkItem",
-      "foreignKey": "dependencyId"
+      "foreignKey": "dependentId",
+      "keyThrough": "dependencyId"
+    },
+    "dependents": {
+      "type": "hasMany",
+      "through": "Dependency",
+      "model": "WorkItem",
+      "foreignKey": "dependencyId",
+      "keyThrough": "dependentId"
     }
   },
   "acls": [],

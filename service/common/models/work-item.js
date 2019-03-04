@@ -39,7 +39,9 @@ module.exports = function(WorkItem) {
 
 	WorkItem.getProjectDetail = function getProjectDetail(projectId, cb) {
 
-		const NOTES = {relation:'notes',scope:{order:['sequence ASC','id DESC']}};
+		const
+			NOTES = {relation:'notes',scope:{order:['sequence ASC','id DESC']}},
+			DEPENDS = {relation:'dependencies',scope:{order:['dependentId ASC']}};
 
 		var project, epics, tasks, errors = [];
 
@@ -49,7 +51,7 @@ module.exports = function(WorkItem) {
 						where: {
 							id: projectId,
 							taskLevel: c.TASKLEVEL_PROJECT},
-						include: [NOTES]
+						include: [NOTES, DEPENDS]
 						})
 					.then(_projects => {
 						if(!_projects || _projects.length < 1) {
@@ -77,7 +79,7 @@ module.exports = function(WorkItem) {
 						where: {
 							parentId: projectId,
 							taskLevel: c.TASKLEVEL_EPIC },
-						include: [NOTES],
+						include: [NOTES, DEPENDS],
 						order: ['priority ASC', 'id DESC']
 					})
 					.then(_epics => {
@@ -102,17 +104,16 @@ module.exports = function(WorkItem) {
 						include: [
 							{
 								relation: 'childItems',
-								scope: {order:['priority ASC','id DESC']},
-								include: [NOTES]
+								scope: {order:['priority ASC','id DESC'],
+										include:[NOTES, DEPENDS]}
 							}, 
-							NOTES
+							NOTES, DEPENDS
 						]
 					};
 				debug("[getProjectDetail] query ==", JSON.stringify(query));
 				return WorkItem.find(query)
 					.then(_tasks => {
 						_tasks = JSON.parse(JSON.stringify(_tasks));				
-						// change subtasks to childItems
 						for (let i in _tasks) {
 							_tasks[i].subtasks = _tasks[i].childItems;
 							delete _tasks[i].childItems;
