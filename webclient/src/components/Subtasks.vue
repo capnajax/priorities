@@ -1,24 +1,25 @@
 <template>
   <div class="subtask-wrapper">
     <ol 
-      class="subtasks"
-      v-if="task.subtasks && task.subtasks.length > 0">
+      v-if="task.subtasks && task.subtasks.length > 0"
+      class="subtasks">
       <li
-        class="subtask"
         v-for="(subtask) in task.subtasks"
-        :key="subtask.id">
+        :key="subtask.id"
+        class="subtask">
         <ItemDetails
           :item="subtask"
+          @expand-item="onExpandItem"
           @updated-iscomplete="onSubtaskUpdate"/>
       </li>
     </ol>
     <div
-      class="subtask new-subtask"
+      v-if="task.newSubtask"
       :class="{pending: task.newSubtask === 'pending'}"
-      v-if="task.newSubtask">
+      class="subtask new-subtask">
       <textarea
-        class="subtaskName"
-        v-model="data.subtask.name" />
+        v-model="data.subtask.name"
+        class="subtaskName" />
       <div class="button-bar">
         <span
           class="button clear"
@@ -42,8 +43,8 @@
     <div v-if="task.subtasks && task.subtasks.length > 0">
       <span class="context-control">
         <span
-          @click="editNewSubtask"
-          class="button add-subtask">
+          class="button add-subtask"
+          @click="editNewSubtask">
           add subtask
         </span>
       </span>
@@ -105,6 +106,10 @@ export default {
     editNewSubtask: function() {
       this.task.newSubtask = "editing";
       this.$emit('new-subtask-edit', this.task);
+    },
+
+    onExpandItem: function(_workItem) {
+      this.$emit('expand-item', _workItem);
     },
 
     onSubtaskUpdate: function(subtask) {

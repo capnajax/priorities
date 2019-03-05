@@ -2,10 +2,10 @@
   <nav id="Projects">
     <ul class="Projects">
       <li
-        class="Project"
         v-for="(project) in data.projects"
-        @click="$emit('open-project', project.id)"
-        :key="project.id">
+        :key="project.id"
+        class="Project"
+        @click="$emit('open-project', project.id)">
         <Complete
           v-if="currentProject && project.id == currentProject.id"
           :item="currentProject"><span class="name">{{ currentProject.name }}</span></Complete>

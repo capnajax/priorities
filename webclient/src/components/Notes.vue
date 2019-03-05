@@ -1,25 +1,25 @@
 <template>
   <div
-    class="notes-wrapper"
-    v-if="item.notes">
+    v-if="item.notes"
+    class="notes-wrapper">
     <div
-      class="note"
       v-for="(note) in item.notes"
-      :key="note.id">
+      :key="note.id"
+      class="note">
       <span class="bullet" />
       <span
         class="note-text"
         v-html="note.title" />
     </div>
     <div
-      class="note newnote"
+      v-if="item.newNote"
       :class="{pending: item.newNote === 'pending'}"
-      v-if="item.newNote">
+      class="note newnote">
       <editor
-        api-key="9l8cmq5aruur8sgk3ol7lo6et7wbcpwu7e8ed7caqz24suy1"
+        v-model="data.noteText"
         :init="tinymceInit"
         class="noteText"
-        v-model="data.noteText" />
+        api-key="9l8cmq5aruur8sgk3ol7lo6et7wbcpwu7e8ed7caqz24suy1"/>
       <!-- textarea
         class="noteText ephox"
         v-model="data.noteText" /-->
@@ -46,8 +46,8 @@
     <div v-if="item.notes && item.notes.length > 0 && !item.newNote">
       <span class="context-control">
         <span
-          @click="editNewNote"
-          class="button add-note">add note</span>
+          class="button add-note"
+          @click="editNewNote">add note</span>
       </span>
     </div>
   </div>

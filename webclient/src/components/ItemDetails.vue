@@ -3,37 +3,43 @@
     <Complete 
       :item="item"
       @updated-iscomplete="onCompletionUpdated">
-      <h2 v-if="item.type === 'epic'"><span class="name">{{ item.name }}</span></h2>
-      <h3 v-else-if="item.type === 'task'"><span class="name">{{ item.name }}</span></h3>
-      <h4 v-else><span class="name">{{ item.name }}</span></h4>
+      <h2
+        v-if="item.type === 'epic'"
+        @click="onExpandItem"><span class="name">{{ item.name }}</span></h2>
+      <h3
+        v-else-if="item.type === 'task'"
+        @click="onExpandItem"><span class="name">{{ item.name }}</span></h3>
+      <h4
+        v-else
+        @click="onExpandItem"><span class="name">{{ item.name }}</span></h4>
       <template slot="more-details">
         <span class="context-control">
           <span
             v-if="(!item.notes || item.notes.length == 0) && !item.newNote"
             slot="more-details"
-            @click="editNewNote"
-            class="button add-note">add note</span>
+            class="button add-note"
+            @click="editNewNote">add note</span>
           <span
             v-if="item.taskLevel === 200 && (!item.tasks || !item.tasks.length)"
             slot="more-details"
-            @click="editNewTask"
-            class="button add-task">add task</span>
+            class="button add-task"
+            @click="editNewTask">add task</span>
           <span
             v-if="item.taskLevel === 300 && (!item.subtasks || !item.subtasks.length)"
             slot="more-details"
-            @click="editNewSubtask"
-            class="button add-subtask">add subtask</span>
+            class="button add-subtask"
+            @click="editNewSubtask">add subtask</span>
         </span>
       </template>
     </Complete>
     <div
-      class="depends depends-single"
-      v-if="(typeof item.depends) === 'string'">
+      v-if="(typeof item.depends) === 'string'"
+      class="depends depends-single">
       Dependency: {{ item.depends }}
     </div>
     <div
-      class="depends depends-multiple"
-      v-else-if="Array.isArray(item.depends)">
+      v-else-if="Array.isArray(item.depends)"
+      class="depends depends-multiple">
       Dependencies: <span
         v-for="(depends) in item.depends"
         :key="depends.depends">{{ depends.depends }}</span>
@@ -114,10 +120,13 @@ export default {
       this.$emit('new-task-edit', this.item);
     },
 
+    onExpandItem: function() {
+      this.$emit('expand-item', this.item);
+    },
+
     onCompletionUpdated: function(item) {
       this.$emit('updated-iscomplete', item);
-    }
-  }
+    }  }
 }
 
 </script>

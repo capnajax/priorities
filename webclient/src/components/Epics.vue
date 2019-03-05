@@ -1,27 +1,29 @@
 <template>
   <div class="epics-wrapper">
     <ol
-      class="epics"
-      v-if="(project.epics.length > 0)">
+      v-if="(project.epics.length > 0)"
+      class="epics">
       <li
-        class="epic"
         v-for="(epic) in project.epics"
-        :key="epic.id">
+        :key="epic.id"
+        class="epic">
         <ItemDetails
           :item="epic"
+          @expand-item="onExpandItem"
           @updated-iscomplete="onEpicsUpdate"/>
         <Tasks
           :parent="epic" 
+          @expand-item="onExpandItem"
           @updated-tasks="onTasksUpdate" />
       </li>
     </ol>
     <div
-      class="epic new-epic"
+      v-if="project.newEpic"
       :class="{pending: project.newEpic === 'pending'}"
-      v-if="project.newEpic">
+      class="epic new-epic">
       <textarea
-        class="epicName"
-        v-model="data.epic.name" />
+        v-model="data.epic.name"
+        class="epicName" />
       <div class="button-bar">
         <span
           class="button clear"
@@ -45,8 +47,8 @@
     <div v-if="project.epics && project.epics.length > 0">
       <span class="context-control">
         <span
-          @click="editNewEpic"
-          class="button add-epic">
+          class="button add-epic"
+          @click="editNewEpic">
           add epic
         </span>
       </span>
@@ -110,6 +112,10 @@ export default {
     editNewEpic: function() {
       this.project.newEpic = "editing";
       this.$emit('new-epic-edit', this.project);
+    },
+
+    onExpandItem: function(_workItem) {
+      this.$emit('expand-item', _workItem);
     },
 
     onEpicsUpdate: function(epic) {

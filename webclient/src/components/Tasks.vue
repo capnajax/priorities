@@ -2,24 +2,26 @@
   <div class="task-wrapper">
     <ol class="tasks">
       <li
-        class="task"
         v-for="(task) in parent.tasks"
-        :key="task.id">
+        :key="task.id"
+        class="task" >
         <ItemDetails
           :item="task"
+          @expand-item="onExpandItem"
           @updated-iscomplete="onTaskUpdate" />
         <Subtasks
           :task="task"
+          @expand-item="onExpandItem"
           @updated-task="onTaskUpdate" />
       </li>
     </ol>
     <div
-      class="task new-task"
+      v-if="parent.newTask"
       :class="{pending: parent.newTask === 'pending'}"
-      v-if="parent.newTask">
+      class="task new-task">
       <textarea
-        class="taskName"
-        v-model="data.task.name" />
+        v-model="data.task.name"
+        class="taskName" />
       <div class="button-bar">
         <span
           class="button clear"
@@ -43,8 +45,8 @@
     <div v-if="parent.tasks && parent.tasks.length > 0">
       <span class="context-control">
         <span
-          @click="editNewTask"
-          class="button add-task">
+          class="button add-task"
+          @click="editNewTask">
           add task
         </span>
       </span>
@@ -108,6 +110,10 @@ export default {
     editNewTask: function() {
       this.parent.newTask = "editing";
       this.$emit('new-task-edit', this.parent);
+    },
+
+    onExpandItem: function(_workItem) {
+      this.$emit('expand-item', _workItem);
     },
 
     onTaskUpdate: function(task) {

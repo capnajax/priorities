@@ -10,12 +10,12 @@
       </div>
     </header>
     <Nav
-      @open-project="onOpenProject"
-      :currentProject="data.project" />
+      :currentProject="data.project"
+      @open-project="onOpenProject" />
     <div class="content">
       <article
-        class="project"
-        v-if="(data.project && data.project.id)">
+        v-if="(data.project && data.project.id)"
+        class="project" >
         <!-- should put project notes here -->
         <span class="context-control">
           <span
@@ -34,6 +34,7 @@
         <Notes :item="data.project" />
         <Tasks
           :parent="data.project"
+          @expand-item="onExpandItem"
           @updated-tasks="onTasksUpdate" />
         <span
           v-if="(!data.project.epics || !data.project.epics.length) && (data.project.tasks && data.project.tasks.length)"
@@ -41,9 +42,16 @@
           class="button add-subtask">add epic</span>
         <Epics
           :project="data.project"
+          @expand-item="onExpandItem"
           @updated-epics="onEpicsUpdate" />
       </article>
     </div>
+    <vodal
+      :show="!!action.expandItem"
+      animation="zoom"
+      @hide="action.expandItem = null">
+      <h1>{{ action.expandItem ? action.expandItem.name : 'HIIIIII' }}</h1>
+    </vodal>
   </div>
 </template>
 
@@ -53,6 +61,8 @@ import Epics from './Epics'
 import Nav from './Nav'
 import Notes from './Notes'
 import Tasks from './Tasks'
+import TaskModal from './TaskModal'
+import Vodal from 'vodal'
 
 export default {
   name: 'Main',
@@ -60,11 +70,16 @@ export default {
     Epics,
     Nav,
     Notes,
-    Tasks
+    Tasks,
+    TaskModal,
+    Vodal
   },
   data () {
     return {
-      data: {project:{}}
+      data: {project:{}},
+      action: {
+        expandItem: false
+      }
     }
   },
   // mounted() {
@@ -88,6 +103,10 @@ export default {
       countContents(project.epics);
 
       project.count = newCount;
+    },
+    onExpandItem: function(_workItem) {
+      console.log("Main: onExpandItem event received, _workItem ==", _workItem);
+      this.action.expandItem = _workItem;
     },
     loadProject: function(projectId) {
       var self = this;
@@ -134,4 +153,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+@import "~vodal/common.css"
+@import "~vodal/zoom.css"
 </style>

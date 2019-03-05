@@ -12,66 +12,66 @@
     <div id="registration-form">
       <label for="fullName">What is your full name?</label>
       <input
+        v-model="form.fullName"
         type="text"
         placeholder="Wilberforce Bartholemew Poppelwell"
         name="fullName"
-        v-model="form.fullName"
         required>
 
       <label for="goesBy">What should we call you?</label>
       <input
+        v-model="form.goesBy"
         type="text"
         placeholder="Bart"
         name="goesBy"
-        v-model="form.goesBy"
         required>
 
       <h2>Choose your identity</h2>
 
       <label for="email">e-mail</label>
       <input
+        v-model="form.email"
         type="text"
         placeholder="wilberforce@poppelwell.com"
         name="email"
-        v-model="form.email"
         required>
       <input
+        v-model="form.emailMatch"
         type="text"
         placeholder="Confirm e-mail"
         name="emailMatch"
-        v-model="form.emailMatch"
         required>
 
       <label for="username">Username</label>
       <input
+        v-model="form.username"
         type="text"
         placeholder="wilberforce88"
         name="username"
-        v-model="form.username"
         required>
 
       <label for="username">Password</label>
       <input
+        v-model="form.password"
         type="password"
         name="password"
         autocomplete="new-password"
-        v-model="form.password"
         required>
 
       <label for="username">Confirm Password</label>
       <input
+        v-model="form.passwordMatch"
         type="password"
         name="passwordMatch"
         autocomplete="new-password"
-        v-model="form.passwordMatch"
         required>
       <span class="password-entropy">{{ data.passwordEntropy }}</span>
 
       <label for="acceptsTerms">Accept terms</label>
       <input
+        v-model="form.acceptsTerms"
         type="checkbox"
         name="acceptsTerms"
-        v-model="form.acceptsTerms"
         required>
 
       <h2>Tell us about yourself</h2>

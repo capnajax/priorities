@@ -1,16 +1,16 @@
 <template>
   <span
-    class="isComplete"
     :class="{pending: data.pending, complete: item.isComplete}" 
-    :data-children="checkboxClass(item)"> 
+    :data-children="checkboxClass(item)"
+    class="isComplete">
     <span
-      class="checkbox complete"
       v-if="item.isComplete === true"
+      class="checkbox complete"
       @click.stop="updateIsComplete(item)" />
     <span
+      v-else
       class="checkbox incomplete"
-      @click.stop="updateIsComplete(item)"
-      v-else />
+      @click.stop="updateIsComplete(item)" />
     <slot />
     <span class="stats" >
       <span v-if="item.count && item.count.total"><span class="stats complete">{{ item.count.complete }}</span><span class="stats incomplete">{{ item.count.incomplete }}</span></span>
