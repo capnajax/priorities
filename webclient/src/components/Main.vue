@@ -46,12 +46,10 @@
           @updated-epics="onEpicsUpdate" />
       </article>
     </div>
-    <vodal
+    <TaskModal
+      :item="action.expandItem"
       :show="!!action.expandItem"
-      animation="zoom"
-      @hide="action.expandItem = null">
-      <h1>{{ action.expandItem ? action.expandItem.name : 'HIIIIII' }}</h1>
-    </vodal>
+      @hide="onHideTaskModel" />
   </div>
 </template>
 
@@ -62,7 +60,6 @@ import Nav from './Nav'
 import Notes from './Notes'
 import Tasks from './Tasks'
 import TaskModal from './TaskModal'
-import Vodal from 'vodal'
 
 export default {
   name: 'Main',
@@ -71,14 +68,13 @@ export default {
     Nav,
     Notes,
     Tasks,
-    TaskModal,
-    Vodal
+    TaskModal
   },
   data () {
     return {
       data: {project:{}},
       action: {
-        expandItem: false
+        expandItem: undefined
       }
     }
   },
@@ -135,6 +131,9 @@ export default {
           self.data.project = response.data.project;
         });
     },
+    onHideTaskModel: function() {
+      this.action.expandItem = undefined;
+    },
     onEpicsUpdate: function(project) {
       this.countTasks(project);
       this.data.project = project;
@@ -153,6 +152,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-@import "~vodal/common.css"
-@import "~vodal/zoom.css"
 </style>
