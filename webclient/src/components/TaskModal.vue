@@ -4,18 +4,26 @@
     animation="zoom"
     @hide="onHide">
     <article class="TaskModal">
-      <h1>{{ item.name }}</h1>
+      <Complete
+        :item="item"
+        @updated-iscomplete="onCompleteUpdated">
+        <h1>{{ item.name }}</h1>
+      </Complete>
     </article>
   </vodal>
 </template>
 
 <script>
 
+import Complete from './Complete'
+import Notes from './Notes'
 import Vodal from 'vodal'
 
 export default {
   name: 'TaskModal',
   components: {
+    Complete,
+    Notes,
     Vodal
   },
   props: {
@@ -31,6 +39,9 @@ export default {
     }
   },
   methods: {
+    onCompleteUpdated: function(item) {
+      this.$emit('updated-iscomplete', item);
+    },
     onHide: function() {
       console.log("hiding");
       this.$emit('hide');

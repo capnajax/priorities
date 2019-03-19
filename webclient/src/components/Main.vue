@@ -1,3 +1,9 @@
+<i18n>
+  en:
+    add.note: "Add Note"
+    add.task: "Add Task"
+</i18n>
+
 <template>
   <div class="Main">
     <header>
@@ -21,11 +27,11 @@
           <span
             v-if="(!data.project.notes || data.project.notes.length == 0) && !data.project.newNote"
             slot="more-details"
-            class="button add-note">add note</span>
+            class="button add-note">{{ $t('add.note') }}</span>
           <span
             v-if="!data.project.tasks || !data.project.tasks.length"
             slot="more-details"
-            class="button add-task">add task</span>
+            class="button add-task">{{ $t('add.task') }}</span>
           <span
             v-if="(!data.project.epics || !data.project.epics.length) && (!data.project.tasks || !data.project.tasks.length)"
             slot="more-details"
@@ -75,7 +81,13 @@ export default {
       data: {project:{}},
       action: {
         expandItem: undefined
-      }
+      },
+      locale: 'en'
+    }
+  },
+  watch: {
+    locale (val) {
+      this.$i18n.locale = val
     }
   },
   // mounted() {
