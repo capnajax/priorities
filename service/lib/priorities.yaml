@@ -86,9 +86,11 @@ projects:
   - epic: Electrical Rough-In
     tasks:
     - task: Move smoke alarm
+      complete: true
       notes: 
       - note: Rough in inside lab as well for future bedroom conversion
     - task: Move existing light
+      complete: true
     - task: Hang panel
       complete: true
     - task: Pull feed cable to subpanel
@@ -100,22 +102,28 @@ projects:
       - subtask: Conduit in furnace room
         complete: true
       - subtask: Conduit in lab
+      complete: true
       - subtask: Feed through furnace room
         complete: true
       - subtask: Feed through lab
+        complete: true
       - subtask: Connect to panel
+        complete: true
     - task: Branch circuits rough-in
       subtasks:
       - subtask: Rough in Workshop - frame walls
+        complete: true
         depends:
         - depend: Workshop walls
         complete: true
       - subtask: Rough in Workshop - concrete walls
       - subtask: Rough in Workshop - lighting
+        complete: true
         depends:
         - depend: Workshop walls
         complete: true
       - subtask: Rough in bathroom
+        complete: true
         depends:
         - depend: Hallway walls
         - depend: Workshop walls
