@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@tinymce/tinymce-vue": "^2.0.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "vodal": "^2.4.0",
     "vue": "^2.6.8",
     "vue-i18n": "^8.8.2",
